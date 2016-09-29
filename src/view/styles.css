@@ -1,0 +1,64 @@
+.label {
+    -fx-text-fill: "white";
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+#topLabel {
+    -fx-font-size: 1.7em;
+    -fx-text-fill: blue;
+    -fx-font-weight: bold;
+    -fx-border-color: yellow;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-background-color: "#DBA901";
+    -fx-background-radius: 0;
+    -fx-border-color: "black";
+    -fx-border-width: 2px;
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+    -fx-text-fill: "black";
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+
+}
+
+.button:hover {
+    -fx-background-color: "#FFFF00";
+}
+
+#anchor {
+    -fx-color: "#FFBF00";
+    -fx-background-color: "#1C1C1C";
+}
+
+.text-area .scroll-pane .content {
+    -fx-background-color: grey;
+}
+
+#messageWindow {
+    -fx-font-weight: bold;
+    -fx-background-color: "green";
+    -fx-border-width: 4px;
+    -fx-border-color: "#FFBF00";
+}
+
+#infoBackground {
+    -fx-background-color: linear-gradient(from 5% 25% to 100% 100%, blue, red);
+    -fx-border-width: 4px;
+    -fx-border-color: "#FFBF00";
+}
+
+.text-field {
+    -fx-font-weight: bold;
+    -fx-background-color: "grey";
+}
+
+#dungeon_map {
+    -fx-border-width: 4px;
+    -fx-border-color: "#FFBF00";
+}
