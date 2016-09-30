@@ -28,8 +28,8 @@ public class Castle {
     private static Room[] roomsInCastle;
     private static Room[][] orderedRooms;
     public static String roomsInput = new String();
-    private Image[][] castleView;
-    Map<String, Image> imageToDescription = new HashMap<>();
+    private static Image[][] castleView = new Image[7][7];
+    static Map<String, Image> imageToDescription = new HashMap<>();
     //static Map<String, Room> allRooms = Rooms.getRoomMap();
     
     
@@ -95,9 +95,20 @@ public class Castle {
     static Rooms allRooms = new Rooms("src/data/rooms.txt");
     static Map<String, Room> test = allRooms.getRoomMap();
     public static void positionRoomsByName()  {
+        
         for (Map.Entry<String, Room> pair : test.entrySet()) {
              System.out.println(pair.getKey());
              System.out.println(pair.getValue().getDescription());
+             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
+             int posRow = 0;
+             int posCol = 0;
+             Matcher match = pattern.matcher(pair.getKey());
+             if (match.find()) {
+                    posRow = Integer.parseInt(match.group(1));
+                    posCol = Integer.parseInt(match.group(2));
+                    
+             }
+             castleView[posRow][posCol]= imageToDescription.get(pair.getValue().getDescription());
         }
         
                 
