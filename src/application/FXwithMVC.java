@@ -16,7 +16,7 @@ public class FXwithMVC extends Application {
     private static final String RUN_AS_CLI = "-cli";
 
     public static void main(String[] args) {
-
+        gameMechanics.Castle.positionRoomsByName(); // Martin tmp to test castle class will be removed
         if (args.length == 1 && args[0].equals(RUN_AS_CLI)) {
             runAsCMDline(args);
         } else {

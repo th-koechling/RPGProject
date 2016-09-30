@@ -1,3 +1,9 @@
 .idea/workspace.xml
 .idea
 *.class
+/nbproject/private/
+/build/
+**/nbproject
+/dist/
+**build.xml
+**manifest.mf

@@ -23,7 +23,7 @@ public class Rooms {
     /**
      * Beinhaltet die Räume. Die Namen der Räume sind als Schlüssel der Map hinterlegt.
      */
-    private Map<String, Room> roomMap;
+    private static Map<String, Room> roomMap;
 
     /**
      * Konstruktor für Rooms.
@@ -126,5 +126,9 @@ public class Rooms {
     public void setAktuellePosition(String aktuellePosition) {
         this.aktuellePosition = aktuellePosition;
     }
-
+    
+    // created from Martin
+    public static Map getRoomMap() {
+        return roomMap;
+    }
 }
