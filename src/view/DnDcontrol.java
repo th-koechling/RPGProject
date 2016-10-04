@@ -225,7 +225,8 @@ public class DnDcontrol {
 
     private void new_gamePressed(ActionEvent actionEvent) {
         // test test test
-        loadDungeonMap(test);
+        //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
+        loadDungeonMap(test2);// Martin tmp to test castle class will be removed
         messageWindow.appendText("\nLet's go!\n");
     }
 
@@ -242,6 +243,7 @@ public class DnDcontrol {
 
 
     Image[][] test = Pictures.mapOneImages;
+    Image[][] test2 = gameMechanics.Castle.getCastleView(); // Martin tmp to test castle class will be removed
 
     private void loadDungeonMap(Image[][] images) {
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},

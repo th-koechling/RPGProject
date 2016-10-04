@@ -10,27 +10,21 @@ package gameMechanics;
  * @author Martins
  */
 
-import com.sun.xml.internal.ws.util.StringUtils;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.*;
 import javafx.scene.image.Image;
 
 
-// remove call of method to test in FXwithMVC.java !!!!!!!!
+// remove call of method to test in FXwithMVC.java  / view.DnDcontrol (test2) !!!!!!!!
 
 public class Castle {
 
     private static Room[] roomsInCastle;
-    private static Room[][] orderedRooms;
     public static String roomsInput = new String();
     private static Image[][] castleView = new Image[7][7];
     static Map<String, Image> imageToDescription = new HashMap<>();
-    //static Map<String, Room> allRooms = Rooms.getRoomMap();
     
     
     
@@ -67,7 +61,11 @@ public class Castle {
         return null;
     }
     
-    private  void fillIamgeToDescription (){
+    public static Image[][] getCastleView(){
+        return castleView;
+    }
+    
+    private static void fillIamgeToDescription (){
         
         imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.dngn_entrance);
         imageToDescription.put("A long dark hallway", view.Pictures.lit_corridor);
@@ -95,23 +93,32 @@ public class Castle {
     static Rooms allRooms = new Rooms("src/data/rooms.txt");
     static Map<String, Room> test = allRooms.getRoomMap();
     public static void positionRoomsByName()  {
-        
+        fillIamgeToDescription ();
         for (Map.Entry<String, Room> pair : test.entrySet()) {
-             System.out.println(pair.getKey());
-             System.out.println(pair.getValue().getDescription());
+             //System.out.println(pair.getKey());
+             //System.out.println(pair.getValue().getDescription());
              Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
              int posRow = 0;
              int posCol = 0;
              Matcher match = pattern.matcher(pair.getKey());
              if (match.find()) {
-                    posRow = Integer.parseInt(match.group(1));
-                    posCol = Integer.parseInt(match.group(2));
+                    posRow = Integer.parseInt(match.group(1))-1;
+                    posCol = Integer.parseInt(match.group(2))-1;
                     
              }
              castleView[posRow][posCol]= imageToDescription.get(pair.getValue().getDescription());
+             
         }
         
-                
+        for (int  i = 0; i < castleView.length; i++){
+            for (int j = 0; j < castleView[i].length; j++){
+                if(castleView[i][j]== null){
+                    castleView[i][j] = view.Pictures.rock_wall01;
+                }
+                    
+            }
+        }
+                    
     }
     
 }
