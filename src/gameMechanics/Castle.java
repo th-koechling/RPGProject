@@ -68,7 +68,7 @@ public class Castle {
     private static void fillIamgeToDescription (){
         
         imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.dngn_entrance);
-        imageToDescription.put("A long dark hallway", view.Pictures.lit_corridor);
+        imageToDescription.put("A long dark hallway.", view.Pictures.lit_corridor);
         imageToDescription.put("A small room, sparsely lighted by a torch." ,view.Pictures.floor_room);
         imageToDescription.put("A high hall - the high ceiling is lost in the darkness.", view.Pictures.stone_arch);
         imageToDescription.put("Hallway with a tight branch-off.", view.Pictures.floor_light);
