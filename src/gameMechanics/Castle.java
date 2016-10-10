@@ -90,8 +90,8 @@ public class Castle {
         imageToDescription.put("Small room with an old wooden box.", view.Pictures.raised_drawbridge_h);
                 
     }
-    static Rooms allRooms = new Rooms("src/data/rooms.txt");
-    static Map<String, Room> test = allRooms.getRoomMap();
+    Rooms allRooms = new Rooms("src/data/rooms.txt");
+    Map<String, Room> test = allRooms.getRoomMap();
     public  void positionRoomsByName()  {
         fillIamgeToDescription ();
         for (Map.Entry<String, Room> pair : test.entrySet()) {
