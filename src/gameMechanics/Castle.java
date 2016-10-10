@@ -21,25 +21,25 @@ import javafx.scene.image.Image;
 
 public class Castle {
 
-    private static Room[] roomsInCastle;
-    public static String roomsInput = new String();
-    private static Image[][] castleView = new Image[7][7];
+    private  Room[] roomsInCastle;
+    public  String roomsInput = new String();
+    private  Image[][] castleView;
     static Map<String, Image> imageToDescription = new HashMap<>();
     
     
     
-    public Castle(Room[] roomsInCastle) {
-        this.roomsInCastle = roomsInCastle;
+    public Castle() {
+        this.castleView = new Image[7][7];
         
     }
 
     public static void buildCastle() {
         
     }
-    public static void setCastleSize(int inputSize){
+    public  void setCastleSize(int inputSize){
         roomsInCastle = new Room[inputSize];
     }
-    public static int getCastleSize(){
+    public  int getCastleSize(){
         return roomsInCastle.length;
     }
     public void setRoomsInCastle(Room[] roomsInCastle) {
@@ -49,10 +49,10 @@ public class Castle {
     public Room[] getRoomsInCastle() {
         return this.roomsInCastle;
     }
-    public static void setRoomInCastle(Room inputRoom, int index){
+    public  void setRoomInCastle(Room inputRoom, int index){
         roomsInCastle[index] = inputRoom;
     }
-    public static Room getRoomInCastle(int index){
+    public  Room getRoomInCastle(int index){
         return roomsInCastle[index];
     }
 
@@ -61,7 +61,7 @@ public class Castle {
         return null;
     }
     
-    public static Image[][] getCastleView(){
+    public  Image[][] getCastleView(){
         return castleView;
     }
     
@@ -92,7 +92,7 @@ public class Castle {
     }
     static Rooms allRooms = new Rooms("src/data/rooms.txt");
     static Map<String, Room> test = allRooms.getRoomMap();
-    public static void positionRoomsByName()  {
+    public  void positionRoomsByName()  {
         fillIamgeToDescription ();
         for (Map.Entry<String, Room> pair : test.entrySet()) {
              //System.out.println(pair.getKey());

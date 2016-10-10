@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+import gameMechanics.Castle;
 /**
  * Created by andreas on 13.06.16.
  */
@@ -243,9 +243,13 @@ public class DnDcontrol {
 
 
     Image[][] test = Pictures.mapOneImages;
-    Image[][] test2 = gameMechanics.Castle.getCastleView(); // Martin tmp to test castle class will be removed
+    
+    Castle newDungeon = new Castle();
+    
+    Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
 
     private void loadDungeonMap(Image[][] images) {
+        newDungeon.positionRoomsByName(); // Martin tmp to test castle class will be removed
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
                                    {img10, img11, img12, img13, img14, img15, img16},
                                    {img20, img21, img22, img23, img24, img25, img26},
