@@ -76,10 +76,10 @@ public class Rooms {
     }
 
     /**
-     * Setzt die aktuelle Position auf einen angrenzenden Raum.
+     * Setzt die aktuelle Position auf einen angrenzenden Raum und gibt TRUE oder FALSE zurueck, je nachdem ob der Raumwechsel moeglich ist.
      * @param direction
      */
-    public void goToNextRoom(String direction){
+    public boolean goToNextRoom(String direction){
         Room aktuellerRaum = getRoomByName(this.getAktuellePosition());
         /*
         Je nachdem, welche Richtung gewuenscht wurde, wird die aktuelle Position auf den Raum gesetzt, der in dieser Richtung liegt.
@@ -87,26 +87,33 @@ public class Rooms {
         if(direction.equals("N")){
             this.setAktuellePosition(aktuellerRaum.getNord());
             System.out.println("Sie wollen nach Norden gehen.");
+            System.out.println(aktuellePosition);
         }else if (direction.equals("O")){
             this.setAktuellePosition(aktuellerRaum.getOst());
             System.out.println("Sie wollen nach Osten gehen.");
+            System.out.println(aktuellePosition);
         }else if (direction.equals("S")){
             this.setAktuellePosition(aktuellerRaum.getSued());
             System.out.println("Sie wollen nach Sueden gehen.");
+            System.out.println(aktuellePosition);
         }else if(direction.equals("W")){
             this.setAktuellePosition(aktuellerRaum.getWest());
             System.out.println("Sie wollen nach Westen gehen.");
+            System.out.println(aktuellePosition);
         }else{
             this.setAktuellePosition("none");
         }
         /*
         Sollte kein Raum in der gewuenschten Richtung liegen oder wurde eine ungueltige Eingabe gemacht, zeigt "aktuellePosition"
-        jetzt auf "none". Dann wird die Position wieder zurueckgeaendert und eine Rueckmeldung auf der Kommandozeile ausgegeben.
+        jetzt auf "none". Dann wird die Position wieder zurueckgeaendert, eine Rueckmeldung auf der Kommandozeile ausgegeben & FALSE
+        zurueckgegeben.
          */
         if (this.getAktuellePosition().equals("none")) {
             setAktuellePosition(aktuellerRaum.getName());
             System.out.println("In dieser Richtung liegt kein Raum!");
+            return false;
         }
+        return true;
 
     }
 

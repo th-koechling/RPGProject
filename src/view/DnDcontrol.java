@@ -2,6 +2,7 @@ package view;
 
 import java.util.Random;
 
+import com.sun.rowset.internal.Row;
 import dungeon.DnDmodel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -19,6 +20,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import gameMechanics.Castle;
 /**
  * Created by andreas on 13.06.16.
@@ -204,23 +208,46 @@ public class DnDcontrol {
     //private Label testLabel;
 
     private void go_aheadPressed(ActionEvent actionEvent) {
-        messageWindow.appendText("\nYou go north.\n");
+        boolean test = newDungeon.getAllRooms().goToNextRoom("S");
+        messageWindow.appendText("\nYou go north. " + test + "\n");
+        changeRoom(newDungeon.getAllRooms().getAktuellePosition());
     }
 
     private void go_leftPressed(ActionEvent actionEvent) {
-        messageWindow.appendText("\nYou go west.\n");
+        boolean test = newDungeon.getAllRooms().goToNextRoom("W");
+        messageWindow.appendText("\nYou go west. " + test + "\n");
     }
 
     private void go_rightPressed(ActionEvent actionEvent) {
-        messageWindow.appendText("\nYou go east\n");
+        boolean test = newDungeon.getAllRooms().goToNextRoom("O");
+        messageWindow.appendText("\nYou go east. " + test + "\n");
     }
 
     private void go_backPressed(ActionEvent actionEvent) {
-        messageWindow.appendText("\nYou go south\n");
+        boolean test = newDungeon.getAllRooms().goToNextRoom("N");
+        messageWindow.appendText("\nYou go south. " + test + "\n");
     }
 
     private void testButtonPressed(ActionEvent actionEvent) {
         infoPic.setImage(Pictures.getRandomPic(Pictures.creaturePics));
+    }
+
+    private void changeRoom(String roomName){
+        if(roomName != "Entry") {
+            Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
+            int posRow = 0;
+            int posCol = 0;
+            Matcher match = pattern.matcher(roomName);
+            if (match.find()) {
+                posRow = Integer.parseInt(match.group(1)) - 1;
+                posCol = Integer.parseInt(match.group(2)) - 1;
+                //Image[][] testImage = newDungeon.getCastleView();
+                test2[posRow][posCol] = Pictures.flying_skull;
+                System.out.println(test2[posRow][posCol]);
+                loadDungeonMap(test2);
+                System.out.println("POS: " + posRow + " | " + posCol);
+            }
+        }
     }
 
     private void new_gamePressed(ActionEvent actionEvent) {

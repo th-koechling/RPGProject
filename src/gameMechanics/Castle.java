@@ -92,7 +92,7 @@ public class Castle {
     }
     Rooms allRooms = new Rooms("src/data/rooms.txt");
     Map<String, Room> test = allRooms.getRoomMap();
-    public  void positionRoomsByName()  {
+    public void positionRoomsByName()  {
         fillIamgeToDescription ();
         for (Map.Entry<String, Room> pair : test.entrySet()) {
              //System.out.println(pair.getKey());
@@ -120,5 +120,8 @@ public class Castle {
         }
                     
     }
-    
+
+    public Rooms getAllRooms(){
+        return allRooms;
+    }
 }
