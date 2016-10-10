@@ -14,6 +14,12 @@ import java.util.Random;
  */
 public class Pictures {
 
+    // player icon with transparent background
+    public static final Image player_transparent = new Image("/view/images/misc/s_fighter.png");
+    // player icon with orange background (better visibility)
+    public static final Image player_orange_bg = new Image("/view/images/misc/s_fighter_orange_bg.png");
+
+
     // Dungeon environment
     public static final Image corridor = new Image("/view/images/dungeon/corridor.png");
     public static final Image crystal_wall = new Image("/view/images/dungeon/crystal_wall.png");
@@ -199,6 +205,7 @@ public class Pictures {
             yeenoghu, yellow_dragon, water_nymph, hill_giant_hi, red_dragon_hi};
 
     // weapons
+    public static final Image lance = new Image("/view/images/weapons/lance.png");
     public static final Image athame = new Image("/view/images/weapons/athame.png");
     public static final Image battle_axe1 = new Image("/view/images/weapons/battle_axe1.png");
     public static final Image battle_axe2 = new Image("/view/images/weapons/battle_axe2.png");
@@ -223,11 +230,11 @@ public class Pictures {
     public static final Image staff_of_olgreb = new Image("/view/images/weapons/staff_of_olgreb.png");
     public static final Image sword_of_power = new Image("/view/images/weapons/sword_of_power.png");
 
-    public static final String[] weaponNames = {"athame", "battle_axe1", "battle_axe2", "boomerang", "broadsword", "copper",
+    public static final String[] weaponNames = {"lance", "athame", "battle_axe1", "battle_axe2", "boomerang", "broadsword", "copper",
             "crysknife", "demon_trident", "elven_bow", "hammer", "morningstar", "orcish_bow", "saber", "scimitar",
             "scythe", "staff1", "staff2", "sword1", "sword2", "tin"};
 
-    public static final Image[] weaponPics = {athame, battle_axe1, battle_axe2, boomerang, broadsword, copper, crysknife,
+    public static final Image[] weaponPics = {lance, athame, battle_axe1, battle_axe2, boomerang, broadsword, copper, crysknife,
             demon_trident, elven_bow, hammer, morningstar, orcish_bow, sabre, scimitar, scythe, staff1, staff2,
             sword1, sword2, tin};
 
