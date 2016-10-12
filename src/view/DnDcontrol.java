@@ -233,7 +233,7 @@ public class DnDcontrol {
         if(movePossible){
             switch (direction){
                 case "N" :
-                    messageWindow.appendText("\nYou go north.\n");
+                    messageWindow.appendText("\nYou go south.\n");
                     break;
                 case "W" :
                     messageWindow.appendText("\nYou go west.\n");
@@ -242,7 +242,7 @@ public class DnDcontrol {
                     messageWindow.appendText("\nYou go east.\n");
                     break;
                 case "S" :
-                    messageWindow.appendText("\nYou go south.\n");
+                    messageWindow.appendText("\nYou go north.\n");
                     break;
             }
             changeRoom(newDungeon.getAllRooms().getAktuellePosition());

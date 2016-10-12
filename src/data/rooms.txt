@@ -56,7 +56,7 @@ Content: Knife
 
 Name: 3-1
 N: 4-1
-O: 3-3
+O: none
 S: 2-1
 W: none
 Description: Chamber lighted by bright torches.
@@ -66,7 +66,7 @@ Name: 3-3
 N: none
 O: none
 S: 2-3
-W: 3-1
+W: none
 Description: Gloomy chamber with many old carcases.
 Content: Gothofiedus
 
