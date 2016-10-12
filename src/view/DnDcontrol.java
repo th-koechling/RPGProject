@@ -230,6 +230,7 @@ public class DnDcontrol {
 
     private void testButtonPressed(ActionEvent actionEvent) {
         infoPic.setImage(Pictures.getRandomPic(Pictures.creaturePics));
+         test2[2][2]= (view.Pictures.flying_skull);
     }
 
     private void changeRoom(String roomName){
@@ -241,19 +242,21 @@ public class DnDcontrol {
             if (match.find()) {
                 posRow = Integer.parseInt(match.group(1)) - 1;
                 posCol = Integer.parseInt(match.group(2)) - 1;
-                //Image[][] testImage = newDungeon.getCastleView();
-                test2[posRow][posCol] = Pictures.flying_skull;
-                System.out.println(test2[posRow][posCol]);
+                Image[][] testImage = newDungeon.getCastleView();
                 loadDungeonMap(test2);
+                currentMap[posRow][posCol].setImage(Pictures.flying_skull);
+               
+                System.out.println(test2[posRow][posCol]);
+                
                 System.out.println("POS: " + posRow + " | " + posCol);
             }
         }
     }
-
+    private ImageView[][] currentMap;
     private void new_gamePressed(ActionEvent actionEvent) {
         // test test test
         //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
-        loadDungeonMap(test2);// Martin tmp to test castle class will be removed
+        currentMap = loadDungeonMap(test2);// Martin tmp to test castle class will be removed
         messageWindow.appendText("\nLet's go!\n");
     }
 
@@ -274,8 +277,8 @@ public class DnDcontrol {
     Castle newDungeon = new Castle();
     
     Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
-
-    private void loadDungeonMap(Image[][] images) {
+    
+    private ImageView[][] loadDungeonMap(Image[][] images) {
         newDungeon.positionRoomsByName(); // Martin tmp to test castle class will be removed
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
                                    {img10, img11, img12, img13, img14, img15, img16},
@@ -290,6 +293,7 @@ public class DnDcontrol {
                 imageCells[i][j].setImage(images[i][j]);
             }
         }
+        return imageCells;
     }
 
 }
