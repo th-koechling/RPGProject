@@ -208,29 +208,47 @@ public class DnDcontrol {
     //private Label testLabel;
 
     private void go_aheadPressed(ActionEvent actionEvent) {
-        boolean test = newDungeon.getAllRooms().goToNextRoom("S");
-        messageWindow.appendText("\nYou go north. " + test + "\n");
-        changeRoom(newDungeon.getAllRooms().getAktuellePosition());
+        move("S");
     }
 
     private void go_leftPressed(ActionEvent actionEvent) {
-        boolean test = newDungeon.getAllRooms().goToNextRoom("W");
-        messageWindow.appendText("\nYou go west. " + test + "\n");
+        move("W");
     }
 
     private void go_rightPressed(ActionEvent actionEvent) {
-        boolean test = newDungeon.getAllRooms().goToNextRoom("O");
-        messageWindow.appendText("\nYou go east. " + test + "\n");
+        move("O");
     }
 
     private void go_backPressed(ActionEvent actionEvent) {
-        boolean test = newDungeon.getAllRooms().goToNextRoom("N");
-        messageWindow.appendText("\nYou go south. " + test + "\n");
+        move("N");
     }
 
     private void testButtonPressed(ActionEvent actionEvent) {
         infoPic.setImage(Pictures.getRandomPic(Pictures.creaturePics));
          test2[2][2]= (view.Pictures.flying_skull);
+    }
+
+    private void move(String direction){
+        boolean movePossible = newDungeon.getAllRooms().goToNextRoom(direction);
+        if(movePossible){
+            switch (direction){
+                case "N" :
+                    messageWindow.appendText("\nYou go north.\n");
+                    break;
+                case "W" :
+                    messageWindow.appendText("\nYou go west.\n");
+                    break;
+                case "O" :
+                    messageWindow.appendText("\nYou go east.\n");
+                    break;
+                case "S" :
+                    messageWindow.appendText("\nYou go south.\n");
+                    break;
+            }
+            changeRoom(newDungeon.getAllRooms().getAktuellePosition());
+        } else {
+            messageWindow.appendText("\nThere is no door in this direction!\n");
+        }
     }
 
     private void changeRoom(String roomName){
