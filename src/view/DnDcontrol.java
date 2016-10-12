@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -29,7 +30,6 @@ import java.util.regex.Pattern;
  * Created by andreas on 13.06.16.
  */
 public class DnDcontrol {
-
 
     private Scene scene;
     private Stage primaryStage;
@@ -95,6 +95,9 @@ public class DnDcontrol {
 
     @FXML // fx:id="clic"
     private Button clic;
+
+    @FXML
+    private TextField lifeStat;
 
     @FXML
     private ImageView img00, img01, img02, img03, img04, img05, img06,      // row 0 of visual map grid
@@ -259,6 +262,8 @@ public class DnDcontrol {
 
     // Method that changes the position of the player on the map.
     private void changeRoom(String roomName){
+        player.heal();
+        lifeStat.setText(String.valueOf(player.getHp()));
         if(roomName != "Entry") {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
             int posRow = 0;
@@ -277,32 +282,41 @@ public class DnDcontrol {
     private void checkRoom(Room room) {
         String content = room.getContent();
         if(creatures.containsKey(content)){
-            fight(creatures.get(content));
+            boolean won = fight(creatures.get(content));
+            if(won){
+                room.setContent("none");
+            }
         }
     }
 
     // Method for the fight between player and monsters.
-    private void fight(Creature monster){
+    private boolean fight(Creature monster){
         //fight = true;
         messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
         while (player.getHp() > 0 && monster.getHp() > 0){
-            if(player.getHp() > 0){
+            final boolean[] test = {false};
+            attack.setOnAction(event -> {
+                System.out.println(test[0]);
+                test[0] = true;
+            } );
+            if(player.getHp() > 0  && test[0] == true){
                 int attackPlayer = player.attack();
                 monster.defend(attackPlayer);
-                messageWindow.appendText("Du triffst mit " + attackPlayer +"\n Das Monster hat noch " + monster.getHp() +"\n");
+                messageWindow.appendText("\nDu triffst mit " + attackPlayer +"\n Das Monster hat noch " + monster.getHp() +"\n");
             } else {
-                //fight = false;
-                break;
+                return false;
             }
-            if(monster.getHp() > 0){
+            if(monster.getHp() > 0 && test[0] == true){
                 int attackMonster = monster.attack();
                 player.defend(attackMonster);
-                messageWindow.appendText("Das Monster trifft  dich mit " + attackMonster +"\n Du hast noch " + player.getHp() +"\n");
+                messageWindow.appendText("\nDas Monster trifft  dich mit " + attackMonster +"\n Du hast noch " + player.getHp() +"\n");
+                lifeStat.setText(String.valueOf(player.getHp()));
             } else {
-                //fight = false;
-                break;
+                return true;
             }
+            test[0] = false;
         }
+        return false;
     }
 
     private ImageView[][] currentMap;

@@ -9,11 +9,13 @@ public class Creature {
     private String species;
     private String description;
     private int xp;
+    private final int maxhp;
     private int hp;
     private int armor;
     private Weapon weapon;
 
     public Creature(String name, String species, String description, int xp, int hp, int armor, Weapon weapon) {
+        this.maxhp = hp;
         this.setName(name);
         this.setSpecies(species);
         this.setDescription(description);
@@ -47,9 +49,17 @@ public class Creature {
             hp = hp - attackValue;
         }
         */
-        this.hp = this.hp - attackValue;
+        this.hp = this.hp + armor - attackValue;
         if(this.hp < 0){
             this.hp = 0;
+        }
+    }
+
+    public void heal(){
+        if(this.hp + 7 <= maxhp){
+            this.hp += 7;
+        } else {
+            this.hp = maxhp;
         }
     }
 
@@ -110,4 +120,6 @@ public class Creature {
     public Weapon getWeapon() {
         return this.weapon;
     }
+
+    public int getMaxhp() {return this.maxhp; }
 }
