@@ -1,9 +1,11 @@
 package view;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import com.sun.rowset.internal.Row;
 import dungeon.DnDmodel;
+import gameMechanics.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,7 +25,6 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import gameMechanics.Castle;
 /**
  * Created by andreas on 13.06.16.
  */
@@ -33,6 +34,9 @@ public class DnDcontrol {
     private Scene scene;
     private Stage primaryStage;
     private String currentWorkDir;
+    private boolean fight = false;
+    private HashMap<String, Creature> creatures = data.Parser.collectCreatures();
+    private Creature player = creatures.get("You");
 
     //@FXML
     //private Text blah;
@@ -245,12 +249,15 @@ public class DnDcontrol {
                     messageWindow.appendText("\nYou go north.\n");
                     break;
             }
-            changeRoom(newDungeon.getAllRooms().getAktuellePosition());
+            String position = newDungeon.getAllRooms().getAktuellePosition();
+            changeRoom(position);
+            checkRoom(newDungeon.getAllRooms().getRoomByName(position));
         } else {
             messageWindow.appendText("\nThere is no door in this direction!\n");
         }
     }
 
+    // Method that changes the position of the player on the map.
     private void changeRoom(String roomName){
         if(roomName != "Entry") {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
@@ -260,16 +267,44 @@ public class DnDcontrol {
             if (match.find()) {
                 posRow = Integer.parseInt(match.group(1)) - 1;
                 posCol = Integer.parseInt(match.group(2)) - 1;
-                Image[][] testImage = newDungeon.getCastleView();
                 loadDungeonMap(test2);
                 currentMap[posRow][posCol].setImage(Pictures.flying_skull);
-               
-                System.out.println(test2[posRow][posCol]);
-                
                 System.out.println("POS: " + posRow + " | " + posCol);
             }
         }
     }
+
+    private void checkRoom(Room room) {
+        String content = room.getContent();
+        if(creatures.containsKey(content)){
+            fight(creatures.get(content));
+        }
+    }
+
+    // Method for the fight between player and monsters.
+    private void fight(Creature monster){
+        //fight = true;
+        messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
+        while (player.getHp() > 0 && monster.getHp() > 0){
+            if(player.getHp() > 0){
+                int attackPlayer = player.attack();
+                monster.defend(attackPlayer);
+                messageWindow.appendText("Du triffst mit " + attackPlayer +"\n Das Monster hat noch " + monster.getHp() +"\n");
+            } else {
+                //fight = false;
+                break;
+            }
+            if(monster.getHp() > 0){
+                int attackMonster = monster.attack();
+                player.defend(attackMonster);
+                messageWindow.appendText("Das Monster trifft  dich mit " + attackMonster +"\n Du hast noch " + player.getHp() +"\n");
+            } else {
+                //fight = false;
+                break;
+            }
+        }
+    }
+
     private ImageView[][] currentMap;
     private void new_gamePressed(ActionEvent actionEvent) {
         // test test test

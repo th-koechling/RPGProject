@@ -41,10 +41,15 @@ public class Creature {
      */
     public void defend(int attackValue) {
         int dice = Control.throwDice();
-        if(dice < 12 && dice > 6){
+        /*if(dice < 12 && dice > 6){
             hp = hp - attackValue/2;
         } else {
             hp = hp - attackValue;
+        }
+        */
+        this.hp = this.hp - attackValue;
+        if(this.hp < 0){
+            this.hp = 0;
         }
     }
 

@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.concurrent.Exchanger;
 
 /**
  * Created by Patrick on 15.09.2016.
@@ -21,50 +22,56 @@ public class Parser {
 
     private Parser(){}
 
-    private static HashMap<String,Creature> parseCreatures (String file)throws IOException{
-        BufferedReader br=readFile(file);
+    private static HashMap<String,Creature> parseCreatures (String file){
+        HashMap<String, Creature> allCreatures = new HashMap<>();
+        try {
 
-        HashMap<String,Creature> allCreatures=new HashMap<>();
 
-        String name="";
-        String species="";
-        String description="";
-        int xp=0;
-        int hp=0;
-        int baseDamage=0;
-        int armor=0;
-        Weapon weapon=new Weapon("",0,"");
+            BufferedReader br = readFile(file);
 
-        String line;
 
-        while((line=br.readLine())!=null){
+            String name = "";
+            String species = "";
+            String description = "";
+            int xp = 0;
+            int hp = 0;
+            int baseDamage = 0;
+            int armor = 0;
+            Weapon weapon = new Weapon("", 0, "");
 
-            if(line.matches("Name: .*")){
-                name=line.substring(6);
-            } else if(line.matches("Species: .*")){
-                species=line.substring(9);
-            } else if(line.matches("Description: .*")){
-                description=line.substring(13);
-            } else if(line.matches("Experience: .*")){
-                xp=Integer.valueOf(line.substring(12));
-            } else if(line.matches("HealthStatus: .*")){
-                hp=Integer.valueOf(line.substring(14));
-            } else if(line.matches("BaseDamage: .*")){
-                baseDamage=Integer.valueOf(line.substring(12));
-            } else if(line.matches("Armor: .*")){
-                armor=Integer.valueOf(line.substring(7));
-            } else if(line.matches("Weapon: .*")){
+            String line;
 
-               weapon=collectWeapons().get(line.substring(8));
-            } else if(line.matches("")){
+            while ((line = br.readLine()) != null) {
 
-                allCreatures.put(name,new Creature(name,species,description,xp,hp,armor,weapon));
+                if (line.matches("Name: .*")) {
+                    name = line.substring(6);
+                } else if (line.matches("Species: .*")) {
+                    species = line.substring(9);
+                } else if (line.matches("Description: .*")) {
+                    description = line.substring(13);
+                } else if (line.matches("Experience: .*")) {
+                    xp = Integer.valueOf(line.substring(12));
+                } else if (line.matches("HealthStatus: .*")) {
+                    hp = Integer.valueOf(line.substring(14));
+                } else if (line.matches("BaseDamage: .*")) {
+                    baseDamage = Integer.valueOf(line.substring(12));
+                } else if (line.matches("Armor: .*")) {
+                    armor = Integer.valueOf(line.substring(7));
+                } else if (line.matches("Weapon: .*")) {
+
+                    weapon = collectWeapons().get(line.substring(8));
+                } else if (line.matches("")) {
+
+                    allCreatures.put(name, new Creature(name, species, description, xp, hp, armor, weapon));
+                }
             }
+            allCreatures.put(name, new Creature(name, species, description, xp, hp, armor, weapon));
+        } catch (Exception e) {
+            System.out.println("Could not read creatures");
+            System.exit(1);
         }
-        allCreatures.put(name,new Creature(name,species,description,xp,hp,armor,weapon));
-
-
         return allCreatures;
+
     }
 
     private static HashMap<String,Weapon> parseWeapons (String file)throws IOException{
@@ -113,7 +120,7 @@ public class Parser {
      * @throws IOException
      */
 
-    public static HashMap<String, Creature> collectCreatures()throws IOException{
+    public static HashMap<String, Creature> collectCreatures(){
         return parseCreatures("src/data/creatures.txt");
     }
 
