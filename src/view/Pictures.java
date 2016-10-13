@@ -51,6 +51,19 @@ public class Pictures {
     public static final Image stone_arch = new Image("/view/images/dungeon/stone_arch.png");
     public static final Image tree = new Image("/view/images/dungeon/tree.png");
     public static final Image web = new Image("/view/images/dungeon/web.png");
+    public static final Image romm_Window = new Image("/view/images/dungeon/rommWithWindow.png");
+    public static final Image hallway_light = new Image("/view/images/dungeon/hallway_light.png");
+    public static final Image t_junction = new Image("/view/images/dungeon/t_junction.png");
+    public static final Image view_outside = new Image("/view/images/dungeon/view_outside.png");
+    public static final Image green_cave = new Image("/view/images/dungeon/green_cave.png");
+    public static final Image fancy_hallway = new Image("/view/images/dungeon/fancy_hallway.png");
+    public static final Image fance_hall = new Image("/view/images/dungeon/fance_hall.png");
+    public static final Image treasure_room = new Image("/view/images/dungeon/treasure_room.png");
+    public static final Image dark_ritual = new Image("/view/images/dungeon/dark_ritual.png");
+    public static final Image secret_passage = new Image("/view/images/dungeon/secret_passage.png");
+    public static final Image statue_hallway = new Image("/view/images/dungeon/statue_hallway.png");
+    public static final Image disfigured_hallway = new Image("/view/images/dungeon/disfigured_hallway.png");
+    
 
     public static final String[] dungeonNames = {"corridor", "crystal_wall", "deep_water", "dngn_enter_abyss", "dngn_entrance", "floor", "floor_lair",
             "floor_light", "floor_room", "floor_swamp", "ice", "lava", "lit_corridor", "altar", "molten_lava", "throne",

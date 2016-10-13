@@ -88,26 +88,41 @@ public class Castle {
         imageToDescription.put("Hallway with thousands of spiders.", view.Pictures.corridor);
         imageToDescription.put("Narrow hallway with thousands of spiders.", view.Pictures.dngn_enter_abyss);
         imageToDescription.put("Small room with an old wooden box.", view.Pictures.raised_drawbridge_h);
-                
+        imageToDescription.put("Lagre Hallway with mysterious cold white light.", view.Pictures.hallway_light);
+        imageToDescription.put("Crossing with two lagre tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.", view.Pictures.t_junction);
+        imageToDescription.put("Round room sun-drenched with broken glass all over the ground, the ceiling is too high to get out.", view.Pictures.view_outside);
+        imageToDescription.put("Muddy cave with strong rotten smell and foggy greenish light.", view.Pictures.green_cave);
+        imageToDescription.put("Ostentatious hallway made of bright shiny stone with huge chandeliers and a luxuriant ceiling painting.", view.Pictures.fancy_hallway);
+        imageToDescription.put("Luxuriant hall with sacral ceiling paintings.", view.Pictures.fance_hall);
+        imageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", view.Pictures.treasure_room);
+        imageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a lagre pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", view.Pictures.dark_ritual);
+        imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", view.Pictures.secret_passage);
+        imageToDescription.put("High hallway flanked with statuary.", view.Pictures.statue_hallway);
+        imageToDescription.put("Disfigured hallway with burn marks and strange wiritngs and symbols on the pillars.", view.Pictures.disfigured_hallway);
+         
     }
-    Rooms allRooms = new Rooms("src/data/rooms.txt");
+    Rooms allRooms = new Rooms("src/data/rooms_new.txt");
     Map<String, Room> test = allRooms.getRoomMap();
     public void positionRoomsByName()  {
         fillIamgeToDescription ();
         for (Map.Entry<String, Room> pair : test.entrySet()) {
              //System.out.println(pair.getKey());
              //System.out.println(pair.getValue().getDescription());
+              
              Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
              int posRow = 0;
              int posCol = 0;
              Matcher match = pattern.matcher(pair.getKey());
              if (match.find()) {
-                    posRow = Integer.parseInt(match.group(1))-1;
+                    posRow = Integer.parseInt(match.group(1));
                     posCol = Integer.parseInt(match.group(2))-1;
-                    
+                    castleView[posRow][posCol]= imageToDescription.get(pair.getValue().getDescription());
              }
-             castleView[posRow][posCol]= imageToDescription.get(pair.getValue().getDescription());
-             
+             if(pair.getKey().contains("Entry")){
+                
+                 castleView[0][2]= imageToDescription.get(pair.getValue().getDescription()); // eventually add info where in rooms.txt
+                 
+             }
         }
         
         for (int  i = 0; i < castleView.length; i++){

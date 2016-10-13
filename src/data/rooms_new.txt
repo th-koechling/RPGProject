@@ -1,0 +1,256 @@
+Name: Entry
+N: 1-3
+O: none
+S: none
+W: none
+Description: You see the entry to a dark dungeon. Just go ahead to enter!
+Content: none
+
+Name: 1-1
+N: 2-1
+O: 1-2
+S: none
+W: none
+Description: A long dark hallway.
+Content: none
+
+Name: 1-2
+N: none
+O: 1-3
+S: none
+W: 1-1
+Description: A small room, sparsely lighted by a torch.
+Content: none
+
+Name: 1-3
+N: 2-3
+O: none
+S: Entry
+W: 1-2
+Description: A high hall - the high ceiling is lost in the darkness.
+Content: none
+
+Name: 2-1
+N: 3-1
+O: 2-2
+S: 1-1
+W: none
+Description: Hallway with a tight branch-off.
+Content: none
+
+Name: 2-2
+N: none
+O: none
+S: none
+W: 2-1
+Description: An old chamber thomb with lots of cobweb.
+Content: Sword
+
+Name: 2-3
+N: 3-3
+O: 2-4
+S: 1-3
+W: none
+Description: Small dimly lit room.
+Content: Knife
+
+Name: 3-1
+N: 4-1
+O: none
+S: 2-1
+W: none
+Description: Chamber lighted by bright torches.
+Content: Grodagrim
+
+Name: 3-3
+N: none
+O: none
+S: 2-3
+W: none
+Description: Gloomy chamber with many old carcases.
+Content: Gothofiedus
+
+Name: 4-1
+N: none
+O: none
+S: 3-1
+W: none
+Description: This seems to be the armory of the dwarf. The most mighty weapon seems to be the lance.
+Content: Lance
+
+Name: 2-4
+N: none
+O: 2-5
+S: none
+W: 2-3
+Description: Gloomy room with many bones.
+Content: Lothofiedus
+
+Name: 2-5
+N: none
+O: 2-6
+S: none
+W: 2-4
+Description: Gloomy room with many bones
+Content: Rothofiedus
+
+Name: 2-6
+N: 3-6
+O: none
+S: 1-6
+W: 2-5
+Description: Dark room with no light.
+Content: none
+
+Name: 3-6
+N: none
+O: 3-7
+S: 2-6
+W: 3-5
+Description: Big hall with an offensive smell of burned meat.
+Content: Excursius
+
+Name: 3-7
+N: 4-7
+O: none
+S: none
+W: 3-6
+Description: Narrow hallway
+Content: none
+
+Name: 4-7
+N: none
+O: none
+S: 3-7
+W: none
+Description: Big dark cave arch.
+Content: none
+
+Name: 3-5
+N: 4-5
+O: 3-6
+S: none
+W: none
+Description: Narrow hall.
+Content: none
+
+Name: 4-5
+N: none
+O: 4-6
+S: 3-5
+W: 4-4
+Description: Narrow hallway.
+Content: none
+
+Name: 4-4
+N: 5-4
+O: 4-5
+S: none
+W: none
+Description: Hallway with thousands of spiders.
+Content: none
+
+Name: 4-6
+N: 5-6
+O: none
+S: none
+W: 4-5
+Description: Narrow hallway with thousands of spiders.
+Content: none
+
+Name: 5-6
+N: none
+O: none
+S: 4-6
+W: none
+Description: Small room with an old wooden box.
+Content: Treasure
+
+Name: 1-6
+N: 2-6
+O: none
+S: 0-6
+W: none
+Description: Lagre Hallway with mysterious cold white light.
+Content: test
+
+Name: 0-6
+N: 1-6
+O: 0-7
+S: none
+W: 0-5
+Description: Crossing with two lagre tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.
+Content: test
+
+Name: 0-5
+N: none
+O: 0-6
+S: none
+W: none
+Description: Round room sun-drenched with broken glass all over the ground, the ceiling is too high to get out.
+Content: test
+
+Name: 0-7
+N: none
+O: none
+S: none
+W: 0-6
+Description: Muddy cave with strong rotten smell and foggy greenish light.
+Content: test
+
+Name: 5-4
+N: 6-4
+O: none
+S: 4-4
+W: none
+Description: Ostentatious hallway made of bright shiny stone with huge chandeliers and a luxuriant ceiling painting.
+Content: test
+
+Name: 6-4
+N: none
+O: 6-5
+S: 5-4
+W: 6-3
+Description: Luxuriant hall with sacral ceiling paintings.
+Content: test
+
+Name: 6-5
+N: none
+O: none
+S: none
+W: 6-4
+Description: Shiny room flooded with candle light and walls covered with amber and gold.
+Content: test
+
+Name: 6-3
+N: none
+O: 6-4
+S: none
+W: 6-2
+Description: High hallway flanked with statuary.
+Content: test
+
+Name: 6-2
+N: none
+O: 6-3
+S: 5-2
+W: 6-1
+Description: Disfigured hallway with burn marks and strange wiritngs and symbols on the pillars.
+Content: test
+
+Name: 5-2
+N: 6-2
+O: none
+S: 2-2
+W: none
+Description: Very narrow dark passage with a 3 meter fall at the end.
+Content: test
+
+Name: 6-1
+N: none
+O: 6-2
+S: none
+W: none
+Description: Graveyard with burned still glowing trees all inside a church like room with a lagre pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.
+Content: test
+

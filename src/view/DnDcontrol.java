@@ -264,18 +264,22 @@ public class DnDcontrol {
     private void changeRoom(String roomName){
         player.heal();
         lifeStat.setText(String.valueOf(player.getHp()));
-        if(roomName != "Entry") {
+        if(!roomName.contains("Entry")) {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
             int posRow = 0;
             int posCol = 0;
             Matcher match = pattern.matcher(roomName);
             if (match.find()) {
-                posRow = Integer.parseInt(match.group(1)) - 1;
+                posRow = Integer.parseInt(match.group(1)) ;
                 posCol = Integer.parseInt(match.group(2)) - 1;
                 loadDungeonMap(test2);
                 currentMap[posRow][posCol].setImage(Pictures.flying_skull);
                 System.out.println("POS: " + posRow + " | " + posCol);
             }
+        } else {
+            loadDungeonMap(test2);
+            currentMap[0][2].setImage(Pictures.flying_skull); // eventually add info where in rooms.txt
+            
         }
     }
 
@@ -294,19 +298,15 @@ public class DnDcontrol {
         //fight = true;
         messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
         while (player.getHp() > 0 && monster.getHp() > 0){
-            final boolean[] test = {false};
-            attack.setOnAction(event -> {
-                System.out.println(test[0]);
-                test[0] = true;
-            } );
-            if(player.getHp() > 0  && test[0] == true){
+            
+            if(player.getHp() > 0 ){
                 int attackPlayer = player.attack();
                 monster.defend(attackPlayer);
                 messageWindow.appendText("\nDu triffst mit " + attackPlayer +"\n Das Monster hat noch " + monster.getHp() +"\n");
             } else {
                 return false;
             }
-            if(monster.getHp() > 0 && test[0] == true){
+            if(monster.getHp() > 0 ){
                 int attackMonster = monster.attack();
                 player.defend(attackMonster);
                 messageWindow.appendText("\nDas Monster trifft  dich mit " + attackMonster +"\n Du hast noch " + player.getHp() +"\n");
@@ -314,7 +314,7 @@ public class DnDcontrol {
             } else {
                 return true;
             }
-            test[0] = false;
+            
         }
         return false;
     }
@@ -325,6 +325,7 @@ public class DnDcontrol {
         //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
         currentMap = loadDungeonMap(test2);// Martin tmp to test castle class will be removed
         messageWindow.appendText("\nLet's go!\n");
+        changeRoom("Entry");
     }
 
     private void clicPressed(ActionEvent actionEvent) {
