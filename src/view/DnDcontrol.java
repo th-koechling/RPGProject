@@ -235,6 +235,39 @@ public class DnDcontrol {
          test2[2][2]= (view.Pictures.flying_skull);
     }
 
+    // check all directions for valid movement (th)
+    private void checkMoves() {
+
+        Button[] buttons = {go_ahead, go_back, go_left, go_right};
+
+        for (Button button: buttons) {
+            button.setDisable(true);
+        }
+        String currentPosition = newDungeon.getAllRooms().getAktuellePosition();
+
+        String var = newDungeon.getAllRooms().getRoomByName(currentPosition).getNord();
+        System.out.println("b"+currentPosition);
+        System.out.println("A"+var);
+
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getSued().equals("none"))) {
+            go_ahead.setDisable(false);
+            System.out.println("north free");
+        }
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getNord().equals("none"))) {
+            go_back.setDisable(false);
+            System.out.println("south free");
+        }
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getWest().equals("none"))) {
+            go_left.setDisable(false);
+            System.out.println("west free");
+        }
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getOst().equals("none"))) {
+            go_right.setDisable(false);
+            System.out.println("east free");
+        }
+
+    }
+
     private void move(String direction){
         boolean movePossible = newDungeon.getAllRooms().goToNextRoom(direction);
         if(movePossible){
@@ -253,6 +286,7 @@ public class DnDcontrol {
                     break;
             }
             String position = newDungeon.getAllRooms().getAktuellePosition();
+            checkMoves();
             changeRoom(position);
             checkRoom(newDungeon.getAllRooms().getRoomByName(position));
         } else {
