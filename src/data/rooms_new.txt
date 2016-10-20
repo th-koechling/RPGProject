@@ -171,7 +171,7 @@ N: 2-6
 O: none
 S: 0-6
 W: none
-Description: Lagre Hallway with mysterious cold white light.
+Description: Large Hallway with mysterious cold white light.
 Content: test
 
 Name: 0-6
@@ -179,7 +179,7 @@ N: 1-6
 O: 0-7
 S: none
 W: 0-5
-Description: Crossing with two lagre tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.
+Description: Crossing with two large tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.
 Content: test
 
 Name: 0-5
@@ -235,7 +235,7 @@ N: none
 O: 6-3
 S: 5-2
 W: 6-1
-Description: Disfigured hallway with burn marks and strange wiritngs and symbols on the pillars.
+Description: Disfigured hallway with burn marks and strange writings and symbols on the pillars.
 Content: test
 
 Name: 5-2
@@ -251,6 +251,6 @@ N: none
 O: 6-2
 S: none
 W: none
-Description: Graveyard with burned still glowing trees all inside a church like room with a lagre pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.
+Description: Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.
 Content: test
 
