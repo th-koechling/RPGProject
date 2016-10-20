@@ -78,9 +78,7 @@ public class Inventory implements Iterable<Item>{
             if(items[i]!=item){
                 temp[i]=items[j];
                 j++;
-                }else{
-                i++;
-            }
+                }
             }
             items=temp;
             return item;
@@ -95,11 +93,11 @@ public class Inventory implements Iterable<Item>{
     }
 
     /**
-     * Returns the maximum capacity for item objects
+     * Returns the free capacity for a number of item objects
      * @return integer maximum total capacity for items
      */
-    public int getMaxCapacity() {
-        return maxCapacity;
+    public int getFreeMaxCapacity() {
+        return maxCapacity-items.length;
     }
 
     /**
@@ -146,6 +144,35 @@ public class Inventory implements Iterable<Item>{
             }
         }
         return treasures;
+    }
+
+    /**
+     * This method is used to determine the weakest weapon by force from inventory and remove it
+     */
+    public void dropWeakestWeapon(){
+        Weapon dummy = new Weapon("Dummy",Integer.MAX_VALUE,"Dummy");
+        Weapon[] weapons = getWeapons();
+        for(int i=0;i<weapons.length;i++){
+            if(weapons[i].getForce()<dummy.getForce()){
+                dummy=weapons[i];
+            }
+        }
+        removeItem(dummy);
+    }
+
+    /**
+     * Returns a weapon array of all treasures in the inventory
+     * @return a Treasure[]
+     */
+    public Weapon getBestWeapon() {
+        Weapon dummy = new Weapon("Dummy",0,"Dummy");
+        Weapon[] weapons = getWeapons();
+        for(int i=0;i<weapons.length;i++){
+            if(weapons[i].getForce()>dummy.getForce()){
+                dummy=weapons[i];
+            }
+        }
+        return dummy;
     }
 
     /**
