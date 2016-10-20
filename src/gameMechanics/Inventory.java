@@ -39,7 +39,7 @@ public class Inventory implements Iterable<Item>{
 
 
     /**
-     * Adds an Object that implements the Interface item to the inventory, as long as their is space and returns the status
+     * Adds an Object that implements the Interface item to the inventory, as long as there is space and returns the status
      * @param item The item object to be added
      * @return true if there was space for the item and it was added, false if the item could not be added
      */

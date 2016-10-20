@@ -2,6 +2,7 @@ package view;
 
 import java.util.HashMap;
 
+import data.Parser;
 import dungeon.DnDmodel;
 import gameMechanics.*;
 import javafx.application.Platform;
@@ -37,6 +38,7 @@ public class DnDcontrol {
     private Creature player = creatures.get("You");
     private Creature monster;
     boolean won = false;
+    private HashMap<String, Weapon> weapons = new HashMap<>();
     Room room;
 
     //@FXML
@@ -135,6 +137,8 @@ public class DnDcontrol {
 
             messageWindow.setEditable(false);   // --> player can't change the messages on-screen (thorsten)
             this.currentWorkDir = System.getProperty("user.home");
+
+            this.weapons = Parser.collectWeapons();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -325,6 +329,9 @@ public class DnDcontrol {
                 checkMoves();
                 room.setContent("none");
             }
+        }
+        if(weapons.containsKey(content)){
+            messageWindow.appendText("Hier liegt eine Waffe namens: " + content);
         }
     }
 

@@ -20,7 +20,7 @@ public class Parser {
         System.out.println(yoo.get("You").getWeapon().getName());
     }
 
-    private Parser(){}
+    public Parser(){}
 
     private static HashMap<String,Creature> parseCreatures (String file){
         HashMap<String, Creature> allCreatures = new HashMap<>();
