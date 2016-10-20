@@ -81,10 +81,19 @@
       </ImageView>
       <Label fx:id="weaponCapt" layoutX="58.0" layoutY="415.0" text="Weapon" />
       <Label fx:id="armorCapt" layoutX="155.0" layoutY="415.0" text="Armor" />
-      <Button fx:id="clic" layoutX="360.0" layoutY="524.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="96.0" text="clic!" />
+      <Button fx:id="clic" layoutX="360.0" layoutY="524.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="96.0" text="Room" />
       <Pane fx:id="infoBackground" layoutX="39.0" layoutY="90.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0">
          <children>
             <ImageView fx:id="infoPic" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/misc/attack.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="roomBackground" layoutX="253.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="274.0" prefWidth="292.0">
+         <children>
+            <ImageView fx:id="roomPic" fitHeight="274.0" fitWidth="292.0"  pickOnBounds="true" preserveRatio="true" visible="false" >
                <image>
                   <Image url="@images/misc/attack.png" />
                </image>

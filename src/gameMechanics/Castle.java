@@ -25,11 +25,12 @@ public class Castle {
     public  String roomsInput = new String();
     private  Image[][] castleView;
     static Map<String, Image> imageToDescription = new HashMap<>();
-    
-    
+    private Image[][] roomView;
+    static Map<String, Image> roomImageToDescription = new HashMap<>();
     
     public Castle() {
         this.castleView = new Image[7][7];
+        this.roomView = new Image[7][7];
         
     }
 
@@ -63,6 +64,9 @@ public class Castle {
     
     public  Image[][] getCastleView(){
         return castleView;
+    }
+    public  Image[][] getViewAllRooms(){
+        return roomView;
     }
     
     private static void fillIamgeToDescription (){
@@ -99,6 +103,39 @@ public class Castle {
         imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", view.Pictures.secret_passage);
         imageToDescription.put("High hallway flanked with statuary.", view.Pictures.statue_hallway);
         imageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", view.Pictures.disfigured_hallway);
+        
+        roomImageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.dungeon_entry);
+        roomImageToDescription.put("A long dark hallway.", view.Pictures.long_dark_hallway);
+        roomImageToDescription.put("A small room, sparsely lighted by a torch." ,view.Pictures.small_torch);
+        roomImageToDescription.put("A high hall - the high ceiling is lost in the darkness.", view.Pictures.big_hall);
+        roomImageToDescription.put("Hallway with a tight branch-off.", view.Pictures.tight_branch);
+        roomImageToDescription.put("An old chamber thomb with lots of cobweb.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Small dimly lit room.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Chamber lighted by bright torches.", view.Pictures.chamber_lighted);
+        roomImageToDescription.put("Gloomy chamber with many old carcases.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("This seems to be the armory of the dwarf. The most mighty weapon seems to be the lance.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Gloomy room with many bones.", view.Pictures.disfigured_hallway );
+        roomImageToDescription.put("Gloomy room with many bones", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Dark room with no light.", view.Pictures.disfigured_hallway );
+        roomImageToDescription.put("Big hall with an offensive smell of burned meat.", view.Pictures.disfigured_hallway );
+        roomImageToDescription.put("Narrow hallway", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Big dark cave arch.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Narrow hall.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Narrow hallway.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Hallway with thousands of spiders.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Narrow hallway with thousands of spiders.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Small room with an old wooden box.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Large Hallway with mysterious cold white light.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Crossing with two large tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Round room sun-drenched with broken glass all over the ground, the ceiling is too high to get out.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Muddy cave with strong rotten smell and foggy greenish light.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Ostentatious hallway made of bright shiny stone with huge chandeliers and a luxuriant ceiling painting.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Luxuriant hall with sacral ceiling paintings.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("High hallway flanked with statuary.", view.Pictures.disfigured_hallway);
+        roomImageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", view.Pictures.disfigured_hallway);
          
     }
     Rooms allRooms = new Rooms("src/data/rooms_new.txt");
@@ -117,11 +154,12 @@ public class Castle {
                     posRow = Integer.parseInt(match.group(1));
                     posCol = Integer.parseInt(match.group(2))-1;
                     castleView[posRow][posCol]= imageToDescription.get(pair.getValue().getDescription());
+                    roomView[posRow][posCol]= roomImageToDescription.get(pair.getValue().getDescription());
              }
              if(pair.getKey().contains("Entry")){
                 
                  castleView[0][2]= imageToDescription.get(pair.getValue().getDescription()); // eventually add info where in rooms.txt
-                 
+                 roomView[0][2]= roomImageToDescription.get(pair.getValue().getDescription());
              }
         }
         
@@ -129,6 +167,7 @@ public class Castle {
             for (int j = 0; j < castleView[i].length; j++){
                 if(castleView[i][j]== null){
                     castleView[i][j] = view.Pictures.rock_wall01;
+                    roomView[i][j] = view.Pictures.rock_wall01;
                 }
                     
             }

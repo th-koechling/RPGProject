@@ -63,7 +63,12 @@ public class Pictures {
     public static final Image secret_passage = new Image("/view/images/dungeon/secret_passage.png");
     public static final Image statue_hallway = new Image("/view/images/dungeon/statue_hallway.png");
     public static final Image disfigured_hallway = new Image("/view/images/dungeon/disfigured_hallway.png");
-    
+    public static final Image dungeon_entry = new Image("/view/images/dungeon/dungeon_entry.png");
+    public static final Image big_hall = new Image("/view/images/dungeon/big_hall.png");
+    public static final Image small_torch = new Image("/view/images/dungeon/small_torch.png");
+    public static final Image long_dark_hallway = new Image("/view/images/dungeon/long_dark_hallway.png");
+    public static final Image tight_branch = new Image("/view/images/dungeon/tight_branch.png");
+    public static final Image chamber_lighted = new Image("/view/images/dungeon/chamber_lighted.png");
 
     public static final String[] dungeonNames = {"corridor", "crystal_wall", "deep_water", "dngn_enter_abyss", "dngn_entrance", "floor", "floor_lair",
             "floor_light", "floor_room", "floor_swamp", "ice", "lava", "lit_corridor", "altar", "molten_lava", "throne",

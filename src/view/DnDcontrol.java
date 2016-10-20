@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,8 +102,14 @@ public class DnDcontrol {
 
     @FXML
     private TextField lifeStat;
+    
+    @FXML // fx:id="infoPic2"  //test
+    private ImageView roomPic;
+    
+    @FXML // fx:id="dungeon_map" // test
+    private GridPane dungeon_map;
 
-    @FXML
+    @FXML 
     private ImageView img00, img01, img02, img03, img04, img05, img06,      // row 0 of visual map grid
                       img10, img11, img12, img13, img14, img15, img16,      // row 1
                       img20, img21, img22, img23, img24, img25, img26,      // row 2
@@ -313,11 +320,15 @@ public class DnDcontrol {
                 posRow = Integer.parseInt(match.group(1)) ;
                 posCol = Integer.parseInt(match.group(2)) - 1;
                 loadDungeonMap(test2);
+                Image currentRoomImage = currentRoomViewMap[posRow][posCol];
+                roomPic.setImage(currentRoomImage);
                 currentMap[posRow][posCol].setImage(Pictures.flying_skull);
 
             }
         } else {
             loadDungeonMap(test2);
+            Image currentRoomImage = currentRoomViewMap[0][2];
+            roomPic.setImage(currentRoomImage);
             currentMap[0][2].setImage(Pictures.flying_skull); // eventually add info where in rooms.txt
             
         }
@@ -373,16 +384,20 @@ public class DnDcontrol {
     }
 
     private ImageView[][] currentMap;
+    private Image[][] currentRoomViewMap;
     private void new_gamePressed(ActionEvent actionEvent) {
         // test test test
         //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
         currentMap = loadDungeonMap(test2);// Martin tmp to test castle class will be removed
+        currentRoomViewMap = newDungeon.getViewAllRooms();
         messageWindow.appendText("\nLet's go!\n");
         changeRoom("Entry");
     }
 
     private void clicPressed(ActionEvent actionEvent) {
         infoPic.setImage(Pictures.getRandomPic(Pictures.treasurePics));
+        
+        switchMapRoomViwe();
 
     }
 
@@ -405,7 +420,35 @@ public class DnDcontrol {
     Castle newDungeon = new Castle();
     
     Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
-    
+    private void switchMapRoomViwe (){
+        ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
+            {img10, img11, img12, img13, img14, img15, img16},
+            {img20, img21, img22, img23, img24, img25, img26},
+            {img30, img31, img32, img33, img34, img35, img36},
+            {img40, img41, img42, img43, img44, img45, img46},
+            {img50, img51, img52, img53, img54, img55, img56},
+            {img60, img61, img62, img63, img64, img65, img66}};
+        if (!roomPic.isVisible()) {
+            clic.setText("Map");
+            for (int i = 0; i < imageCells.length; i++) {
+                for (int j = 0; j < imageCells[0].length; j++) {
+                    imageCells[i][j].setVisible(false);
+                }
+            }
+            dungeon_map.setGridLinesVisible(false);
+            roomPic.setVisible(true);
+        } else {
+            clic.setText("Room");
+            for (int i = 0; i < imageCells.length; i++) {
+                for (int j = 0; j < imageCells[0].length; j++) {
+                    imageCells[i][j].setVisible(true);
+                }
+            }
+            dungeon_map.setGridLinesVisible(true);
+            roomPic.setVisible(false);
+        }
+        
+    }
     private ImageView[][] loadDungeonMap(Image[][] images) {
         newDungeon.positionRoomsByName(); // Martin tmp to test castle class will be removed
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
@@ -421,6 +464,7 @@ public class DnDcontrol {
                 imageCells[i][j].setImage(images[i][j]);
             }
         }
+        
         return imageCells;
     }
 
