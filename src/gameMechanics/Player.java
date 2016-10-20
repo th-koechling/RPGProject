@@ -17,7 +17,7 @@ public class Player extends Creature {
     int inventorySpace;
     boolean isAlive;
     boolean hasDragonTreasure;
-    Item[] itemsInInventory;
+    Inventory inventory = new Inventory();
 
     public Player(String name,String species, String description, int xp, int hp, int armor, Weapon weapon) {
         super(name, species, description,xp, hp, armor, weapon);
@@ -26,7 +26,7 @@ public class Player extends Creature {
         this.inventorySpace = 10;
         this.isAlive = true;
         this.hasDragonTreasure = false;
-        this.itemsInInventory = null;
+        //this.itemsInInventory = null;
     }
 
     // getter methods
@@ -50,7 +50,7 @@ public class Player extends Creature {
         return this.hasDragonTreasure;
     }
 
-    public Item[] getItemsInInventory() {
-        return this.itemsInInventory;
+    public Inventory getInventory() {
+        return this.inventory;
     }
 }

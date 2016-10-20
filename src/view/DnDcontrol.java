@@ -1,9 +1,8 @@
 package view;
 
 import java.util.HashMap;
-import java.util.Random;
 
-import com.sun.rowset.internal.Row;
+import data.Parser;
 import dungeon.DnDmodel;
 import gameMechanics.*;
 import javafx.application.Platform;
@@ -37,6 +36,10 @@ public class DnDcontrol {
     private boolean fight = false;
     private HashMap<String, Creature> creatures = data.Parser.collectCreatures();
     private Creature player = creatures.get("You");
+    private Creature monster;
+    boolean won = false;
+    private HashMap<String, Weapon> weapons = new HashMap<>();
+    Room room;
 
     //@FXML
     //private Text blah;
@@ -134,6 +137,8 @@ public class DnDcontrol {
 
             messageWindow.setEditable(false);   // --> player can't change the messages on-screen (thorsten)
             this.currentWorkDir = System.getProperty("user.home");
+
+            this.weapons = Parser.collectWeapons();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -235,6 +240,36 @@ public class DnDcontrol {
          test2[2][2]= (view.Pictures.flying_skull);
     }
 
+    // check all directions for valid movement (th)
+    private void checkMoves() {
+
+        Button[] buttons = {go_ahead, go_back, go_left, go_right};
+
+        for (Button button: buttons) {
+            button.setDisable(true);
+        }
+        String currentPosition = newDungeon.getAllRooms().getAktuellePosition();
+
+
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getSued().equals("none"))) {
+            go_ahead.setDisable(false);
+
+        }
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getNord().equals("none"))) {
+            go_back.setDisable(false);
+
+        }
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getWest().equals("none"))) {
+            go_left.setDisable(false);
+
+        }
+        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getOst().equals("none"))) {
+            go_right.setDisable(false);
+
+        }
+
+    }
+
     private void move(String direction){
         boolean movePossible = newDungeon.getAllRooms().goToNextRoom(direction);
         if(movePossible){
@@ -253,8 +288,11 @@ public class DnDcontrol {
                     break;
             }
             String position = newDungeon.getAllRooms().getAktuellePosition();
+            checkMoves();
             changeRoom(position);
-            checkRoom(newDungeon.getAllRooms().getRoomByName(position));
+            room = newDungeon.getAllRooms().getRoomByName(position);
+            checkRoom();
+            //checkRoom(newDungeon.getAllRooms().getRoomByName(position));
         } else {
             messageWindow.appendText("\nThere is no door in this direction!\n");
         }
@@ -264,7 +302,9 @@ public class DnDcontrol {
     private void changeRoom(String roomName){
         player.heal();
         lifeStat.setText(String.valueOf(player.getHp()));
-        if(!roomName.contains("Entry")) {
+
+        if(!roomName.equals("Entry")) {
+
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
             int posRow = 0;
             int posCol = 0;
@@ -274,7 +314,7 @@ public class DnDcontrol {
                 posCol = Integer.parseInt(match.group(2)) - 1;
                 loadDungeonMap(test2);
                 currentMap[posRow][posCol].setImage(Pictures.flying_skull);
-                System.out.println("POS: " + posRow + " | " + posCol);
+
             }
         } else {
             loadDungeonMap(test2);
@@ -283,40 +323,53 @@ public class DnDcontrol {
         }
     }
 
-    private void checkRoom(Room room) {
+    private void checkRoom() {
         String content = room.getContent();
+        String description = room.getDescription();
+        messageWindow.appendText(description);
         if(creatures.containsKey(content)){
-            boolean won = fight(creatures.get(content));
+            toggleMovement(true);
+            this.monster = creatures.get(content);
+            messageWindow.appendText("Du wirst von " + this.monster.getName() + " angegriffen.");
+
+            //boolean won = fight(creatures.get(content));
             if(won){
+                checkMoves();
                 room.setContent("none");
             }
         }
+        if(weapons.containsKey(content)){
+            messageWindow.appendText("Hier liegt eine Waffe namens: " + content);
+        }
     }
 
+
     // Method for the fight between player and monsters.
-    private boolean fight(Creature monster){
-        //fight = true;
+    private void fight(Creature monster) {
+
         messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
-        while (player.getHp() > 0 && monster.getHp() > 0){
-            
-            if(player.getHp() > 0 ){
-                int attackPlayer = player.attack();
-                monster.defend(attackPlayer);
-                messageWindow.appendText("\nDu triffst mit " + attackPlayer +"\n Das Monster hat noch " + monster.getHp() +"\n");
-            } else {
-                return false;
-            }
-            if(monster.getHp() > 0 ){
-                int attackMonster = monster.attack();
-                player.defend(attackMonster);
-                messageWindow.appendText("\nDas Monster trifft  dich mit " + attackMonster +"\n Du hast noch " + player.getHp() +"\n");
-                lifeStat.setText(String.valueOf(player.getHp()));
-            } else {
-                return true;
-            }
-            
+
+        if (player.getHp() > 0) {
+            int attackPlayer = player.attack();
+            monster.defend(attackPlayer);
+            messageWindow.appendText("\nDu triffst mit " + attackPlayer + "\n Das Monster hat noch " + monster.getHp() + "\n");
+        } else {
+            // todo you died method to end game
+            won = false;
         }
-        return false;
+        if (monster.getHp() > 0) {
+            int attackMonster = monster.attack();
+            player.defend(attackMonster);
+            messageWindow.appendText("\nDas Monster trifft  dich mit " + attackMonster + "\n Du hast noch " + player.getHp() + "\n");
+            lifeStat.setText(String.valueOf(player.getHp()));
+        } else {
+            won = true;
+            checkMoves();
+            room.setContent("none");
+
+        }
+
+        won = false;
     }
 
     private ImageView[][] currentMap;
@@ -336,7 +389,14 @@ public class DnDcontrol {
     // implement or call the behavior expected from the game
     // when the player clicks on the "attack" button (thorsten)
     private void attackPressed(ActionEvent actionEvent) {   // test method (thorsten)
-        messageWindow.appendText("\nYou attack the monster and hit for x points of damage.\n");
+        fight(monster);
+    }
+
+    private void toggleMovement(boolean mode){
+        go_ahead.setDisable(mode);
+        go_back.setDisable(mode);
+        go_left.setDisable(mode);
+        go_right.setDisable(mode);
     }
 
 
