@@ -322,14 +322,14 @@ public class DnDcontrol {
                 loadDungeonMap(test2);
                 Image currentRoomImage = currentRoomViewMap[posRow][posCol];
                 roomPic.setImage(currentRoomImage);
-                currentMap[posRow][posCol].setImage(Pictures.flying_skull);
+                currentMap[posRow][posCol].setImage(Pictures.player_orange_bg);
 
             }
         } else {
             loadDungeonMap(test2);
             Image currentRoomImage = currentRoomViewMap[0][2];
             roomPic.setImage(currentRoomImage);
-            currentMap[0][2].setImage(Pictures.flying_skull); // eventually add info where in rooms.txt
+            currentMap[0][2].setImage(Pictures.player_orange_bg); // eventually add info where in rooms.txt
             
         }
     }
