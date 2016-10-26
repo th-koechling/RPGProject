@@ -71,38 +71,38 @@ public class Castle {
     
     private static void fillIamgeToDescription (){
         
-        imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.dngn_entrance);
-        imageToDescription.put("A long dark hallway.", view.Pictures.lit_corridor);
-        imageToDescription.put("A small room, sparsely lighted by a torch." ,view.Pictures.floor_room);
-        imageToDescription.put("A high hall - the high ceiling is lost in the darkness.", view.Pictures.stone_arch);
-        imageToDescription.put("Hallway with a tight branch-off.", view.Pictures.floor_light);
-        imageToDescription.put("An old chamber thomb with lots of cobweb.", view.Pictures.altar);
-        imageToDescription.put("Small dimly lit room.", view.Pictures.floor_swamp);
-        imageToDescription.put("Chamber lighted by bright torches.", view.Pictures.rock_wall14);
-        imageToDescription.put("Gloomy chamber with many old carcases.", view.Pictures.floor_swamp);
-        imageToDescription.put("This seems to be the armory of the dwarf. The most mighty weapon seems to be the lance.", view.Pictures.stone_arch);
-        imageToDescription.put("Gloomy room with many bones.", view.Pictures.spiked_pit );
-        imageToDescription.put("Gloomy room with many bones", view.Pictures.spiked_pit);
-        imageToDescription.put("Dark room with no light.", view.Pictures.lit_corridor );
-        imageToDescription.put("Big hall with an offensive smell of burned meat.", view.Pictures.lava );
-        imageToDescription.put("Narrow hallway", view.Pictures.floor);
-        imageToDescription.put("Big dark cave arch.", view.Pictures.stone_arch);
-        imageToDescription.put("Narrow hall.", view.Pictures.floor_room);
-        imageToDescription.put("Narrow hallway.", view.Pictures.floor);
-        imageToDescription.put("Hallway with thousands of spiders.", view.Pictures.corridor);
-        imageToDescription.put("Narrow hallway with thousands of spiders.", view.Pictures.dngn_enter_abyss);
-        imageToDescription.put("Small room with an old wooden box.", view.Pictures.raised_drawbridge_h);
-        imageToDescription.put("Large Hallway with mysterious cold white light.", view.Pictures.hallway_light);
-        imageToDescription.put("Crossing with two large tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.", view.Pictures.t_junction);
-        imageToDescription.put("Round room sun-drenched with broken glass all over the ground, the ceiling is too high to get out.", view.Pictures.view_outside);
-        imageToDescription.put("Muddy cave with strong rotten smell and foggy greenish light.", view.Pictures.green_cave);
-        imageToDescription.put("Ostentatious hallway made of bright shiny stone with huge chandeliers and a luxuriant ceiling painting.", view.Pictures.fancy_hallway);
-        imageToDescription.put("Luxuriant hall with sacral ceiling paintings.", view.Pictures.fance_hall);
-        imageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", view.Pictures.treasure_room);
-        imageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", view.Pictures.dark_ritual);
-        imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", view.Pictures.secret_passage);
-        imageToDescription.put("High hallway flanked with statuary.", view.Pictures.statue_hallway);
-        imageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", view.Pictures.disfigured_hallway);
+        imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.tile03);
+        imageToDescription.put("A long dark hallway.", view.Pictures.tile11);
+        imageToDescription.put("A small room, sparsely lighted by a torch." ,view.Pictures.tile12);
+        imageToDescription.put("A high hall - the high ceiling is lost in the darkness.", view.Pictures.tile13);
+        imageToDescription.put("Hallway with a tight branch-off.", view.Pictures.tile21);
+        imageToDescription.put("An old chamber thomb with lots of cobweb.", view.Pictures.tile22);
+        imageToDescription.put("Small dimly lit room.", view.Pictures.tile23);
+        imageToDescription.put("Chamber lighted by bright torches.", view.Pictures.tile31);
+        imageToDescription.put("Gloomy chamber with many old carcases.", view.Pictures.tile33);
+        imageToDescription.put("This seems to be the armory of the dwarf. The most mighty weapon seems to be the lance.", view.Pictures.tile41);
+        imageToDescription.put("Gloomy room with many bones.", view.Pictures.tile24 );
+        imageToDescription.put("Gloomy room with many bones", view.Pictures.tile25);
+        imageToDescription.put("Dark room with no light.", view.Pictures.tile26 );
+        imageToDescription.put("Big hall with an offensive smell of burned meat.", view.Pictures.tile36);
+        imageToDescription.put("Narrow hallway", view.Pictures.tile37);
+        imageToDescription.put("Big dark cave arch.", view.Pictures.tile47);
+        imageToDescription.put("Narrow hall.", view.Pictures.tile35);
+        imageToDescription.put("Narrow hallway.", view.Pictures.tile45);
+        imageToDescription.put("Hallway with thousands of spiders.", view.Pictures.tile44);
+        imageToDescription.put("Narrow hallway with thousands of spiders.", view.Pictures.tile46);
+        imageToDescription.put("Small room with an old wooden box.", view.Pictures.tile56);
+        imageToDescription.put("Large Hallway with mysterious cold white light.", view.Pictures.tile16);
+        imageToDescription.put("Crossing with two large tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.", view.Pictures.tile06);
+        imageToDescription.put("Round room sun-drenched with broken glass all over the ground, the ceiling is too high to get out.", view.Pictures.tile05);
+        imageToDescription.put("Muddy cave with strong rotten smell and foggy greenish light.", view.Pictures.tile07);
+        imageToDescription.put("Ostentatious hallway made of bright shiny stone with huge chandeliers and a luxuriant ceiling painting.", view.Pictures.tile54);
+        imageToDescription.put("Luxuriant hall with sacral ceiling paintings.", view.Pictures.tile64);
+        imageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", view.Pictures.tile65);
+        imageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", view.Pictures.tile61);
+        imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", view.Pictures.tile52);
+        imageToDescription.put("High hallway flanked with statuary.", view.Pictures.tile63);
+        imageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", view.Pictures.tile62);
         
         roomImageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.dungeon_entry);
         roomImageToDescription.put("A long dark hallway.", view.Pictures.long_dark_hallway);
@@ -166,7 +166,7 @@ public class Castle {
         for (int  i = 0; i < castleView.length; i++){
             for (int j = 0; j < castleView[i].length; j++){
                 if(castleView[i][j]== null){
-                    castleView[i][j] = view.Pictures.rock_wall01;
+                    castleView[i][j] = view.Pictures.tile01;
                     roomView[i][j] = view.Pictures.rock_wall01;
                 }
                     
