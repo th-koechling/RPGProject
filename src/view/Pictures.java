@@ -315,6 +315,67 @@ public class Pictures {
             diamond, emerald, gold, jade_ring, ruby_ring, sapphire, sapphire_ring, shiny_ring, skeleton_key,
             spectral_amulet, spellbook, trumpet, unicorn_horn, violet_gem, life, magic};
 
+    // dungeon number one, tiles: import images from disk:
+    public static final Image tile01 = new Image("/view/images/dungeon1/01.png");
+    public static final Image tile02 = new Image("/view/images/dungeon1/02.png");
+    public static final Image tile03 = new Image("/view/images/dungeon1/03.png");
+    public static final Image tile04 = new Image("/view/images/dungeon1/04.png");
+    public static final Image tile05 = new Image("/view/images/dungeon1/05.png");
+    public static final Image tile06 = new Image("/view/images/dungeon1/06.png");
+    public static final Image tile07 = new Image("/view/images/dungeon1/07.png");
+    public static final Image tile11 = new Image("/view/images/dungeon1/11.png");
+    public static final Image tile12 = new Image("/view/images/dungeon1/12.png");
+    public static final Image tile13 = new Image("/view/images/dungeon1/13.png");
+    public static final Image tile14 = new Image("/view/images/dungeon1/14.png");
+    public static final Image tile15 = new Image("/view/images/dungeon1/15.png");
+    public static final Image tile16 = new Image("/view/images/dungeon1/16.png");
+    public static final Image tile17 = new Image("/view/images/dungeon1/17.png");
+    public static final Image tile21 = new Image("/view/images/dungeon1/21.png");
+    public static final Image tile22 = new Image("/view/images/dungeon1/22.png");
+    public static final Image tile23 = new Image("/view/images/dungeon1/23.png");
+    public static final Image tile24 = new Image("/view/images/dungeon1/24.png");
+    public static final Image tile25 = new Image("/view/images/dungeon1/25.png");
+    public static final Image tile26 = new Image("/view/images/dungeon1/26.png");
+    public static final Image tile27 = new Image("/view/images/dungeon1/27.png");
+    public static final Image tile31 = new Image("/view/images/dungeon1/31.png");
+    public static final Image tile32 = new Image("/view/images/dungeon1/32.png");
+    public static final Image tile33 = new Image("/view/images/dungeon1/33.png");
+    public static final Image tile34 = new Image("/view/images/dungeon1/34.png");
+    public static final Image tile35 = new Image("/view/images/dungeon1/35.png");
+    public static final Image tile36 = new Image("/view/images/dungeon1/36.png");
+    public static final Image tile37 = new Image("/view/images/dungeon1/37.png");
+    public static final Image tile41 = new Image("/view/images/dungeon1/41.png");
+    public static final Image tile42 = new Image("/view/images/dungeon1/42.png");
+    public static final Image tile43 = new Image("/view/images/dungeon1/43.png");
+    public static final Image tile44 = new Image("/view/images/dungeon1/44.png");
+    public static final Image tile45 = new Image("/view/images/dungeon1/45.png");
+    public static final Image tile46 = new Image("/view/images/dungeon1/46.png");
+    public static final Image tile47 = new Image("/view/images/dungeon1/47.png");
+    public static final Image tile51 = new Image("/view/images/dungeon1/51.png");
+    public static final Image tile52 = new Image("/view/images/dungeon1/52.png");
+    public static final Image tile53 = new Image("/view/images/dungeon1/53.png");
+    public static final Image tile54 = new Image("/view/images/dungeon1/54.png");
+    public static final Image tile55 = new Image("/view/images/dungeon1/55.png");
+    public static final Image tile56 = new Image("/view/images/dungeon1/56.png");
+    public static final Image tile57 = new Image("/view/images/dungeon1/57.png");
+    public static final Image tile61 = new Image("/view/images/dungeon1/61.png");
+    public static final Image tile62 = new Image("/view/images/dungeon1/62.png");
+    public static final Image tile63 = new Image("/view/images/dungeon1/63.png");
+    public static final Image tile64 = new Image("/view/images/dungeon1/64.png");
+    public static final Image tile65 = new Image("/view/images/dungeon1/65.png");
+    public static final Image tile66 = new Image("/view/images/dungeon1/66.png");
+    public static final Image tile67 = new Image("/view/images/dungeon1/67.png");
+
+    // dungeon number one: tiles are tailored according to the layout:
+    public static final Image[][] dungeonOne =
+            {{tile01, tile02, tile03, tile04, tile05, tile06, tile07},
+             {tile11, tile12, tile13, tile14, tile15, tile16, tile17},
+             {tile21, tile22, tile23, tile24, tile25, tile26, tile27},
+             {tile31, tile32, tile33, tile34, tile35, tile36, tile37},
+             {tile41, tile42, tile43, tile44, tile45, tile46, tile47},
+             {tile51, tile52, tile53, tile54, tile55, tile56, tile57},
+             {tile61, tile62, tile63, tile64, tile65, tile66, tile67}};
+
 
 
     // testing testing testing: a visual map for display on the GUI that shows the dungeon
