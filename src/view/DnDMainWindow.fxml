@@ -59,7 +59,7 @@
          </font>
       </Label>
       <Button fx:id="new_game" layoutX="37.0" layoutY="524.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="140.0" text="New Game" />
-      <Button fx:id="attack" layoutX="584.0" layoutY="526.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="Attack" />
+      <Button fx:id="attack" layoutX="584.0" layoutY="526.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="Attack" disable="true" />
       <Button fx:id="pick_up" layoutX="695.0" layoutY="526.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="Pick up" />
       <Button fx:id="testButton" layoutX="803.0" layoutY="525.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="100.0" text="clac!" />
       <TextArea fx:id="messageWindow" layoutX="563.0" layoutY="81.0" prefHeight="274.0" prefWidth="355.0" text="Start a new game by clicking on the button!" wrapText="true" />

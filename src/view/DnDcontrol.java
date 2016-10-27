@@ -253,8 +253,9 @@ public class DnDcontrol {
     }
 
     private void testButtonPressed(ActionEvent actionEvent) {
-        infoPic.setImage(Pictures.getRandomPic(Pictures.creaturePics));
-         test2[2][2]= (view.Pictures.flying_skull);
+        attack.setDisable(false);
+        //infoPic.setImage(Pictures.getRandomPic(Pictures.creaturePics));
+         //test2[2][2]= (view.Pictures.flying_skull);
     }
 
     // check all directions for valid movement (th)
@@ -350,6 +351,7 @@ public class DnDcontrol {
         messageWindow.appendText(description);
         if(creatures.containsKey(content)){
             toggleMovement(true);
+            attack.setDisable(false);
             this.monster = creatures.get(content);
             messageWindow.appendText("Du wirst von " + this.monster.getName() + " angegriffen.");
 
@@ -386,9 +388,7 @@ public class DnDcontrol {
 
     // Method for the fight between player and monsters.
     private void fight(Creature monster) {
-
         messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
-
         if (player.getHp() > 0) {
             int attackPlayer = player.attack();
             monster.defend(attackPlayer);
@@ -404,6 +404,8 @@ public class DnDcontrol {
             lifeStat.setText(String.valueOf(player.getHp()));
         } else {
             won = true;
+            attack.setDisable(true);
+            System.out.println("you win!");
             checkMoves();
             room.setContent("none");
 
@@ -445,9 +447,9 @@ public class DnDcontrol {
 
 
     Image[][] test = Pictures.mapOneImages;
-    
+
     Castle newDungeon = new Castle();
-    
+
     Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
     private void switchMapRoomViwe (){
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
@@ -476,7 +478,7 @@ public class DnDcontrol {
             dungeon_map.setGridLinesVisible(true);
             roomPic.setVisible(false);
         }
-        
+
     }
     private ImageView[][] loadDungeonMap(Image[][] images) {
         newDungeon.positionRoomsByName(); // Martin tmp to test castle class will be removed
@@ -493,7 +495,7 @@ public class DnDcontrol {
                 imageCells[i][j].setImage(images[i][j]);
             }
         }
-        
+
         return imageCells;
     }
 
