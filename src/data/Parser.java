@@ -1,5 +1,6 @@
 package data;
 
+import gameMechanics.Armour;
 import gameMechanics.Creature;
 import gameMechanics.Weapon;
 
@@ -36,7 +37,7 @@ public class Parser {
             int xp = 0;
             int hp = 0;
             int baseDamage = 0;
-            int armor = 0;
+            Armour armour = new Armour("", 0, "");
             Weapon weapon = new Weapon("", 0, "");
 
             String line;
@@ -56,16 +57,16 @@ public class Parser {
                 } else if (line.matches("BaseDamage: .*")) {
                     baseDamage = Integer.valueOf(line.substring(12));
                 } else if (line.matches("Armor: .*")) {
-                    armor = Integer.valueOf(line.substring(7));
+                    armour = collectArmours().get(line.substring(7));
                 } else if (line.matches("Weapon: .*")) {
 
                     weapon = collectWeapons().get(line.substring(8));
                 } else if (line.matches("")) {
 
-                    allCreatures.put(name, new Creature(name, species, description, xp, hp, armor, weapon));
+                    allCreatures.put(name, new Creature(name, species, description, xp, hp, armour, weapon));
                 }
             }
-            allCreatures.put(name, new Creature(name, species, description, xp, hp, armor, weapon));
+            allCreatures.put(name, new Creature(name, species, description, xp, hp, armour, weapon));
         } catch (Exception e) {
             System.out.println("Could not read creatures");
             System.exit(1);
@@ -109,6 +110,43 @@ public class Parser {
         return allWeapons;
     }
 
+
+    private static HashMap<String,Armour> parseArmours (String file) {
+        HashMap<String, Armour> allArmours = new HashMap<>();
+        try {
+            BufferedReader br = readFile(file);
+
+
+
+            String name = "";
+            int defence = 0;
+            String description = "";
+
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                if (line.matches("Name: .*")) {
+                    name = line.substring(6);
+                } else if (line.matches("Defence: .*")) {
+                    defence = Integer.valueOf(line.substring(9));
+                } else if (line.matches("Description: .*")) {
+                    description = line.substring(13);
+
+                } else if (line.matches("")) {
+                    allArmours.put(name, new Armour(name, defence, description));
+                }
+            }
+            allArmours.put(name, new Armour(name, defence, description));
+        }catch (Exception e){
+            System.out.println("Could not parse Weapons");
+        }
+
+        return allArmours;
+    }
+
+
     /**
      * Returns an array that contains all weapons saved in weapons.txt
      * @returnArray  with all weapons
@@ -116,6 +154,15 @@ public class Parser {
 
     public static HashMap<String, Weapon> collectWeapons(){
         return parseWeapons("src/data/weapons.txt");
+    }
+
+    /**
+     * Returns an array that contains all weapons saved in weapons.txt
+     * @returnArray  with all weapons
+     */
+
+    public static HashMap<String, Armour> collectArmours(){
+        return parseArmours("src/data/armors.txt");
     }
 
     /**

@@ -1,0 +1,19 @@
+Name: Shirt
+Defence: 2
+Description: You have only your shirt...
+
+Name: Ratskin
+Defence: 1
+Description: Grey rat fur full of cooties.
+
+Name: Dragonscales
+Defence: 4
+Description: Shiny black scales with sharp edges.
+
+Name: Mithril armour
+Defence: 3
+Description: Shiny metallic shirt made by dwarven hand.
+
+Name: Dragonsacale armour
+Defence: 4
+Description: Leather shirt made of dragonscales.

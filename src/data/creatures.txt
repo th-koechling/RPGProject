@@ -4,7 +4,7 @@ Description: This is you.
 Experience: 1
 HealthStatus: 200
 BaseDamage: 4
-Armor: 2
+Armor: Shirt
 Weapon: Hand
 
 Name: Excursius
@@ -13,7 +13,7 @@ Description: A big green dragon, 5m tall with a 8m long tail.
 Experience: 3
 HealthStatus: 25
 BaseDamage: 10
-Armor: 4
+Armor: Dragonscales
 Weapon: Fire
 
 Name: Grodagrim
@@ -22,7 +22,7 @@ Description: A small dwarf with a long battle axe.
 Experience: 2
 HealthStatus: 35
 BaseDamage: 7
-Armor: 3
+Armor: Mithril armour
 Weapon: Axe
 
 Name: Gothofiedus
@@ -31,7 +31,7 @@ Description: A 50cm sized rat; gray with intelligent eyes.
 Experience: 1
 HealthStatus: 10
 BaseDamage: 2
-Armor: 1
+Armor: Ratskin
 Weapon: Teeth
 
 Name: Lothofiedus
@@ -40,7 +40,7 @@ Description: A 50cm sized rat; gray with intelligent eyes.
 Experience: 5
 HealthStatus: 10
 BaseDamage: 2
-Armor: 1
+Armor: Ratskin
 Weapon: Teeth
 
 Name: Rothofiedus
@@ -49,5 +49,5 @@ Description: A 50cm sized rat; gray with intelligent eyes.
 Experience: 10
 HealthStatus: 10
 BaseDamage: 2
-Armor: 1
+Armor: Ratskin
 Weapon: Teeth
