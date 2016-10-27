@@ -425,7 +425,8 @@ public class DnDcontrol {
         } else {
             won = true;
             attack.setDisable(true);
-            System.out.println("you win!");
+            player.setXp(player.getXp() + 1);
+            System.out.println("xp now: " + player.getXp());
             checkMoves();
             room.setContent("none");
 
