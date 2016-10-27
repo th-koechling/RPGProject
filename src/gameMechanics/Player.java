@@ -17,8 +17,8 @@ public class Player extends Creature {
     boolean hasDragonTreasure;
     Inventory inventory;
 
-    public Player(String name,String species, String description, int xp, int hp, int armor, Weapon weapon, int inventorySpace) {
-        super(name, species, description,xp, hp, armor, weapon);
+    public Player(String name,String species, String description, int xp, int hp, Armour armour, Weapon weapon, int inventorySpace) {
+        super(name, species, description,xp, hp, armour, weapon);
         this.isAlive = true;
         this.hasDragonTreasure = false;
         this.inventorySpace = inventorySpace;
@@ -29,7 +29,7 @@ public class Player extends Creature {
         //this.itemsInInventory = null;
     }
     public Player(Creature model, int inventorySpace) {
-        super(model.getName(), model.getSpecies(), model.getDescription(),model.getXp(), model.getMaxhp(), model.getArmor(), model.getWeapon());
+        super(model.getName(), model.getSpecies(), model.getDescription(),model.getXp(), model.getMaxhp(), model.getArmour(), model.getWeapon());
         this.inventorySpace = inventorySpace;
         this.inventory = new Inventory((inventorySpace));
         if(!this.getWeapon().getName().equals("Hand")){
@@ -69,6 +69,10 @@ public class Player extends Creature {
      */
     public void pickBestWeaponFromInv(){
         this.setWeapon(inventory.getBestWeapon());
+    }
+
+    public void pickBestArmourFromInv(){
+        this.setArmour(inventory.getBestArmour());
     }
 
     /**

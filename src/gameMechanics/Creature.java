@@ -11,17 +11,17 @@ public class Creature {
     private int xp;
     private final int maxhp;
     private int hp;
-    private int armor;
+    private Armour armour;
     private Weapon weapon;
 
-    public Creature(String name, String species, String description, int xp, int hp, int armor, Weapon weapon) {
+    public Creature(String name, String species, String description, int xp, int hp, Armour armour, Weapon weapon) {
         this.maxhp = hp;
         this.setName(name);
         this.setSpecies(species);
         this.setDescription(description);
         this.setXp(xp);
         this.setHp(hp);
-        this.setArmor(armor);
+        this.setArmour(armour);
         this.setWeapon(weapon);
     }
 
@@ -49,7 +49,7 @@ public class Creature {
             hp = hp - attackValue;
         }
         */
-        this.hp = this.hp + armor - attackValue;
+        this.hp = this.hp + armour.getDefence() - attackValue;
         if(this.hp < 0){
             this.hp = 0;
         }
@@ -85,8 +85,8 @@ public class Creature {
         this.hp = hp;
     }
 
-    public void setArmor(int armor) {
-        this.armor = armor;
+    public void setArmour(Armour armour) {
+        this.armour = armour;
     }
 
     public void setWeapon(Weapon weapon) {
@@ -113,8 +113,8 @@ public class Creature {
         return this.hp;
     }
 
-    public int getArmor() {
-        return this.armor;
+    public Armour getArmour() {
+        return this.armour;
     }
 
     public Weapon getWeapon() {

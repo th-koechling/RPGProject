@@ -136,6 +136,26 @@ public class Inventory implements Iterable<Item>{
         }
         return weapons;
     }
+
+    /**
+     * Returns aan armour array of all armours in the inventory
+     * @return an Armour[]
+     */
+    public Armour[] getArmours() {
+        Armour[] armours=new Armour[0];
+        for(Item current:items){
+            if(current.getClass().equals(Armour.class)){
+                Armour anotherArmour = (Armour) current;
+                Armour[]temp=armours;
+                armours=new Armour[temp.length+1];
+                for(int i=0;i<temp.length;i++){
+                    armours[i]=temp[i];
+                }
+                armours[temp.length]=anotherArmour;
+            }
+        }
+        return armours;
+    }
     /**
      * Returns a weapon array of all treasures in the inventory
      * @return a Treasure[]
@@ -179,6 +199,17 @@ public class Inventory implements Iterable<Item>{
         for(int i=0;i<weapons.length;i++){
             if(weapons[i].getForce()>dummy.getForce()){
                 dummy=weapons[i];
+            }
+        }
+        return dummy;
+    }
+
+    public Armour getBestArmour() {
+        Armour dummy = new Armour("Dummy",0,"Dummy");
+        Armour[] armours = getArmours();
+        for(int i=0;i<armours.length;i++){
+            if(armours[i].getDefence()>dummy.getDefence()){
+                dummy=armours[i];
             }
         }
         return dummy;

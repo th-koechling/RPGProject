@@ -49,6 +49,7 @@ public class DnDcontrol {
     private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/data/gold.txt");
     private Player player = new Player(creatures.get("You"),49);
     private HashMap<String, Weapon> weapons =data.Parser.collectWeapons();
+    private HashMap<String, Armour> armours =data.Parser.collectArmours();
     // MERGE CONFLICT END
 
 
@@ -356,6 +357,21 @@ public class DnDcontrol {
             //boolean won = fight(creatures.get(content));
             if(won){
                 checkMoves();
+                room.setContent("none");
+            }
+        }
+        if(armours.containsKey(content)){
+            //messageWindow.appendText("Hier liegt eine Waffe namens: " + content);
+            messageWindow.appendText("Du hast "+armours.get(content).getName()+" gefunden.\n");
+            boolean added=player.pickupItem(armours.get(content));
+            if(added){
+                messageWindow.appendText("Fund dem Inventar hinzugefügt:");
+                for(Item loot:player.getInventory()){
+                    messageWindow.appendText("\n"+loot.getName()+"--->"+loot.getDescription());
+                }
+                messageWindow.appendText("\nAktuelle angelegte Ruestung: "+player.getArmour().getName()+"\nChecke Inventar...");
+                player.pickBestArmourFromInv();
+                messageWindow.appendText("\nNun angelegt: "+player.getArmour().getName());
                 room.setContent("none");
             }
         }

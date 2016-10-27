@@ -12,7 +12,7 @@ O: 1-2
 S: none
 W: none
 Description: A long dark hallway.
-Content: none
+Content: Mithril armour
 
 Name: 1-2
 N: none
