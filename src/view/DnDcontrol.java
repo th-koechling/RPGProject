@@ -1,6 +1,7 @@
 package view;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.sun.rowset.internal.Row;
@@ -36,8 +37,9 @@ public class DnDcontrol {
     private String currentWorkDir;
     private boolean fight = false;
     private HashMap<String, Creature> creatures = data.Parser.collectCreatures();
-    private Creature player = creatures.get("You");
-
+    private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/data/gold.txt");
+    private Player player = new Player(creatures.get("You"),49);
+    private HashMap<String, Weapon> weapons =data.Parser.collectWeapons();
     //@FXML
     //private Text blah;
 
@@ -286,6 +288,28 @@ public class DnDcontrol {
             if(won){
                 room.setContent("none");
             }
+        }
+        if(weapons.containsKey(content)){
+            messageWindow.appendText("Du hast "+weapons.get(content).getName()+" gefunden.\n");
+            boolean added=player.pickupItem(weapons.get(content));
+            if(added){
+                messageWindow.appendText("Fund dem Inventar hinzugefügt:");
+                for(Item loot:player.getInventory()){
+                    messageWindow.appendText("\n"+loot.getName()+"--->"+loot.getDescription());
+                }
+                messageWindow.appendText("\nAktuelle angelegte Waffe: "+player.getWeapon().getName()+"\nChecke Inventar...");
+                player.pickBestWeaponFromInv();
+                messageWindow.appendText("\nNun angelegt: "+player.getWeapon().getName());
+                room.setContent("none");
+            }
+        }
+        if(treasures.containsKey(content)){
+            messageWindow.appendText("Du hast "+treasures.get(content).getDescription()+" gefunden.\n");
+            boolean added=player.pickupItem(treasures.get(content));
+            if(added){
+                room.setContent("none");
+            }
+
         }
     }
 

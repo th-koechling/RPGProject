@@ -7,7 +7,7 @@ package gameMechanics;
 
 /**
  *
- * @author Martins
+ * @author Fabian Billenkamp
  */
 public class Player extends Creature {
     // String name;     comes from super class now
@@ -19,7 +19,18 @@ public class Player extends Creature {
         super(name, species, description,xp, hp, armor, weapon);
         this.inventorySpace = inventorySpace;
         this.inventory = new Inventory((inventorySpace));
-        inventory.addItem(weapon);
+        if(!weapon.getName().equals("Hand")){
+            inventory.addItem(weapon);
+        }
+
+    }
+    public Player(Creature model, int inventorySpace) {
+        super(model.getName(), model.getSpecies(), model.getDescription(),model.getXp(), model.getMaxhp(), model.getArmor(), model.getWeapon());
+        this.inventorySpace = inventorySpace;
+        this.inventory = new Inventory((inventorySpace));
+        if(!this.getWeapon().getName().equals("Hand")){
+            inventory.addItem(this.getWeapon());
+        }
     }
 
     // getter methods
@@ -28,7 +39,7 @@ public class Player extends Creature {
      * This method returns the free space in a player inventory
      */
     public int getInventorySpace() {
-        return this.inventory.getFreeMaxCapacity();
+        return this.inventory.getFreeCapacity();
     }
     /**
      * @Author Fabian Billenkamp
@@ -36,13 +47,17 @@ public class Player extends Creature {
      * In case the item can not be added due to inventory being full, the weakest
      * weapon is removed from inventory and the item is added.
      */
-    public void pickupItem(Item item){
-        boolean added= this.inventory.addItem(item);
+    //Since currently there is only one non-weapon item, no conflicts should emerge from this.
+    //
+    public boolean pickupItem(Item item){
+        boolean added = this.inventory.addItem(item);
         if(!added){
-            this.inventory.dropWeakestWeapon();
-            this.inventory.addItem(item);
+            Weapon weakest= this.inventory.getWeakestWeapon();
+            this.inventory.removeItem(weakest);
+            added=this.inventory.addItem(item);
         }
 
+        return added;
     }
     /**
      * @Author Fabian Billenkamp
@@ -52,4 +67,9 @@ public class Player extends Creature {
         this.setWeapon(inventory.getBestWeapon());
     }
 
+    /**
+     * Getter method for player inventory
+     * @return The inventory
+     */
+    public Inventory getInventory(){return  this.inventory;}
 }

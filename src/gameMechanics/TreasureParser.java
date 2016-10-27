@@ -1,12 +1,10 @@
 package gameMechanics;
 
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +15,6 @@ public class TreasureParser {
     public Map<String, Treasure> parseTreasures(String treasureFilePath){
         Map<String, Treasure> treasures = new HashMap<>();
         Path textFile= Paths.get(treasureFilePath).toAbsolutePath();
-        System.out.println(textFile);
         try{
             BufferedReader br = new BufferedReader( Files.newBufferedReader(textFile));
             String line = br.readLine();
