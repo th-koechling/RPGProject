@@ -1,5 +1,11 @@
 package gameMechanics;
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
+
 /**
  * Class for an inventory for the game implementation, is iterable and using Item as an iterator
  * @author Fabian Billenkamp
@@ -72,20 +78,21 @@ public class Inventory implements Iterable<Item>{
      * @return the item that was removed
      */
     public Item removeItem(Item item){
-        Item[] temp= new Item[items.length-1];
-        for(int i=0;i<items.length;i++){
-            int j=0;
-            if(items[i]!=item){
-                temp[i]=items[j];
-                j++;
-                }else{
-                i++;
-            }
-            }
-            items=temp;
-            return item;
+        List<Item> temp = new ArrayList<Item>(Arrays.asList(items));
+        temp.remove(item);
+        items=new Item[0];
+        for(Item keep : temp){
+            addItem(keep);
+        }
+        return item;
     }
-
+    /**
+     * Returns the number of items in the inventory (the actual size of the inventory)
+     * @return integer total number of items
+     */
+    public int getMaxCapacity(){
+        return maxCapacity;
+    }
     /**
      * Returns the number of items in the inventory (the actual size of the inventory)
      * @return integer total number of items
@@ -95,11 +102,11 @@ public class Inventory implements Iterable<Item>{
     }
 
     /**
-     * Returns the maximum capacity for item objects
+     * Returns the free capacity for a number of item objects
      * @return integer maximum total capacity for items
      */
-    public int getMaxCapacity() {
-        return maxCapacity;
+    public int getFreeCapacity() {
+        return maxCapacity-items.length;
     }
 
     /**
@@ -146,6 +153,35 @@ public class Inventory implements Iterable<Item>{
             }
         }
         return treasures;
+    }
+
+    /**
+     * This method is used to determine the weakest weapon by force from inventory and remove it
+     */
+    public Weapon getWeakestWeapon(){
+        Weapon dummy = new Weapon("Dummy",Integer.MAX_VALUE,"Dummy");
+        Weapon[] weapons = getWeapons();
+        for(int i=0;i<weapons.length;i++){
+            if(weapons[i].getForce()<dummy.getForce()){
+                dummy=weapons[i];
+            }
+        }
+        return dummy;
+    }
+
+    /**
+     * Returns a weapon array of all treasures in the inventory
+     * @return a Treasure[]
+     */
+    public Weapon getBestWeapon() {
+        Weapon dummy = new Weapon("Dummy",0,"Dummy");
+        Weapon[] weapons = getWeapons();
+        for(int i=0;i<weapons.length;i++){
+            if(weapons[i].getForce()>dummy.getForce()){
+                dummy=weapons[i];
+            }
+        }
+        return dummy;
     }
 
     /**

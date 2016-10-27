@@ -8,7 +8,7 @@ public class TestCreature {
     public static void main(String[] args){
         Weapon schwert = new Weapon();
         schwert.setForce(10);
-        Player testPlayer = new Player("Klaus", "Zwerg", "Kampfzwerg", 1, 100, 15, schwert);
+        Player testPlayer = new Player("Klaus", "Zwerg", "Kampfzwerg", 1, 100, 15, schwert,7);
         System.out.println(testPlayer.attack());
 
         NPC testNpc = new NPC("HAL", "AI", "NPC", 3, 25, 8, schwert, 0);

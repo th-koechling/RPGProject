@@ -1,6 +1,7 @@
 package view;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import data.Parser;
 import dungeon.DnDmodel;
@@ -36,11 +37,20 @@ public class DnDcontrol {
     private String currentWorkDir;
     private boolean fight = false;
     private HashMap<String, Creature> creatures = data.Parser.collectCreatures();
-    private Creature player = creatures.get("You");
+
+    // MERGE CONFLICT BEGIN
+    //private Creature player = creatures.get("You");
     private Creature monster;
     boolean won = false;
-    private HashMap<String, Weapon> weapons = new HashMap<>();
+    //private HashMap<String, Weapon> weapons = new HashMap<>();
     Room room;
+
+
+    private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/data/gold.txt");
+    private Player player = new Player(creatures.get("You"),49);
+    private HashMap<String, Weapon> weapons =data.Parser.collectWeapons();
+    // MERGE CONFLICT END
+
 
     //@FXML
     //private Text blah;
@@ -350,7 +360,26 @@ public class DnDcontrol {
             }
         }
         if(weapons.containsKey(content)){
-            messageWindow.appendText("Hier liegt eine Waffe namens: " + content);
+            //messageWindow.appendText("Hier liegt eine Waffe namens: " + content);
+            messageWindow.appendText("Du hast "+weapons.get(content).getName()+" gefunden.\n");
+            boolean added=player.pickupItem(weapons.get(content));
+            if(added){
+                messageWindow.appendText("Fund dem Inventar hinzugefügt:");
+                for(Item loot:player.getInventory()){
+                    messageWindow.appendText("\n"+loot.getName()+"--->"+loot.getDescription());
+                }
+                messageWindow.appendText("\nAktuelle angelegte Waffe: "+player.getWeapon().getName()+"\nChecke Inventar...");
+                player.pickBestWeaponFromInv();
+                messageWindow.appendText("\nNun angelegt: "+player.getWeapon().getName());
+                room.setContent("none");
+            }
+        }
+        if(treasures.containsKey(content)){
+            messageWindow.appendText("Du hast "+treasures.get(content).getDescription()+" gefunden.\n");
+            boolean added=player.pickupItem(treasures.get(content));
+            if(added){
+                room.setContent("none");
+            }
         }
     }
 
