@@ -2,7 +2,7 @@ Name: You
 Species: Human
 Description: This is you.
 Experience: 1
-HealthStatus: 25
+HealthStatus: 200
 BaseDamage: 4
 Armor: 2
 Weapon: Hand
