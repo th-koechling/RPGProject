@@ -38,11 +38,8 @@ public class DnDcontrol {
     private boolean fight = false;
     private HashMap<String, Creature> creatures = data.Parser.collectCreatures();
 
-    // MERGE CONFLICT BEGIN
-    //private Creature player = creatures.get("You");
     private Creature monster;
     boolean won = false;
-    //private HashMap<String, Weapon> weapons = new HashMap<>();
     Room room;
 
 
@@ -50,7 +47,6 @@ public class DnDcontrol {
     private Player player = new Player(creatures.get("You"),49);
     private HashMap<String, Weapon> weapons =data.Parser.collectWeapons();
     private HashMap<String, Armour> armours =data.Parser.collectArmours();
-    // MERGE CONFLICT END
 
 
     //@FXML
