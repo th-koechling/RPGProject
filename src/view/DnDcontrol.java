@@ -113,7 +113,10 @@ public class DnDcontrol {
 
     @FXML
     private TextField lifeStat;
-    
+
+    @FXML
+    private TextField armourStat;
+
     @FXML // fx:id="infoPic2"  //test
     private ImageView roomPic;
     
@@ -373,6 +376,7 @@ public class DnDcontrol {
                 player.pickBestArmourFromInv();
                 messageWindow.appendText("\nNun angelegt: "+player.getArmour().getName());
                 room.setContent("none");
+                armourStat.setText(String.valueOf(player.getArmour().getDefence()));
             }
         }
         if(weapons.containsKey(content)){

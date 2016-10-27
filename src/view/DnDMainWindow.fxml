@@ -101,9 +101,9 @@
          </children>
       </Pane>
       <Label fx:id="lifeCapt" layoutX="74.0" layoutY="359.0" text="Life" />
-      <Label fx:id="magicCapt" layoutX="157.0" layoutY="359.0" text="Magic" />
+      <Label fx:id="armourCapt" layoutX="157.0" layoutY="359.0" text="Armour" />
       <TextField fx:id="lifeStat" alignment="CENTER" editable="false" layoutX="49.0" layoutY="378.0" prefHeight="26.0" prefWidth="72.0" text="25" />
-      <TextField fx:id="magicStat" alignment="CENTER" editable="false" layoutX="146.0" layoutY="378.0" prefHeight="26.0" prefWidth="64.0" text="75" />
+      <TextField fx:id="armourStat" alignment="CENTER" editable="false" layoutX="146.0" layoutY="378.0" prefHeight="26.0" prefWidth="64.0" text="2" />
       <Label layoutX="90.0" layoutY="298.0" text="Dungeon View" />
       <GridPane fx:id="dungeon_map" gridLinesVisible="true" layoutX="253.0" layoutY="80.0" prefHeight="274.0" prefWidth="292.0">
         <columnConstraints>
