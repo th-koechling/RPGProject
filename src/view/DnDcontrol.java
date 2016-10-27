@@ -287,9 +287,7 @@ public class DnDcontrol {
         }
         if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getOst().equals("none"))) {
             go_right.setDisable(false);
-
         }
-
     }
 
     private void move(String direction){
@@ -314,7 +312,6 @@ public class DnDcontrol {
             changeRoom(position);
             room = newDungeon.getAllRooms().getRoomByName(position);
             checkRoom();
-            //checkRoom(newDungeon.getAllRooms().getRoomByName(position));
         } else {
             messageWindow.appendText("\nThere is no door in this direction!\n");
         }
@@ -324,9 +321,8 @@ public class DnDcontrol {
     private void changeRoom(String roomName){
         player.heal();
         lifeStat.setText(String.valueOf(player.getHp()));
-
+        messageWindow.setText("");
         if(!roomName.equals("Entry")) {
-
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
             int posRow = 0;
             int posCol = 0;
@@ -338,7 +334,6 @@ public class DnDcontrol {
                 Image currentRoomImage = currentRoomViewMap[posRow][posCol];
                 roomPic.setImage(currentRoomImage);
                 currentMap[posRow][posCol].setImage(Pictures.player_orange_bg);
-
             }
         } else {
             loadDungeonMap(test2);

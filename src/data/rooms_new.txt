@@ -180,7 +180,7 @@ O: 0-7
 S: none
 W: 0-5
 Description: Crossing with two large tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.
-Content: test
+Content: Dragonscale armour
 
 Name: 0-5
 N: none

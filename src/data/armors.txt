@@ -14,6 +14,6 @@ Name: Mithril armour
 Defence: 3
 Description: Shiny metallic shirt made by dwarven hand.
 
-Name: Dragonsacale armour
+Name: Dragonscale armour
 Defence: 4
 Description: Leather shirt made of dragonscales.
