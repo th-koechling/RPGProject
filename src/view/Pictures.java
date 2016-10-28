@@ -55,20 +55,52 @@ public class Pictures {
     public static final Image hallway_light = new Image("/view/images/dungeon/hallway_light.png");
     public static final Image t_junction = new Image("/view/images/dungeon/t_junction.png");
     public static final Image view_outside = new Image("/view/images/dungeon/view_outside.png");
-    public static final Image green_cave = new Image("/view/images/dungeon/green_cave.png");
-    public static final Image fancy_hallway = new Image("/view/images/dungeon/fancy_hallway.png");
     public static final Image fance_hall = new Image("/view/images/dungeon/fance_hall.png");
     public static final Image treasure_room = new Image("/view/images/dungeon/treasure_room.png");
     public static final Image dark_ritual = new Image("/view/images/dungeon/dark_ritual.png");
-    public static final Image secret_passage = new Image("/view/images/dungeon/secret_passage.png");
-    public static final Image statue_hallway = new Image("/view/images/dungeon/statue_hallway.png");
-    public static final Image disfigured_hallway = new Image("/view/images/dungeon/disfigured_hallway.png");
     public static final Image dungeon_entry = new Image("/view/images/dungeon/dungeon_entry.png");
     public static final Image big_hall = new Image("/view/images/dungeon/big_hall.png");
     public static final Image small_torch = new Image("/view/images/dungeon/small_torch.png");
     public static final Image long_dark_hallway = new Image("/view/images/dungeon/long_dark_hallway.png");
     public static final Image tight_branch = new Image("/view/images/dungeon/tight_branch.png");
     public static final Image chamber_lighted = new Image("/view/images/dungeon/chamber_lighted.png");
+    public static final Image thom_cobweb = new Image("/view/images/dungeon/thom_cobweb.png");
+    public static final Image dwarf_armory = new Image("/view/images/dungeon/dwarf_armory.png");
+    public static final Image dimly_lit = new Image("/view/images/dungeon/dimly_lit.png");
+    public static final Image old_carcases = new Image("/view/images/dungeon/old_carcases.png");
+    public static final Image gloomy_bones = new Image("/view/images/dungeon/gloomy_bones.png");
+    public static final Image bone_hall = new Image("/view/images/dungeon/bone_hall.png");
+    public static final Image no_light = new Image("/view/images/dungeon/no_light.png");
+    public static final Image cold_white = new Image("/view/images/dungeon/cold_white.png");
+    public static final Image two_tubes = new Image("/view/images/dungeon/two_tubes.png");
+    public static final Image sun_drenched = new Image("/view/images/dungeon/sun_drenched.png");
+    public static final Image green_cave = new Image("/view/images/dungeon/green_cave.png");
+    public static final Image bighall_burned = new Image("/view/images/dungeon/bighall_burned.png");
+    public static final Image narrow_hallway = new Image("/view/images/dungeon/narrow_hallway.png");
+    public static final Image cave_arch = new Image("/view/images/dungeon/cave_arch.png");
+    public static final Image narrow_hall = new Image("/view/images/dungeon/narrow_hall.png");
+    public static final Image hallway_narrow = new Image("/view/images/dungeon/hallway_narrow.png");
+    public static final Image hallway_spiders = new Image("/view/images/dungeon/hallway_spiders.png");
+    public static final Image thousand_spiders = new Image("/view/images/dungeon/thousand_spiders.png");
+    public static final Image wooden_box = new Image("/view/images/dungeon/wooden_box.png");
+    public static final Image fancy_hallway = new Image("/view/images/dungeon/fancy_hallway.png");
+    public static final Image fancy_hall = new Image("/view/images/dungeon/fancy_hall.png");
+    public static final Image amber_gold = new Image("/view/images/dungeon/amber_gold.png");
+    public static final Image statue_hallway = new Image("/view/images/dungeon/statue_hallway.png");
+    public static final Image disfigured_hallway = new Image("/view/images/dungeon/disfigured_hallway.png");
+    public static final Image graveyard_pentagram = new Image("/view/images/dungeon/graveyard_pentagram.png");
+    public static final Image secret_passage = new Image("/view/images/dungeon/secret_passage.png");
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public static final String[] dungeonNames = {"corridor", "crystal_wall", "deep_water", "dngn_enter_abyss", "dngn_entrance", "floor", "floor_lair",
             "floor_light", "floor_room", "floor_swamp", "ice", "lava", "lit_corridor", "altar", "molten_lava", "throne",
