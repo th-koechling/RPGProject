@@ -3,6 +3,7 @@ package view;
 import javafx.scene.image.Image;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -221,6 +222,8 @@ public class Pictures {
     public static final Image water_nymph = new Image("view/images/monsters/water_nymph.png");
     public static final Image hill_giant_hi = new Image("view/images/monsters/hill_giant_hi.png");
     public static final Image red_dragon_hi = new Image("view/images/monsters/red_dragon_hi.png");
+    public static final Image sewer_rat = new Image("view/images/monsters/sewer_rat.png");
+    public static final Image wererat = new Image("view/images/monsters/wererat.png");
 
     public static final String[] creatureNames = {"ancient_lich", "antaeus", "asmodeus", "asmodeus_new", "baby_purple_worm",
             "balrug", "beholder", "black_dragon", "black_naga", "blue_death", "bone_devil", "cacodemon",
@@ -237,7 +240,7 @@ public class Pictures {
             "shadow_fiend", "skeletal_dragon", "skeletal_warrior", "snorg", "soldier_ant", "spectral_warrior",
             "storm_giant", "succubus", "tengu", "tiger", "titan", "two_headed_ogre", "unseen_horror", "vampire",
             "vampire_bat", "vampire_lord", "vault_guardian", "wraith", "wyvern", "xan", "xtahua", "yeenoghu",
-            "yellow_dragon", "water_nymph", "hill_giant_hi", "red_dragon_hi"};
+            "yellow_dragon", "water_nymph", "hill_giant_hi", "red_dragon_hi", "sewer_rat", "wererat"};
 
     public static final Image[] creaturePics = {ancient_lich, antaeus, asmodeus, asmodeus_new, baby_purple_worm, balrug,
             beholder, black_dragon, black_naga, blue_death, bone_devil, cacodemon, carnivorous_ape, cave_spider,
@@ -252,7 +255,7 @@ public class Pictures {
             scorpion, serpent_of_hell, shadow_dragon, shadow_fiend, skeletal_dragon, skeletal_warrior,
             snorg, soldier_ant, spectral_warrior, storm_giant, succubus, tengu, tiger, titan, two_headed_ogre,
             unseen_horror, vampire, vampire_bat, vampire_lord, vault_guardian, wraith, wyvern, xan, xtahua,
-            yeenoghu, yellow_dragon, water_nymph, hill_giant_hi, red_dragon_hi};
+            yeenoghu, yellow_dragon, water_nymph, hill_giant_hi, red_dragon_hi, sewer_rat, wererat};
 
     // weapons
     public static final Image lance = new Image("/view/images/weapons/lance.png");
@@ -338,7 +341,8 @@ public class Pictures {
     public static final Image violet_gem = new Image("/view/images/treasure/violet_gem.png");
     public static final Image life = new Image("/view/images/treasure/life.png");
     public static final Image magic = new Image("/view/images/treasure/magic.png");
-
+    public static final Image heart = new Image("/view/images/misc/heart.png");
+    public static final Image roadToXp = new Image("/view/images/misc/road_to_xp.png");
     public static final String[] treasureNames = {"book_of_the_dead", "candelabrum", "celtic_amulet", "chest", "credit_card",
             "crystal_ball", "diamond", "emerald", "gold", "jade_ring", "ruby_ring", "sapphire", "sapphire_ring",
             "shiny_ring", "skeleton_key", "spectral_amulet", "spellbook", "trumpet", "unicorn_horn", "violet_gem", "life", "magic"};
@@ -408,7 +412,23 @@ public class Pictures {
              {tile51, tile52, tile53, tile54, tile55, tile56, tile57},
              {tile61, tile62, tile63, tile64, tile65, tile66, tile67}};
 
-
+    // dungeon number one: hash map containing the images for the infopic view pane:
+    public static final Map<String, Image> dungeonOneInfoPics;
+    static
+    {
+        dungeonOneInfoPics = new HashMap<String, Image>();
+            dungeonOneInfoPics.put("Mithril armour", elven_mithril_coat);
+            dungeonOneInfoPics.put("Dragonscale armour", dragon_armor);
+            dungeonOneInfoPics.put("Sword", sword1);
+            dungeonOneInfoPics.put("Knife", crysknife);
+            dungeonOneInfoPics.put("Lance", lance);
+            dungeonOneInfoPics.put("Grodagrim", dwarf_king);
+            dungeonOneInfoPics.put("Gothofiedus", sewer_rat);
+            dungeonOneInfoPics.put("Lothofiedus", wererat);
+            dungeonOneInfoPics.put("Rothofiedus", vampire_bat);
+            dungeonOneInfoPics.put("Excursius", serpent_of_hell);
+            dungeonOneInfoPics.put("Treasure", chest);
+    }
 
     // testing testing testing: a visual map for display on the GUI that shows the dungeon
     public static final Image[][] mapOneImages =

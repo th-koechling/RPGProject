@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 
@@ -27,8 +28,10 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
- * Created by andreas on 13.06.16.
+ * @author: TODO
+ *
  */
 public class DnDcontrol {
 
@@ -80,11 +83,14 @@ public class DnDcontrol {
     private Label topLabel; // Value injected by FXMLLoader
     private DnDmodel model;
 
-    @FXML // fx:id="pick_up  // stuff injected by me, tito, master of all things grok
+    @FXML // fx:id="pick_up
     private Button pick_up;
 
-    @FXML // fx:id="messageWindow"
+    @FXML // fx:id="messageWindow"  //
     private TextArea messageWindow;  // also done by hand, does this work?
+
+    @FXML // fx:id="playerName"
+    private Label playerName;
 
     @FXML // fx:id="attack"
     private Button attack;
@@ -92,8 +98,23 @@ public class DnDcontrol {
     @FXML // fx:id="infoPic"
     private ImageView infoPic;
 
+    @FXML // fx:id="nameDialogue"
+    private Pane nameDialogue;
+
+    @FXML // fx:id="nameEntry"
+    private TextField nameEntry;
+
+    @FXML // fx:id="nameOk"
+    private Button nameOk;
+
+    @FXML // fx:id="nameTitle"
+    private TextField nameTitle;
+
     @FXML // fx:id="weaponPic"
     private ImageView weaponPic;
+
+    @FXML // fx:id="xpStat"
+    private TextField xpStat;
 
     @FXML // fx:id="armorPic"
     private ImageView armorPic;
@@ -104,14 +125,17 @@ public class DnDcontrol {
     @FXML // fx:id="new_game"
     private Button new_game;
 
-    @FXML // fx:id="clic"
-    private Button clic;
+    @FXML // fx:id="toggleView"
+    private Button toggleView;
 
     @FXML
     private TextField lifeStat;
 
-    @FXML
-    private TextField armourStat;
+    @FXML // fx:id="attackStat"
+    private TextField attackStat;
+
+    @FXML // fx:id="defStat"
+    private TextField defStat;
 
     @FXML // fx:id="infoPic2"  //test
     private ImageView roomPic;
@@ -173,8 +197,15 @@ public class DnDcontrol {
 
         // setting the stage
         this.primaryStage.setScene(this.scene);
-        this.primaryStage.setTitle("DnD");
+        this.primaryStage.setTitle("Into the dungeon!");
         this.primaryStage.show();
+        attack.setDisable(true);
+        go_ahead.setDisable(true);
+        go_right.setDisable(true);
+        go_left.setDisable(true);
+        go_back.setDisable(true);
+        toggleView.setDisable(true);
+
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
@@ -198,10 +229,11 @@ public class DnDcontrol {
         go_right.setOnAction(this::go_rightPressed);
         go_back.setOnAction(this::go_backPressed);
         attack.setOnAction(this::attackPressed);
-        pick_up.setOnAction(this::pick_upPressed);
-        testButton.setOnAction(this::testButtonPressed);
+        //pick_up.setOnAction(this::pick_upPressed);
+        //testButton.setOnAction(this::testButtonPressed);
         new_game.setOnAction(this::new_gamePressed);
-        clic.setOnAction(this::clicPressed);
+        toggleView.setOnAction(this::toggleViewPressed);
+        nameOk.setOnAction(this::nameOkPressed);
 
         // nope...: fw.setOnAction(this::fwPressed);
 
@@ -252,11 +284,13 @@ public class DnDcontrol {
         move("N");
     }
 
+    /* delete! thorsten
     private void testButtonPressed(ActionEvent actionEvent) {
         attack.setDisable(false);
         //infoPic.setImage(Pictures.getRandomPic(Pictures.creaturePics));
          //test2[2][2]= (view.Pictures.flying_skull);
     }
+    */
 
     // check all directions for valid movement (th)
     private void checkMoves() {
@@ -307,6 +341,14 @@ public class DnDcontrol {
             checkMoves();
             changeRoom(position);
             room = newDungeon.getAllRooms().getRoomByName(position);
+            if (Pictures.dungeonOneInfoPics.containsKey(room.getContent()))     // show image of item in room
+            {
+                infoPic.setImage(Pictures.dungeonOneInfoPics.get(room.getContent()));
+            }
+            else
+            {
+                infoPic.setImage(null);
+            }
             checkRoom();
         } else {
             messageWindow.appendText("\nThere is no door in this direction!\n");
@@ -369,7 +411,8 @@ public class DnDcontrol {
                 player.pickBestArmourFromInv();
                 messageWindow.appendText("\nNun angelegt: "+player.getArmour().getName());
                 room.setContent("none");
-                armourStat.setText(String.valueOf(player.getArmour().getDefence()));
+                armorPic.setImage(Pictures.dungeonOneInfoPics.get(player.getArmour().getName()));
+                defStat.setText(String.valueOf(player.getArmour().getDefence()));
             }
         }
         if(weapons.containsKey(content)){
@@ -385,6 +428,8 @@ public class DnDcontrol {
                 player.pickBestWeaponFromInv();
                 messageWindow.appendText("\nNun angelegt: "+player.getWeapon().getName());
                 room.setContent("none");
+                weaponPic.setImage(Pictures.dungeonOneInfoPics.get(player.getWeapon().getName()));
+                attackStat.setText("" + player.getWeapon().getForce());
             }
         }
         if(treasures.containsKey(content)){
@@ -418,6 +463,7 @@ public class DnDcontrol {
             attack.setDisable(true);
             player.setXp(player.getXp() + 1);
             System.out.println("xp now: " + player.getXp());
+            xpStat.setText("" + player.getXp());
             checkMoves();
             room.setContent("none");
 
@@ -426,21 +472,45 @@ public class DnDcontrol {
         won = false;
     }
 
+
+    // scan name information from player (user input)
+    private void nameOkPressed(ActionEvent actionEvent) {
+        //String testString = nameTitle.getText();
+        if (nameEntry.getText().equals(""))
+        {
+            playerName.setText("Player 1");
+        }
+        else
+        {
+            playerName.setText(nameEntry.getText());
+        }
+        infoPic.setImage(null);
+        nameDialogue.setVisible(false);
+        checkMoves();
+        toggleView.setDisable(false);
+    }
+
     private ImageView[][] currentMap;
     private Image[][] currentRoomViewMap;
     private void new_gamePressed(ActionEvent actionEvent) {
         // test test test
         //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
+        //enterName();
+        nameDialogue.setVisible(true);
         currentMap = loadDungeonMap(test2);// Martin tmp to test castle class will be removed
         currentRoomViewMap = newDungeon.getViewAllRooms();
         messageWindow.appendText("\nLet's go!\n");
         changeRoom("Entry");
+        lifeStat.setText("" + player.getHp());
+        xpStat.setText("" + player.getXp());
+        attackStat.setText("" + player.getWeapon().getForce());
+        defStat.setText("" + player.getArmour().getDefence());
+
     }
 
-    private void clicPressed(ActionEvent actionEvent) {
-        infoPic.setImage(Pictures.getRandomPic(Pictures.treasurePics));
-        
-        switchMapRoomViwe();
+    private void toggleViewPressed(ActionEvent actionEvent) {
+
+        switchMapRoomView();
 
     }
 
@@ -463,7 +533,7 @@ public class DnDcontrol {
     Castle newDungeon = new Castle();
 
     Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
-    private void switchMapRoomViwe (){
+    private void switchMapRoomView(){
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
             {img10, img11, img12, img13, img14, img15, img16},
             {img20, img21, img22, img23, img24, img25, img26},
@@ -472,7 +542,7 @@ public class DnDcontrol {
             {img50, img51, img52, img53, img54, img55, img56},
             {img60, img61, img62, img63, img64, img65, img66}};
         if (!roomPic.isVisible()) {
-            clic.setText("Map");
+            toggleView.setText("Map");
             for (int i = 0; i < imageCells.length; i++) {
                 for (int j = 0; j < imageCells[0].length; j++) {
                     imageCells[i][j].setVisible(false);
@@ -481,7 +551,7 @@ public class DnDcontrol {
             dungeon_map.setGridLinesVisible(false);
             roomPic.setVisible(true);
         } else {
-            clic.setText("Room");
+            toggleView.setText("Room");
             for (int i = 0; i < imageCells.length; i++) {
                 for (int j = 0; j < imageCells[0].length; j++) {
                     imageCells[i][j].setVisible(true);

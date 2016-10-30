@@ -62,3 +62,26 @@
     -fx-border-width: 4px;
     -fx-border-color: "#FFBF00";
 }
+
+#nameDialogue {
+    -fx-background-color: "black";
+    -fx-text-fill: "yellow";
+}
+
+#nameTitle {
+    -fx-background-color: "black";
+    -fx-text-fill: "orange";
+}
+
+#nameEntry {
+    -fx-background-color: "white";
+}
+
+#nameOk {
+    -fx-background-color: "black";
+    -fx-text-fill: "orange";
+}
+
+#playerName {
+    -fx-font-size: 1.2em;
+}
