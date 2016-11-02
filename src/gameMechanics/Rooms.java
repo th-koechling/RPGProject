@@ -1,19 +1,11 @@
 package gameMechanics;
 
-import gameMechanics.Room;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Stellt die Röume für das Verlies bereit. Räume können über die Namen in der Datei rooms.txt angesprochen bzw. aufgerufen werden (siehe Methoden unten).
- *
  * Created by jonas on 27/09/16.
+ * Split into Parser and rooms object by Fabian on 02/11/16.
  */
 public class Rooms {
     /**
@@ -27,43 +19,12 @@ public class Rooms {
 
     /**
      * Konstruktor für Rooms.
-     * Gibt eine HashMap zurück, die als Schlüssel die Namen der Räume aus der Datei "rooms.txt" und als Values die Räume hat.
-     * Als Parameter muss der Pfad zur Datei "rooms.txt" angegeben werden, in der die Räume beschrieben werden.
+     * Nimmt eine HashMap aus geparseten Rooms, die als Schlüssel die Namen der Räume aus der Datei "rooms.txt" und als
+     * Values die Räume hat und erzeugt ein Objekt Rooms, das die notwendigen Methoden für die Nutzung besitzt
+     * @param listOfRooms eine Hashmap von geparseten Räumen aus rooms.txt
      */
-    public Rooms(String roomsPath) {
-        Path roomsFile = Paths.get(roomsPath);
-        Map<String, Room> listOfRooms = new HashMap<>();
-
-        Charset charset = Charset.forName("US-ASCII");
-        try (BufferedReader reader = Files.newBufferedReader(roomsFile, charset)) {
-            String line = null;
-
-            Map<String, String> obj = new HashMap<>();
-            /*
-            Solange das Dateiende nicht erreicht ist ...
-             */
-            while ((line = reader.readLine()) != null) {
-                /*
-                ... lies eine Zeile.
-                Trenne am Doppelpunkt.
-                Fuege das, was vor dem Doppelpunkt steht als key und das, was hinter dem Doppelpunkt steht, als value in
-                die Hashmap ein.
-                 */
-                if (line.trim().length() > 0) {
-                    String[] splLine = line.split(":");
-                    obj.put(splLine[0].trim(), splLine[1].trim());
-                } else {
-                    listOfRooms.put(obj.get("Name"), new Room(obj.get("Name"), obj.get("N"), obj.get("O"), obj.get("S"), obj.get("W"), obj.get("Description"), obj.get("Content")));
-
-                }
-            }
-
-        } catch (IOException x) {
-            System.err.format("IOException: %s%n", x);
-        }
-
-
-        this.roomMap = listOfRooms;
+    public Rooms( Map<String, Room> listOfRooms){
+        this.roomMap=listOfRooms;
     }
 
     /**
@@ -86,20 +47,20 @@ public class Rooms {
          */
         if(direction.equals("N")){
             this.setAktuellePosition(aktuellerRaum.getNord());
-            System.out.println("Sie wollen nach Norden gehen.");
-            System.out.println(aktuellePosition);
+            //System.out.println("Sie wollen nach Norden gehen.");
+            //System.out.println(aktuellePosition);
         }else if (direction.equals("O")){
             this.setAktuellePosition(aktuellerRaum.getOst());
-            System.out.println("Sie wollen nach Osten gehen.");
-            System.out.println(aktuellePosition);
+            //System.out.println("Sie wollen nach Osten gehen.");
+            //System.out.println(aktuellePosition);
         }else if (direction.equals("S")){
             this.setAktuellePosition(aktuellerRaum.getSued());
-            System.out.println("Sie wollen nach Sueden gehen.");
-            System.out.println(aktuellePosition);
+            //System.out.println("Sie wollen nach Sueden gehen.");
+            //System.out.println(aktuellePosition);
         }else if(direction.equals("W")){
             this.setAktuellePosition(aktuellerRaum.getWest());
-            System.out.println("Sie wollen nach Westen gehen.");
-            System.out.println(aktuellePosition);
+            //System.out.println("Sie wollen nach Westen gehen.");
+            //System.out.println(aktuellePosition);
         }else{
             this.setAktuellePosition("none");
         }
@@ -110,7 +71,7 @@ public class Rooms {
          */
         if (this.getAktuellePosition().equals("none")) {
             setAktuellePosition(aktuellerRaum.getName());
-            System.out.println("In dieser Richtung liegt kein Raum!");
+            //System.out.println("In dieser Richtung liegt kein Raum!");
             return false;
         }
         return true;

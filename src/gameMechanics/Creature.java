@@ -1,5 +1,7 @@
 package gameMechanics;
 
+import GameObjects.Weapon;
+
 /**
  * Created by tito on 04.07.16.
  */
@@ -11,16 +13,18 @@ public class Creature {
     private int xp;
     private final int maxhp;
     private int hp;
+    private int basedamage;
     private Armour armour;
     private Weapon weapon;
 
-    public Creature(String name, String species, String description, int xp, int hp, Armour armour, Weapon weapon) {
+    public Creature(String name, String species, String description, int xp, int hp, int basedamage, Armour armour, Weapon weapon) {
         this.maxhp = hp;
         this.setName(name);
         this.setSpecies(species);
         this.setDescription(description);
         this.setXp(xp);
         this.setHp(hp);
+        this.basedamage=basedamage;
         this.setArmour(armour);
         this.setWeapon(weapon);
     }
@@ -33,8 +37,8 @@ public class Creature {
      * @return Int Value of the attack.
      */
     public int attack() {
-        int dice = Control.throwDice();
-        return (xp * weapon.getForce()) + dice;
+        int dice = Dice.throwDice(2,6);
+        return (xp * (basedamage+weapon.getForce())) + dice;
     }
 
     /**
@@ -42,13 +46,6 @@ public class Creature {
      * @param attackValue Value of the attack.
      */
     public void defend(int attackValue) {
-        int dice = Control.throwDice();
-        /*if(dice < 12 && dice > 6){
-            hp = hp - attackValue/2;
-        } else {
-            hp = hp - attackValue;
-        }
-        */
         this.hp = this.hp + armour.getDefence() - attackValue;
         if(this.hp < 0){
             this.hp = 0;
@@ -122,4 +119,6 @@ public class Creature {
     }
 
     public int getMaxhp() {return this.maxhp; }
+
+    public int getBasedamage(){return this.basedamage;}
 }

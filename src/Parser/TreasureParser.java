@@ -1,5 +1,7 @@
-package gameMechanics;
+package Parser;
 
+
+import gameMechanics.Treasure;
 
 import java.io.BufferedReader;
 import java.nio.file.Files;

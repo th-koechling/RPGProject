@@ -14,6 +14,8 @@ package gameMechanics;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.*;
+
+import Parser.RoomsParser;
 import javafx.scene.image.Image;
 
 
@@ -138,14 +140,11 @@ public class Castle {
         roomImageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", view.Pictures.disfigured_hallway);
          
     }
-    Rooms allRooms = new Rooms("src/data/rooms_new.txt");
+    Rooms allRooms = new RoomsParser().parseRooms("src/GameInputFiles/rooms_new.txt");
     Map<String, Room> test = allRooms.getRoomMap();
     public void positionRoomsByName()  {
         fillIamgeToDescription ();
         for (Map.Entry<String, Room> pair : test.entrySet()) {
-             //System.out.println(pair.getKey());
-             //System.out.println(pair.getValue().getDescription());
-              
              Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
              int posRow = 0;
              int posCol = 0;

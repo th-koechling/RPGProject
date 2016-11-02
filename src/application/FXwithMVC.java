@@ -6,11 +6,9 @@ package application;
 
 import dungeon.DnDmodel;
 import javafx.application.Application;
-import javafx.beans.binding.StringBinding;
 import javafx.stage.Stage;
 import javafx.scene.Scene;  // why don't we use this?
 import view.DnDcontrol;
-//import gameMechanics.Castle;
 
 public class FXwithMVC extends Application {
 

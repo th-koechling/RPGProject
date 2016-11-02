@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameMechanics;
+package GameObjects;
+
+import gameMechanics.Item;
 
 /**
  * This class contains the implementation of a base weapon for the game
  * @author Fabian Billenkamp
  */
 
-public class Weapon implements Item{
+public class Weapon implements Item {
     private String name;
     private int force;
     private String description;

@@ -3,7 +3,11 @@ package view;
 import java.util.HashMap;
 import java.util.Map;
 
-import data.Parser;
+import GameObjects.Weapon;
+import Parser.ArmorParser;
+import Parser.CreatureParser;
+import Parser.TreasureParser;
+import Parser.WeaponParser;
 import dungeon.DnDmodel;
 import gameMechanics.*;
 import javafx.application.Platform;
@@ -21,7 +25,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -38,20 +41,19 @@ public class DnDcontrol {
     private Scene scene;
     private Stage primaryStage;
     private String currentWorkDir;
+
+
+
     private boolean fight = false;
-    private HashMap<String, Creature> creatures = data.Parser.collectCreatures();
 
     private Creature monster;
     boolean won = false;
     Room room;
-
-
-    private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/data/gold.txt");
+    private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/GameInputFiles/gold.txt");
+    private HashMap<String, Weapon> weapons = WeaponParser.collectWeapons("./src/GameInputFiles/weapons.txt");
+    private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/GameInputFiles/armors.txt");
+    private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/GameInputFiles/creatures.txt",weapons,armours);
     private Player player = new Player(creatures.get("You"),49);
-    private HashMap<String, Weapon> weapons =data.Parser.collectWeapons();
-    private HashMap<String, Armour> armours =data.Parser.collectArmours();
-
-
     //@FXML
     //private Text blah;
 
@@ -175,11 +177,9 @@ public class DnDcontrol {
             Scene scene = new Scene(fxmlLoader.load());
             this.scene = scene;
             scene.getStylesheets().add("/view/styles.css");
-
             messageWindow.setEditable(false);   // --> player can't change the messages on-screen (thorsten)
             this.currentWorkDir = System.getProperty("user.home");
-
-            this.weapons = Parser.collectWeapons();
+            //this.weapons = CreatureParser.collectWeapons();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -284,13 +284,6 @@ public class DnDcontrol {
         move("N");
     }
 
-    /* delete! thorsten
-    private void testButtonPressed(ActionEvent actionEvent) {
-        attack.setDisable(false);
-        //infoPic.setImage(Pictures.getRandomPic(Pictures.creaturePics));
-         //test2[2][2]= (view.Pictures.flying_skull);
-    }
-    */
 
     // check all directions for valid movement (th)
     private void checkMoves() {
