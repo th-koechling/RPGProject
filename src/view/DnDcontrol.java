@@ -54,6 +54,15 @@ public class DnDcontrol {
     private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/GameInputFiles/armors.txt");
     private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/GameInputFiles/creatures.txt",weapons,armours);
     private Player player = new Player(creatures.get("You"),49);
+    Image[][] test = Pictures.mapOneImages;
+
+    Castle newDungeon = new Castle();
+
+    Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
+
+
+
+
     //@FXML
     //private Text blah;
 
@@ -158,7 +167,6 @@ public class DnDcontrol {
      * Init control
      */
     public DnDcontrol(Stage primaryStage) {
-
         this.primaryStage = primaryStage;
         init();
         primaryStage.setResizable(false);
@@ -179,7 +187,6 @@ public class DnDcontrol {
             scene.getStylesheets().add("/view/styles.css");
             messageWindow.setEditable(false);   // --> player can't change the messages on-screen (thorsten)
             this.currentWorkDir = System.getProperty("user.home");
-            //this.weapons = CreatureParser.collectWeapons();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -217,7 +224,7 @@ public class DnDcontrol {
         assert go_right != null : "fx:id=\"go_right\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
         assert go_left != null : "fx:id=\"go_left\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
         assert topLabel != null : "fx:id=\"topLabel\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
-        // assert attack != null : "fx:id=\"attack\" was not injected: check your FXML file 'DnDMainWindow.fxml'."; // added manually
+
 
         /*
          * For each button: Assign function to action
@@ -229,14 +236,9 @@ public class DnDcontrol {
         go_right.setOnAction(this::go_rightPressed);
         go_back.setOnAction(this::go_backPressed);
         attack.setOnAction(this::attackPressed);
-        //pick_up.setOnAction(this::pick_upPressed);
-        //testButton.setOnAction(this::testButtonPressed);
         new_game.setOnAction(this::new_gamePressed);
         toggleView.setOnAction(this::toggleViewPressed);
         nameOk.setOnAction(this::nameOkPressed);
-
-        // nope...: fw.setOnAction(this::fwPressed);
-
     }
 
     Image rip = new Image("/view/images/misc/grave.png");
@@ -261,10 +263,6 @@ public class DnDcontrol {
         }
     }
 
-    private void pick_upPressed(ActionEvent actionEvent) {
-        weaponPic.setImage(Pictures.getRandomPic(Pictures.weaponPics));
-        armorPic.setImage(Pictures.getRandomPic(Pictures.armorPics));
-    }
 
     //private Label testLabel;
 
@@ -521,11 +519,7 @@ public class DnDcontrol {
     }
 
 
-    Image[][] test = Pictures.mapOneImages;
 
-    Castle newDungeon = new Castle();
-
-    Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
     private void switchMapRoomView(){
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
             {img10, img11, img12, img13, img14, img15, img16},
