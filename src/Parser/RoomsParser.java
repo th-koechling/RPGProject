@@ -1,6 +1,8 @@
 package Parser;
 
-import gameMechanics.*;
+import dungeon.Room;
+import dungeon.Rooms;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;

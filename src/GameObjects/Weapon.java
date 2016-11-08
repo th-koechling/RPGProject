@@ -5,8 +5,6 @@
  */
 package GameObjects;
 
-import gameMechanics.Item;
-
 /**
  * This class contains the implementation of a base weapon for the game
  * @author Fabian Billenkamp

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameMechanics;
+package dungeon;
 
 /**
  *
@@ -14,7 +14,7 @@ package gameMechanics;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.*;
-
+import view.*;
 import Parser.RoomsParser;
 import javafx.scene.image.Image;
 
@@ -29,7 +29,10 @@ public class Castle {
     static Map<String, Image> imageToDescription = new HashMap<>();
     private Image[][] roomView;
     static Map<String, Image> roomImageToDescription = new HashMap<>();
-    
+    Rooms allRooms = new RoomsParser().parseRooms("src/GameInputFiles/rooms_new.txt");
+    Map<String, Room> test = allRooms.getRoomMap();
+
+
     public Castle() {
         this.castleView = new Image[7][7];
         this.roomView = new Image[7][7];
@@ -105,7 +108,6 @@ public class Castle {
         imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", view.Pictures.tile52);
         imageToDescription.put("High hallway flanked with statuary.", view.Pictures.tile63);
         imageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", view.Pictures.tile62);
-        
         roomImageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.dungeon_entry);
         roomImageToDescription.put("A long dark hallway.", view.Pictures.long_dark_hallway);
         roomImageToDescription.put("A small room, sparsely lighted by a torch." ,view.Pictures.small_torch);
@@ -140,8 +142,7 @@ public class Castle {
         roomImageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", view.Pictures.disfigured_hallway);
          
     }
-    Rooms allRooms = new RoomsParser().parseRooms("src/GameInputFiles/rooms_new.txt");
-    Map<String, Room> test = allRooms.getRoomMap();
+
     public void positionRoomsByName()  {
         fillIamgeToDescription ();
         for (Map.Entry<String, Room> pair : test.entrySet()) {

@@ -1,7 +1,6 @@
 package view;
 
 import javafx.scene.image.Image;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;

@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gameMechanics;
+package GameObjects;
+
+import GameObjects.Item;
 
 /**
  * This class implements features of treasures.
  * Treasures implement methods from Item
  * @author Fabian Billenkamp
  */
-public class Treasure implements Item{
+public class Treasure implements Item {
     private String name;
     private String description;
 

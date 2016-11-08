@@ -1,4 +1,6 @@
-package gameMechanics;
+package dungeon;
+
+import dungeon.Room;
 
 import java.util.Map;
 

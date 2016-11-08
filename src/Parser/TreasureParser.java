@@ -1,7 +1,7 @@
 package Parser;
 
 
-import gameMechanics.Treasure;
+import GameObjects.Treasure;
 
 import java.io.BufferedReader;
 import java.nio.file.Files;

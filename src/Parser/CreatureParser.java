@@ -1,7 +1,7 @@
 package Parser;
 
-import gameMechanics.Armour;
-import gameMechanics.Creature;
+import GameObjects.Armour;
+import GameObjects.Creature;
 import GameObjects.Weapon;
 
 import java.io.BufferedReader;

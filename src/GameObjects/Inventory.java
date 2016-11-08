@@ -1,7 +1,5 @@
-package gameMechanics;
+package GameObjects;
 
-
-import GameObjects.Weapon;
 
 import java.util.ArrayList;
 import java.util.Arrays;

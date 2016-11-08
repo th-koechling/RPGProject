@@ -1,4 +1,6 @@
-package gameMechanics;
+package GameObjects;
+
+import GameObjects.Item;
 
 /**
  * Created by andre_000 on 27.10.2016.

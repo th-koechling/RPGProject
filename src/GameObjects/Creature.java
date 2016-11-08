@@ -1,6 +1,4 @@
-package gameMechanics;
-
-import GameObjects.Weapon;
+package GameObjects;
 
 /**
  * Created by tito on 04.07.16.

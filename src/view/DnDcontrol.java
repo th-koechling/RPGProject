@@ -3,13 +3,14 @@ package view;
 import java.util.HashMap;
 import java.util.Map;
 
-import GameObjects.Weapon;
+import GameObjects.*;
 import Parser.ArmorParser;
 import Parser.CreatureParser;
 import Parser.TreasureParser;
 import Parser.WeaponParser;
+import dungeon.Castle;
 import dungeon.DnDmodel;
-import gameMechanics.*;
+import dungeon.Room;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,11 +42,7 @@ public class DnDcontrol {
     private Scene scene;
     private Stage primaryStage;
     private String currentWorkDir;
-
-
-
     private boolean fight = false;
-
     private Creature monster;
     boolean won = false;
     Room room;
@@ -60,7 +57,8 @@ public class DnDcontrol {
 
     Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
 
-
+    private ImageView[][] currentMap;
+    private Image[][] currentRoomViewMap;
 
 
     //@FXML
@@ -154,7 +152,7 @@ public class DnDcontrol {
     @FXML // fx:id="dungeon_map" // test
     private GridPane dungeon_map;
 
-    @FXML 
+    @FXML
     private ImageView img00, img01, img02, img03, img04, img05, img06,      // row 0 of visual map grid
                       img10, img11, img12, img13, img14, img15, img16,      // row 1
                       img20, img21, img22, img23, img24, img25, img26,      // row 2
@@ -241,28 +239,15 @@ public class DnDcontrol {
         nameOk.setOnAction(this::nameOkPressed);
     }
 
-    Image rip = new Image("/view/images/misc/grave.png");
 
     /**
      * Action for pressed exit button.
      * @param actionEvent
      */
 
-    // eh.... the picture and message don't show, the program just goes to sleep and exits
     private void exitPressed(ActionEvent actionEvent) {
-        infoPic.setImage(rip);
-        messageWindow.appendText("\nBye bye!\n");
-        pause();
         Platform.exit();        // destroys resources before exiting (calls Application.stop())
     }
-    private void pause() {
-        try {
-            Thread.sleep(1000);
-        } catch(InterruptedException intEx) {
-            Thread.currentThread().interrupt();
-        }
-    }
-
 
     //private Label testLabel;
 
@@ -349,7 +334,7 @@ public class DnDcontrol {
     // Method that changes the position of the player on the map.
     private void changeRoom(String roomName){
         player.heal();
-        lifeStat.setText(String.valueOf(player.getHp()));
+        lifeStat.setText(String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp()));
         messageWindow.setText("");
         if(!roomName.equals("Entry")) {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
@@ -429,6 +414,11 @@ public class DnDcontrol {
             if(added){
                 room.setContent("none");
             }
+            for(Treasure treasure:player.getInventory().getTreasures()){
+                if(treasure.getDescription().equals("The legendary treasure of the dragon.")){
+                    messageWindow.appendText("\n Du hast den Drachenschatz gefunden");
+                }
+            }
         }
     }
 
@@ -448,7 +438,7 @@ public class DnDcontrol {
             int attackMonster = monster.attack();
             player.defend(attackMonster);
             messageWindow.appendText("\nDas Monster trifft  dich mit " + attackMonster + "\n Du hast noch " + player.getHp() + "\n");
-            lifeStat.setText(String.valueOf(player.getHp()));
+            lifeStat.setText(String.valueOf(String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp())));
         } else {
             won = true;
             attack.setDisable(true);
@@ -481,8 +471,7 @@ public class DnDcontrol {
         toggleView.setDisable(false);
     }
 
-    private ImageView[][] currentMap;
-    private Image[][] currentRoomViewMap;
+
     private void new_gamePressed(ActionEvent actionEvent) {
         // test test test
         //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
@@ -492,7 +481,7 @@ public class DnDcontrol {
         currentRoomViewMap = newDungeon.getViewAllRooms();
         messageWindow.appendText("\nLet's go!\n");
         changeRoom("Entry");
-        lifeStat.setText("" + player.getHp());
+        lifeStat.setText("" + String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp()));
         xpStat.setText("" + player.getXp());
         attackStat.setText("" + player.getWeapon().getForce());
         defStat.setText("" + player.getArmour().getDefence());

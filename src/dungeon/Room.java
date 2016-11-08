@@ -1,4 +1,4 @@
-package gameMechanics;
+package dungeon;
 
 /**
  * Modelliert einen Raum in einem Verlies.
