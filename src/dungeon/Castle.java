@@ -14,22 +14,16 @@ package dungeon;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.*;
-import view.*;
 import Parser.RoomsParser;
 import javafx.scene.image.Image;
 
 
-// remove call of method to test in FXwithMVC.java  / view.DnDcontrol (test2) !!!!!!!!
-
 public class Castle {
-
-    private  Room[] roomsInCastle;
-    public  String roomsInput = new String();
     private  Image[][] castleView;
     static Map<String, Image> imageToDescription = new HashMap<>();
     private Image[][] roomView;
     static Map<String, Image> roomImageToDescription = new HashMap<>();
-    Rooms allRooms = new RoomsParser().parseRooms("src/GameInputFiles/rooms_new.txt");
+    private static Rooms allRooms = new RoomsParser().parseRooms("src/GameInputFiles/rooms_new.txt");
     Map<String, Room> test = allRooms.getRoomMap();
 
 
@@ -39,34 +33,10 @@ public class Castle {
         
     }
 
-    public static void buildCastle() {
-        
-    }
-    public  void setCastleSize(int inputSize){
-        roomsInCastle = new Room[inputSize];
-    }
-    public  int getCastleSize(){
-        return roomsInCastle.length;
-    }
-    public void setRoomsInCastle(Room[] roomsInCastle) {
-        this.roomsInCastle = roomsInCastle;
+    public static void move(String direction){
+        allRooms.goToNextRoom(direction);
     }
 
-    public Room[] getRoomsInCastle() {
-        return this.roomsInCastle;
-    }
-    public  void setRoomInCastle(Room inputRoom, int index){
-        roomsInCastle[index] = inputRoom;
-    }
-    public  Room getRoomInCastle(int index){
-        return roomsInCastle[index];
-    }
-
-    public Room generateRoom() {
-        // TODO: implement
-        return null;
-    }
-    
     public  Image[][] getCastleView(){
         return castleView;
     }
@@ -74,8 +44,7 @@ public class Castle {
         return roomView;
     }
     
-    private static void fillIamgeToDescription (){
-        
+    private static void fillImageToDescription(){
         imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", view.Pictures.tile03);
         imageToDescription.put("A long dark hallway.", view.Pictures.tile11);
         imageToDescription.put("A small room, sparsely lighted by a torch." ,view.Pictures.tile12);
@@ -144,7 +113,7 @@ public class Castle {
     }
 
     public void positionRoomsByName()  {
-        fillIamgeToDescription ();
+        fillImageToDescription();
         for (Map.Entry<String, Room> pair : test.entrySet()) {
              Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
              int posRow = 0;

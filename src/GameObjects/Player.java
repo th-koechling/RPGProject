@@ -10,8 +10,7 @@ package GameObjects;
  * @author Fabian Billenkamp
  */
 public class Player extends Creature {
-    // String name;     comes from super class now
-    // int lifeNow;   replaced by hp
+
     int inventorySpace;
     boolean isAlive;
     boolean hasDragonTreasure;
@@ -26,7 +25,7 @@ public class Player extends Creature {
         if(!weapon.getName().equals("Hand")){
             inventory.addItem(weapon);
         }
-        //this.itemsInInventory = null;
+
     }
     public Player(Creature model, int inventorySpace) {
         super(model.getName(), model.getSpecies(), model.getDescription(),model.getXp(), model.getMaxhp(),model.getBasedamage(), model.getArmour(), model.getWeapon());
@@ -37,7 +36,7 @@ public class Player extends Creature {
         }
     }
 
-    // getter methods
+
     /**
      * @Author Fabian Billenkamp
      * This method returns the free space in a player inventory

@@ -5,8 +5,6 @@
  */
 package GameObjects;
 
-import GameObjects.Item;
-
 /**
  * This class implements features of treasures.
  * Treasures implement methods from Item

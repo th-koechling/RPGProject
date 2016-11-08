@@ -11,6 +11,7 @@ import Parser.WeaponParser;
 import dungeon.Castle;
 import dungeon.DnDmodel;
 import dungeon.Room;
+import dungeon.Rooms;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,12 +27,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import core.Game;
 
 /**
  * @author: TODO
@@ -45,24 +47,17 @@ public class DnDcontrol {
     private boolean fight = false;
     private Creature monster;
     boolean won = false;
-    Room room;
+    private Game game = new Game();
     private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/GameInputFiles/gold.txt");
     private HashMap<String, Weapon> weapons = WeaponParser.collectWeapons("./src/GameInputFiles/weapons.txt");
     private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/GameInputFiles/armors.txt");
     private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/GameInputFiles/creatures.txt",weapons,armours);
     private Player player = new Player(creatures.get("You"),49);
-    Image[][] test = Pictures.mapOneImages;
-
     Castle newDungeon = new Castle();
-
     Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
-
     private ImageView[][] currentMap;
     private Image[][] currentRoomViewMap;
 
-
-    //@FXML
-    //private Text blah;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -269,54 +264,37 @@ public class DnDcontrol {
 
 
     // check all directions for valid movement (th)
-    private void checkMoves() {
-
+    private void adjustMoveButtons() {
+        Rooms current = game.getCurrentMap().getAllRooms();
+        String currentPosition = current.getAktuellePosition();
+        Room currentRoom=current.getRoomByName(currentPosition);
         Button[] buttons = {go_ahead, go_back, go_left, go_right};
-
         for (Button button: buttons) {
             button.setDisable(true);
         }
-        String currentPosition = newDungeon.getAllRooms().getAktuellePosition();
-
-
-        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getSued().equals("none"))) {
+        if (!(currentRoom.getSued().equals("none"))) {
             go_ahead.setDisable(false);
 
         }
-        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getNord().equals("none"))) {
+        if (!(currentRoom.getNord().equals("none"))) {
             go_back.setDisable(false);
 
         }
-        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getWest().equals("none"))) {
+        if (!(currentRoom.getWest().equals("none"))) {
             go_left.setDisable(false);
 
         }
-        if (!(newDungeon.getAllRooms().getRoomByName(currentPosition).getOst().equals("none"))) {
+        if (!(currentRoom.getOst().equals("none"))) {
             go_right.setDisable(false);
         }
     }
 
     private void move(String direction){
-        boolean movePossible = newDungeon.getAllRooms().goToNextRoom(direction);
-        if(movePossible){
-            switch (direction){
-                case "N" :
-                    messageWindow.appendText("\nYou go south.\n");
-                    break;
-                case "W" :
-                    messageWindow.appendText("\nYou go west.\n");
-                    break;
-                case "O" :
-                    messageWindow.appendText("\nYou go east.\n");
-                    break;
-                case "S" :
-                    messageWindow.appendText("\nYou go north.\n");
-                    break;
-            }
-            String position = newDungeon.getAllRooms().getAktuellePosition();
-            checkMoves();
-            changeRoom(position);
-            room = newDungeon.getAllRooms().getRoomByName(position);
+            game.move(direction);
+            adjustRoomViews();
+            adjustMoveButtons();
+            String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
+            Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
             if (Pictures.dungeonOneInfoPics.containsKey(room.getContent()))     // show image of item in room
             {
                 infoPic.setImage(Pictures.dungeonOneInfoPics.get(room.getContent()));
@@ -326,14 +304,11 @@ public class DnDcontrol {
                 infoPic.setImage(null);
             }
             checkRoom();
-        } else {
-            messageWindow.appendText("\nThere is no door in this direction!\n");
-        }
     }
 
     // Method that changes the position of the player on the map.
-    private void changeRoom(String roomName){
-        player.heal();
+    private void adjustRoomViews(){
+        String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
         lifeStat.setText(String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp()));
         messageWindow.setText("");
         if(!roomName.equals("Entry")) {
@@ -359,6 +334,8 @@ public class DnDcontrol {
     }
 
     private void checkRoom() {
+        String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
+        Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
         String content = room.getContent();
         String description = room.getDescription();
         messageWindow.appendText(description);
@@ -367,15 +344,12 @@ public class DnDcontrol {
             attack.setDisable(false);
             this.monster = creatures.get(content);
             messageWindow.appendText("Du wirst von " + this.monster.getName() + " angegriffen.");
-
-            //boolean won = fight(creatures.get(content));
             if(won){
-                checkMoves();
+                adjustMoveButtons();
                 room.setContent("none");
             }
         }
         if(armours.containsKey(content)){
-            //messageWindow.appendText("Hier liegt eine Waffe namens: " + content);
             messageWindow.appendText("Du hast "+armours.get(content).getName()+" gefunden.\n");
             boolean added=player.pickupItem(armours.get(content));
             if(added){
@@ -392,7 +366,6 @@ public class DnDcontrol {
             }
         }
         if(weapons.containsKey(content)){
-            //messageWindow.appendText("Hier liegt eine Waffe namens: " + content);
             messageWindow.appendText("Du hast "+weapons.get(content).getName()+" gefunden.\n");
             boolean added=player.pickupItem(weapons.get(content));
             if(added){
@@ -425,6 +398,8 @@ public class DnDcontrol {
 
     // Method for the fight between player and monsters.
     private void fight(Creature monster) {
+        String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
+        Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
         messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
         if (player.getHp() > 0) {
             int attackPlayer = player.attack();
@@ -445,7 +420,7 @@ public class DnDcontrol {
             player.setXp(player.getXp() + 1);
             System.out.println("xp now: " + player.getXp());
             xpStat.setText("" + player.getXp());
-            checkMoves();
+            adjustMoveButtons();
             room.setContent("none");
 
         }
@@ -467,7 +442,7 @@ public class DnDcontrol {
         }
         infoPic.setImage(null);
         nameDialogue.setVisible(false);
-        checkMoves();
+        adjustMoveButtons();
         toggleView.setDisable(false);
     }
 
@@ -479,13 +454,12 @@ public class DnDcontrol {
         nameDialogue.setVisible(true);
         currentMap = loadDungeonMap(test2);// Martin tmp to test castle class will be removed
         currentRoomViewMap = newDungeon.getViewAllRooms();
-        messageWindow.appendText("\nLet's go!\n");
-        changeRoom("Entry");
+        adjustRoomViews();
+        messageWindow.appendText("Let's go!\n");
         lifeStat.setText("" + String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp()));
         xpStat.setText("" + player.getXp());
         attackStat.setText("" + player.getWeapon().getForce());
         defStat.setText("" + player.getArmour().getDefence());
-
     }
 
     private void toggleViewPressed(ActionEvent actionEvent) {

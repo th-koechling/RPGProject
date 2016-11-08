@@ -5,7 +5,6 @@
 import dungeon.DnDmodel;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.scene.Scene;  // why don't we use this?
 import view.DnDcontrol;
 
 public class FXwithMVC extends Application {
