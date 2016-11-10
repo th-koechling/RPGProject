@@ -5,41 +5,102 @@ import Parser.ArmorParser;
 import Parser.CreatureParser;
 import Parser.TreasureParser;
 import Parser.WeaponParser;
-import dungeon.Castle;
-import dungeon.Room;
-import javafx.scene.image.Image;
-import view.Pictures;
+import Data.Level.*;
+import Data.Room;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Fabian Billenkamp on 08.11.2016.
  */
 public class Game {
+    public Map<String, Treasure> getTreasures() {
+        return treasures;
+    }
+
     private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/GameInputFiles/gold.txt");
+
+    public HashMap<String, Weapon> getWeapons() {
+        return weapons;
+    }
+
     private HashMap<String, Weapon> weapons = WeaponParser.collectWeapons("./src/GameInputFiles/weapons.txt");
+
+    public HashMap<String, Armour> getArmours() {
+        return armours;
+    }
+
     private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/GameInputFiles/armors.txt");
+
+    public HashMap<String, Creature> getCreatures() {
+        return creatures;
+    }
+
     private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/GameInputFiles/creatures.txt",weapons,armours);
+
+    public boolean getWin(){
+        if(levelsWon>=levels.length){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private Creature monster;
     private Player player;
+    private Level currentLevel;
+    private Level[]levels;
+    private int level=0;
 
-    public Castle getCurrentMap() {
-        return currentMap;
+    public void nextLevel(){
+        level=level+1;
+        currentLevel=levels[level];
+
     }
 
-    private Castle currentMap;
+    public int getLevelsWon() {
+        return levelsWon;
+    }
 
-    Castle[]levels = new Castle[1];
+    public void setLevelsWon(int levelsWon) {
+        this.levelsWon = levelsWon;
+    }
+
+    private int levelsWon=0;
+
     public Game() {
+        levels=new Level[2];
         levels[0] = new Castle();
+        levels[1] = new Castle2();
         player= new Player(creatures.get("You"),49);
-        currentMap=levels[0];
+        currentLevel =levels[level];
     }
+
+    public void setMonster(Creature monster) {
+        this.monster = monster;
+    }
+    public Level getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Creature getMonster() {
+        return monster;
+    }
+
+
+
     public void move(String direction){
-        currentMap.getAllRooms().goToNextRoom(direction);
+        currentLevel.getAllRooms().goToNextRoom(direction);
         player.heal();
+    }
+
+    public Room getCurrentRoom(){
+        return currentLevel.getAllRooms().getRoomByName(currentLevel.getAllRooms().getAktuellePosition());
     }
 
 }

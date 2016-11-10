@@ -1,3 +1,5 @@
 Name: Treasure
 Description: The legendary treasure of the dragon.
+Name: Map
+Description: An old map of another world.
 

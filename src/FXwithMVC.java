@@ -2,7 +2,7 @@
  * Created by andreas on 13.06.16.
  */
 
-import dungeon.DnDmodel;
+import view.DnDmodel;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.DnDcontrol;

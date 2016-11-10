@@ -1,6 +1,4 @@
-package dungeon;
-
-import dungeon.Room;
+package Data;
 
 import java.util.Map;
 

@@ -20,13 +20,18 @@ import java.util.Random;
  */
 public class Pictures {
 
+
+    /*
+    Removed clutter and moved the item picture comparison to castles where it seems more suitable
+    like this Pictures functions as an Image storage class that makes Images available to all parts
+    of the game (recycling etc.)
+     */
+
     // player icon with transparent background
     public static final Image player_transparent = new Image("/view/images/misc/s_fighter.png");
 
     // player icon with orange background (for better visibility). This one is currently in use (Thorsten)
     public static final Image player_orange_bg = new Image("/view/images/misc/s_fighter_orange_bg.png");
-
-
     // Dungeon environment
     public static final Image corridor = new Image("/view/images/dungeon/corridor.png");
     public static final Image crystal_wall = new Image("/view/images/dungeon/crystal_wall.png");
@@ -97,17 +102,6 @@ public class Pictures {
     public static final Image disfigured_hallway = new Image("/view/images/dungeon/disfigured_hallway.png");
     public static final Image graveyard_pentagram = new Image("/view/images/dungeon/graveyard_pentagram.png");
     public static final Image secret_passage = new Image("/view/images/dungeon/secret_passage.png");
-    
-    public static final String[] dungeonNames = {"corridor", "crystal_wall", "deep_water", "dngn_enter_abyss", "dngn_entrance", "floor", "floor_lair",
-            "floor_light", "floor_room", "floor_swamp", "ice", "lava", "lit_corridor", "altar", "molten_lava", "throne",
-            "raised_drawbridge_h", "raised_drawbridge_v", "rock_wall01", "rock_wall05", "rock_wall07", "rock_wall09", "rock_wall10",
-            "rock_wall14", "rock_wall15", "shallow_water", "spiked_pit", "stone_arch", "tree", "web"};
-
-    public static final Image[] dungeonPics = {corridor, crystal_wall, deep_water, dngn_enter_abyss, dngn_entrance, floor, floor_lair, floor_light,
-            floor_room, floor_swamp, ice, lava, lit_corridor, altar, molten_lava, throne, raised_drawbridge_h, raised_drawbridge_v,
-            rock_wall01, rock_wall05, rock_wall07, rock_wall09, rock_wall10, rock_wall14, rock_wall15, shallow_water, spiked_pit,
-            stone_arch, tree, web};
-
     // enemies, monsters, NPCs
     public static final Image ancient_lich = new Image("view/images/monsters/ancient_lich.png");
     public static final Image antaeus = new Image("view/images/monsters/antaeus.png");
@@ -219,39 +213,6 @@ public class Pictures {
     public static final Image red_dragon_hi = new Image("view/images/monsters/red_dragon_hi.png");
     public static final Image sewer_rat = new Image("view/images/monsters/sewer_rat.png");
     public static final Image wererat = new Image("view/images/monsters/wererat.png");
-
-    public static final String[] creatureNames = {"ancient_lich", "antaeus", "asmodeus", "asmodeus_new", "baby_purple_worm",
-            "balrug", "beholder", "black_dragon", "black_naga", "blue_death", "bone_devil", "cacodemon",
-            "carnivorous_ape", "cave_spider", "centipede", "cerebov", "cyclops", "deep_elf_death_mage",
-            "deep_elf_fighter", "dispater", "dragon", "dwarf_king", "dwarf_lord", "efreet", "ereshkigal",
-            "ettin", "ettin_new", "executioner", "eye_of_devastation", "fiend", "fire_giant", "flying_skull",
-            "frost_giant", "gargoyle", "geryon", "ghoul", "giant_spider", "gloorx_vloq", "gnome_king",
-            "gnomish_wizard", "golden_dragon", "gremlin", "hill_giant", "homunculus", "hydra", "ice_fiend",
-            "imp", "incubus", "iron_dragon", "iron_troll", "killer_bee", "leprechaun", "lich", "lich_old",
-            "lom_lobon", "manes", "manticore", "manticore_new", "minotaur", "mnoleg", "moth_of_wrath",
-            "nazgul", "ogre_lord", "olog_hai", "orb_guardian", "orc_high_priest", "orc_shaman", "orc_warrior",
-            "pit_fiend", "plains_centaur", "python", "quasit", "queen_ant", "quicksilver_dragon", "redback",
-            "red_dragon", "rock_troll", "sandestin", "sasquatch", "scorpion", "serpent_of_hell", "shadow_dragon",
-            "shadow_fiend", "skeletal_dragon", "skeletal_warrior", "snorg", "soldier_ant", "spectral_warrior",
-            "storm_giant", "succubus", "tengu", "tiger", "titan", "two_headed_ogre", "unseen_horror", "vampire",
-            "vampire_bat", "vampire_lord", "vault_guardian", "wraith", "wyvern", "xan", "xtahua", "yeenoghu",
-            "yellow_dragon", "water_nymph", "hill_giant_hi", "red_dragon_hi", "sewer_rat", "wererat"};
-
-    public static final Image[] creaturePics = {ancient_lich, antaeus, asmodeus, asmodeus_new, baby_purple_worm, balrug,
-            beholder, black_dragon, black_naga, blue_death, bone_devil, cacodemon, carnivorous_ape, cave_spider,
-            centipede, cerebov, cyclops, deep_elf_death_mage, deep_elf_fighter, dispater, dragon, dwarf_king,
-            dwarf_lord, efreet, ereshkigal, ettin, ettin_new, executioner, eye_of_devastation, fiend,
-            fire_giant, flying_skull, frost_giant, gargoyle, geryon, ghoul, giant_spider, gloorx_vloq,
-            gnome_king, gnomish_wizard, golden_dragon, gremlin, hill_giant, homunculus, hydra, ice_fiend,
-            imp, incubus, iron_dragon, iron_troll, killer_bee, leprechaun, lich, lich_old, lom_lobon,
-            manes, manticore, manticore_new, minotaur, mnoleg, moth_of_wrath, nazgul, ogre_lord, olog_hai,
-            orb_guardian, orc_high_priest, orc_shaman, orc_warrior, pit_fiend, plains_centaur, python,
-            quasit, queen_ant, quicksilver_dragon, redback, red_dragon, rock_troll, sandestin, sasquatch,
-            scorpion, serpent_of_hell, shadow_dragon, shadow_fiend, skeletal_dragon, skeletal_warrior,
-            snorg, soldier_ant, spectral_warrior, storm_giant, succubus, tengu, tiger, titan, two_headed_ogre,
-            unseen_horror, vampire, vampire_bat, vampire_lord, vault_guardian, wraith, wyvern, xan, xtahua,
-            yeenoghu, yellow_dragon, water_nymph, hill_giant_hi, red_dragon_hi, sewer_rat, wererat};
-
     // weapons
     public static final Image lance = new Image("/view/images/weapons/lance.png");
     public static final Image athame = new Image("/view/images/weapons/athame.png");
@@ -277,15 +238,6 @@ public class Pictures {
     public static final Image hand_crossbow = new Image("/view/images/weapons/hand_crossbow.png");
     public static final Image staff_of_olgreb = new Image("/view/images/weapons/staff_of_olgreb.png");
     public static final Image sword_of_power = new Image("/view/images/weapons/sword_of_power.png");
-
-    public static final String[] weaponNames = {"lance", "athame", "battle_axe1", "battle_axe2", "boomerang", "broadsword", "copper",
-            "crysknife", "demon_trident", "elven_bow", "hammer", "morningstar", "orcish_bow", "saber", "scimitar",
-            "scythe", "staff1", "staff2", "sword1", "sword2", "tin"};
-
-    public static final Image[] weaponPics = {lance, athame, battle_axe1, battle_axe2, boomerang, broadsword, copper, crysknife,
-            demon_trident, elven_bow, hammer, morningstar, orcish_bow, sabre, scimitar, scythe, staff1, staff2,
-            sword1, sword2, tin};
-
     // body armor
     public static final Image animal_skin = new Image("/view/images/armor/animal_skin.png");
     public static final Image banded_mail = new Image("/view/images/armor/banded_mail.png");
@@ -303,16 +255,6 @@ public class Pictures {
     public static final Image shimmering_dragon_scale_mail = new Image("/view/images/armor/shimmering_dragon_scale_mail.png");
     public static final Image orcish_platemail = new Image("/view/images/armor/orcish_platemail.png");
     public static final Image troll_leather_armor = new Image("/view/images/armor/troll_leather_armor.png");
-
-    public static final String[] armorNames = {"animal_skin", "banded_mail", "breast_plate", "cloak", "dragon_armor",
-            "dwarvish_cloak", "dwarvish_mithril_coat", "elven_mithril_coat", "leather_armor",
-            "opera_cloak", "orcish_chain_mail", "splint_mail", "leather_armor2", "shimmering_dragon_scale_mail",
-            "orcish_platemail", "troll_leather_armor"};
-
-    public static final Image[] armorPics = {animal_skin, banded_mail, breast_plate, cloak, dragon_armor, dwarvish_cloak,
-            dwarvish_mithril_coat, elven_mithril_coat, leather_armor, opera_cloak, orcish_chain_mail,
-            splint_mail, leather_armor2, shimmering_dragon_scale_mail, orcish_platemail, troll_leather_armor};
-
     // treasure, misc items
     public static final Image book_of_the_dead = new Image("/view/images/treasure/book_of_the_dead.png");
     public static final Image candelabrum = new Image("/view/images/treasure/candelabrum.png");
@@ -338,14 +280,6 @@ public class Pictures {
     public static final Image magic = new Image("/view/images/treasure/magic.png");
     public static final Image heart = new Image("/view/images/misc/heart.png");
     public static final Image roadToXp = new Image("/view/images/misc/road_to_xp.png");
-    public static final String[] treasureNames = {"book_of_the_dead", "candelabrum", "celtic_amulet", "chest", "credit_card",
-            "crystal_ball", "diamond", "emerald", "gold", "jade_ring", "ruby_ring", "sapphire", "sapphire_ring",
-            "shiny_ring", "skeleton_key", "spectral_amulet", "spellbook", "trumpet", "unicorn_horn", "violet_gem", "life", "magic"};
-
-    public static final Image[] treasurePics = {book_of_the_dead, candelabrum, celtic_amulet, chest, credit_card, crystal_ball,
-            diamond, emerald, gold, jade_ring, ruby_ring, sapphire, sapphire_ring, shiny_ring, skeleton_key,
-            spectral_amulet, spellbook, trumpet, unicorn_horn, violet_gem, life, magic};
-
     // dungeon number one, tiles: import images from disk:
     // these tiles are used in the first (and currently only) level of the game (Thorsten)
     public static final Image tile01 = new Image("/view/images/dungeon1/01.png");
@@ -398,54 +332,5 @@ public class Pictures {
     public static final Image tile66 = new Image("/view/images/dungeon1/66.png");
     public static final Image tile67 = new Image("/view/images/dungeon1/67.png");
 
-    // dungeon number one: tiles are tailored according to the layout
-    // and represent dungeon structure (rock walls) or features (e.g. skeletons, lighting, ...) (Thorsten):
-    public static final Image[][] dungeonOne =
-            {{tile01, tile02, tile03, tile04, tile05, tile06, tile07},
-             {tile11, tile12, tile13, tile14, tile15, tile16, tile17},
-             {tile21, tile22, tile23, tile24, tile25, tile26, tile27},
-             {tile31, tile32, tile33, tile34, tile35, tile36, tile37},
-             {tile41, tile42, tile43, tile44, tile45, tile46, tile47},
-             {tile51, tile52, tile53, tile54, tile55, tile56, tile57},
-             {tile61, tile62, tile63, tile64, tile65, tile66, tile67}};
-
-    // dungeon number one: hash map containing the images for the infopic view pane of the GUI: (Thorsten)
-    public static final Map<String, Image> dungeonOneInfoPics;
-    static
-    {
-        dungeonOneInfoPics = new HashMap<String, Image>();
-            dungeonOneInfoPics.put("Mithril armour", elven_mithril_coat);
-            dungeonOneInfoPics.put("Dragonscale armour", dragon_armor);
-            dungeonOneInfoPics.put("Sword", sword1);
-            dungeonOneInfoPics.put("Knife", crysknife);
-            dungeonOneInfoPics.put("Lance", lance);
-            dungeonOneInfoPics.put("Grodagrim", dwarf_king);
-            dungeonOneInfoPics.put("Gothofiedus", sewer_rat);
-            dungeonOneInfoPics.put("Lothofiedus", wererat);
-            dungeonOneInfoPics.put("Rothofiedus", vampire_bat);
-            dungeonOneInfoPics.put("Excursius", serpent_of_hell);
-            dungeonOneInfoPics.put("Treasure", chest);
-    }
-
-    // this is a different level, not currently implemented in the game, but can be used
-    // for an extension (Thorsten)
-    public static final Image[][] mapOneImages =
-            {{rock_wall09, rock_wall09, rock_wall09, water_nymph, rock_wall09, rock_wall09, rock_wall09},
-             {rock_wall09, minotaur, lava, serpent_of_hell, lava, altar, rock_wall09},
-             {sapphire_ring, floor, giant_spider, floor, floor, book_of_the_dead, rock_wall09},
-             {floor, crystal_wall, crystal_wall, crystal_wall, floor, lich_old, floor},
-             {imp, crystal_wall, life, spectral_warrior, floor, floor, rock_wall09},
-             {chest, crystal_wall, python, crystal_wall, deep_water, raised_drawbridge_h, deep_water},
-             {lava, crystal_wall, crystal_ball, crystal_wall, deep_water, dngn_enter_abyss, deep_water}};
-
-
-    public static final Image[][] testMap = {{ice, ice, balrug, molten_lava},
-                         {rock_wall15, imp, fiend, rock_wall10}};
-
-    // for testing purposes, returns random picture of a category (creatures, weapons, ...) (Thorsten)
-    public static Image getRandomPic(Image[] images) {
-        Random rand = new Random();
-        return images[rand.nextInt(images.length)];
-    }
 
 }

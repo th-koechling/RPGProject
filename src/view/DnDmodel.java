@@ -1,4 +1,4 @@
-package dungeon;
+package view;
 
 import view.DnDcontrol;
 
