@@ -12,7 +12,7 @@ import java.util.HashMap;
  * Created by Patrick
  */
 public class WeaponParser {
-    private static HashMap<String,Weapon> parseWeapons (String file) {
+    public static HashMap<String,Weapon> parseWeapons (String file) {
         HashMap<String, Weapon> allWeapons = new HashMap<>();
         try {
             BufferedReader br = readFile(file);

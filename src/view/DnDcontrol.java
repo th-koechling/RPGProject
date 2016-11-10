@@ -36,7 +36,9 @@ import java.util.regex.Pattern;
 import core.Game;
 
 /**
- * @author: TODO
+ * This class mediates player control over the available in-game actions via the graphical user interface (GUI)
+ * @author Thorsten
+ * @coauthor TODO
  *
  */
 public class DnDcontrol {
@@ -58,7 +60,7 @@ public class DnDcontrol {
     private ImageView[][] currentMap;
     private Image[][] currentRoomViewMap;
 
-
+    // declaration of the GUI elements referred to as variables by the game (Thorsten)
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -147,6 +149,9 @@ public class DnDcontrol {
     @FXML // fx:id="dungeon_map" // test
     private GridPane dungeon_map;
 
+    /* the map grid, broken up into 49 (7 by 7) individual cells. Each cell can hold a small square image
+     * for illustration purposes (dungeon features) (Thorsten)
+     */
     @FXML
     private ImageView img00, img01, img02, img03, img04, img05, img06,      // row 0 of visual map grid
                       img10, img11, img12, img13, img14, img15, img16,      // row 1
@@ -167,7 +172,8 @@ public class DnDcontrol {
 
 
     /**
-     * Initialises the main window (no exception in constructor!)
+     * Initializes the main window (Thorsten)
+     *
      */
     private void init() {
 
@@ -191,7 +197,8 @@ public class DnDcontrol {
     }
 
     /**
-     * Displays the main window
+     * Displays the main window (Thorsten)
+     *
      */
     public void showAndWait() {
 
@@ -221,7 +228,7 @@ public class DnDcontrol {
 
         /*
          * For each button: Assign function to action
-         * (function must be defined in this or another class)
+         * (function must be defined in this or another class) (Thorsten)
          */
         exit.setOnAction(this::exitPressed);
         go_ahead.setOnAction(this::go_aheadPressed);
@@ -236,34 +243,50 @@ public class DnDcontrol {
 
 
     /**
-     * Action for pressed exit button.
-     * @param actionEvent
+     * Action for exit button. (Thorsten)
+     * @param actionEvent press the 'Exit' button
      */
-
     private void exitPressed(ActionEvent actionEvent) {
         Platform.exit();        // destroys resources before exiting (calls Application.stop())
     }
 
-    //private Label testLabel;
-
+    /**
+     * Action for go_ahead button. (Thorsten)
+     * @param actionEvent press the 'Up-Arrow' button
+     */
     private void go_aheadPressed(ActionEvent actionEvent) {
         move("S");
     }
 
+    /**
+     * Action for go_left button. (Thorsten)
+     * @param actionEvent press the 'Left-Arrow'  button
+     */
     private void go_leftPressed(ActionEvent actionEvent) {
         move("W");
     }
 
+    /**
+     * Action for go_right button. (Thorsten)
+     * @param actionEvent press the 'Right-Arrow' button
+     */
     private void go_rightPressed(ActionEvent actionEvent) {
         move("O");
     }
 
+    /**
+     * Action for go_back button. (Thorsten)
+     * @param actionEvent press the 'Down-Arrow' button
+     */
     private void go_backPressed(ActionEvent actionEvent) {
         move("N");
     }
 
-
-    // check all directions for valid movement (th)
+    /**
+     * Determines the valid directions in which the player can move on the map.
+     * and toggles accessibility of the corresponding buttons.
+     * Movement buttons that point to an invalid direction are greyed out. (Thorsten)
+     */
     private void adjustMoveButtons() {
         Rooms current = game.getCurrentMap().getAllRooms();
         String currentPosition = current.getAktuellePosition();
@@ -289,6 +312,11 @@ public class DnDcontrol {
         }
     }
 
+    /**
+     * When the player moves on the dungeon map this method displays graphical and text information
+     * about the new location. (TODO..., Thorsten, ...)
+     * @param direction the direction in which the player moves
+     */
     private void move(String direction){
             game.move(direction);
             adjustRoomViews();
@@ -306,7 +334,9 @@ public class DnDcontrol {
             checkRoom();
     }
 
-    // Method that changes the position of the player on the map.
+    /**
+     * Method that changes the position of the player on the map. (TODO author)
+     */
     private void adjustRoomViews(){
         String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
         lifeStat.setText(String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp()));
@@ -333,6 +363,13 @@ public class DnDcontrol {
         }
     }
 
+    /**
+     * Takes inventory of a room in the dungeon and displays information about the location
+     * (flavor text) and, if encountered, about monsters or items.
+     * Found armor and weapons are picked up, compared to the ones in the player's inventory
+     * and equipped if their stats exceed those. (TODO: author)
+     *
+     */
     private void checkRoom() {
         String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
         Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
@@ -343,68 +380,72 @@ public class DnDcontrol {
             toggleMovement(true);
             attack.setDisable(false);
             this.monster = creatures.get(content);
-            messageWindow.appendText("Du wirst von " + this.monster.getName() + " angegriffen.");
+            messageWindow.appendText(" You have encountered " + this.monster.getName() + ". The monster prepares to attack.");
             if(won){
                 adjustMoveButtons();
                 room.setContent("none");
             }
         }
         if(armours.containsKey(content)){
-            messageWindow.appendText("Du hast "+armours.get(content).getName()+" gefunden.\n");
+            messageWindow.appendText(" You have found a "+armours.get(content).getName()+".\n");
             boolean added=player.pickupItem(armours.get(content));
             if(added){
-                messageWindow.appendText("Fund dem Inventar hinzugefügt:");
+                messageWindow.appendText("Item added to inventory:");
                 for(Item loot:player.getInventory()){
                     messageWindow.appendText("\n"+loot.getName()+"--->"+loot.getDescription());
                 }
-                messageWindow.appendText("\nAktuelle angelegte Ruestung: "+player.getArmour().getName()+"\nChecke Inventar...");
+                messageWindow.appendText("\nArmor equipped at present: "+player.getArmour().getName()+"\nChecking inventory...");
                 player.pickBestArmourFromInv();
-                messageWindow.appendText("\nNun angelegt: "+player.getArmour().getName());
+                messageWindow.appendText("\nNow equipped: "+player.getArmour().getName());
                 room.setContent("none");
                 armorPic.setImage(Pictures.dungeonOneInfoPics.get(player.getArmour().getName()));
                 defStat.setText(String.valueOf(player.getArmour().getDefence()));
             }
         }
         if(weapons.containsKey(content)){
-            messageWindow.appendText("Du hast "+weapons.get(content).getName()+" gefunden.\n");
+            messageWindow.appendText(" You have found a "+weapons.get(content).getName()+".\n");
             boolean added=player.pickupItem(weapons.get(content));
             if(added){
-                messageWindow.appendText("Fund dem Inventar hinzugefügt:");
+                messageWindow.appendText("Item added to inventory:");
                 for(Item loot:player.getInventory()){
                     messageWindow.appendText("\n"+loot.getName()+"--->"+loot.getDescription());
                 }
-                messageWindow.appendText("\nAktuelle angelegte Waffe: "+player.getWeapon().getName()+"\nChecke Inventar...");
+                messageWindow.appendText("\nWeapon equipped at present: "+player.getWeapon().getName()+"\nChecking inventory...");
                 player.pickBestWeaponFromInv();
-                messageWindow.appendText("\nNun angelegt: "+player.getWeapon().getName());
+                messageWindow.appendText("\nNow equipped: "+player.getWeapon().getName());
                 room.setContent("none");
                 weaponPic.setImage(Pictures.dungeonOneInfoPics.get(player.getWeapon().getName()));
                 attackStat.setText("" + player.getWeapon().getForce());
             }
         }
         if(treasures.containsKey(content)){
-            messageWindow.appendText("Du hast "+treasures.get(content).getDescription()+" gefunden.\n");
+            messageWindow.appendText(" You have found "+treasures.get(content).getDescription()+".\n");
             boolean added=player.pickupItem(treasures.get(content));
             if(added){
                 room.setContent("none");
             }
             for(Treasure treasure:player.getInventory().getTreasures()){
                 if(treasure.getDescription().equals("The legendary treasure of the dragon.")){
-                    messageWindow.appendText("\n Du hast den Drachenschatz gefunden");
+                    messageWindow.appendText("\nCongratulations, you have completed your adventure!!\nThe princess is in another castle though.");
                 }
             }
         }
     }
 
-
-    // Method for the fight between player and monsters.
+    /**
+     * This method contains the logic for a turn-based fight between the player and a monster.
+     * When encountered, a monster will always attack the player. The battle has to be fought out,
+     * escaping is not possible. (TODO: author)
+     * @param monster the monster encountered in room of the dungeon
+     */
     private void fight(Creature monster) {
         String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
         Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
-        messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
+        messageWindow.appendText(" You are attacked by " + monster.getName() + "!");
         if (player.getHp() > 0) {
             int attackPlayer = player.attack();
             monster.defend(attackPlayer);
-            messageWindow.appendText("\nDu triffst mit " + attackPlayer + "\n Das Monster hat noch " + monster.getHp() + "\n");
+            messageWindow.appendText("\nYou hit for " + attackPlayer + " HP.\nThe monster has " + monster.getHp() + " HP remaining.\n");
         } else {
             // todo you died method to end game
             won = false;
@@ -412,13 +453,13 @@ public class DnDcontrol {
         if (monster.getHp() > 0) {
             int attackMonster = monster.attack();
             player.defend(attackMonster);
-            messageWindow.appendText("\nDas Monster trifft  dich mit " + attackMonster + "\n Du hast noch " + player.getHp() + "\n");
+            messageWindow.appendText("\nThe monster hits you for " + attackMonster + " HP.\n You have " + player.getHp() + " HP remaining.\n");
             lifeStat.setText(String.valueOf(String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp())));
         } else {
             won = true;
             attack.setDisable(true);
             player.setXp(player.getXp() + 1);
-            System.out.println("xp now: " + player.getXp());
+            //System.out.println("xp now: " + player.getXp());  // testing only
             xpStat.setText("" + player.getXp());
             adjustMoveButtons();
             room.setContent("none");
@@ -428,8 +469,11 @@ public class DnDcontrol {
         won = false;
     }
 
-
-    // scan name information from player (user input)
+    /**
+     * Scans the name from player input at the beginning of a game (new game button pressed)
+     * and displays it on-screen (Thorsten)
+     * @param actionEvent press the OK-button in the dialogue window
+     */
     private void nameOkPressed(ActionEvent actionEvent) {
         //String testString = nameTitle.getText();
         if (nameEntry.getText().equals(""))
@@ -446,11 +490,13 @@ public class DnDcontrol {
         toggleView.setDisable(false);
     }
 
-
+    /**
+     * Generates a little pop-up window on pressing the new_game button, where the player
+     * can input his/ her name or just click OK. The initial player stats are displayed
+     * in the corresponding sections of the GUI (Thorsten)
+     * @param actionEvent press the 'New Game' button
+     */
     private void new_gamePressed(ActionEvent actionEvent) {
-        // test test test
-        //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
-        //enterName();
         nameDialogue.setVisible(true);
         currentMap = loadDungeonMap(test2);// Martin tmp to test castle class will be removed
         currentRoomViewMap = newDungeon.getViewAllRooms();
@@ -462,18 +508,28 @@ public class DnDcontrol {
         defStat.setText("" + player.getArmour().getDefence());
     }
 
+    /**
+     * Switches the view on the larger panel of the GUI between the dungeon map or a
+     * graphical depiction of the location.
+     * @param actionEvent press the 'Room/ Map' button
+     */
     private void toggleViewPressed(ActionEvent actionEvent) {
-
         switchMapRoomView();
-
     }
 
-    // implement or call the behavior expected from the game
-    // when the player clicks on the "attack" button (thorsten)
+    /**
+     * When the attack button is pressed, the fight method is called to initiate
+     * a battle between player and monster. (Thorsten)
+     * @param actionEvent press the 'Attack' button
+     */
     private void attackPressed(ActionEvent actionEvent) {   // test method (thorsten)
         fight(monster);
     }
 
+    /**
+     * Renders all movement (arrow) buttons functional or disables them. (TODO: author)
+     * @param mode true: movement possible, false: movement disabled
+     */
     private void toggleMovement(boolean mode){
         go_ahead.setDisable(mode);
         go_back.setDisable(mode);
@@ -481,8 +537,10 @@ public class DnDcontrol {
         go_right.setDisable(mode);
     }
 
-
-
+    /**
+     * Switches between displaying the dungeon map or the room view on
+     * the large panel in the middle of the GUI (TODO: author Martin?)
+     */
     private void switchMapRoomView(){
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
             {img10, img11, img12, img13, img14, img15, img16},
@@ -512,8 +570,16 @@ public class DnDcontrol {
         }
 
     }
+
+    /**
+     * Populates the dungeon map on the GUI with a picture tile for each
+     * map cell, displaying dungeon characteristics (e.g. rock wall, arch,
+     * descriptive features). (Thorsten)
+     * @param images a two-dimensional array of image tiles
+     * @return a two-dimensional array of JavaFX ImageViews: displays the dungeon map
+     */
     private ImageView[][] loadDungeonMap(Image[][] images) {
-        newDungeon.positionRoomsByName(); // Martin tmp to test castle class will be removed
+        newDungeon.positionRoomsByName();
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
                                    {img10, img11, img12, img13, img14, img15, img16},
                                    {img20, img21, img22, img23, img24, img25, img26},
@@ -527,7 +593,6 @@ public class DnDcontrol {
                 imageCells[i][j].setImage(images[i][j]);
             }
         }
-
         return imageCells;
     }
 

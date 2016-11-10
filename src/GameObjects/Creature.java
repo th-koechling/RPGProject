@@ -1,7 +1,7 @@
 package GameObjects;
 
 /**
- * Created by tito on 04.07.16.
+ * TODO
  */
 public class Creature {
 

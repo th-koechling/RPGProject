@@ -1,16 +1,11 @@
-# RPGProject
-new repository for the Java RPG project
+# Java_oop_2
+Exercise project for a university course
 
-An die Kollegen contributors:
+UML files made with UMlet
 
-Nach Problemen mit IDE-spezifischen Dateien (etwa 700 Millionen Mergekonflikte), die wir nicht mehr über Git lösen konnten,
-habe ich eine neue Repository erstellt. IntelliJ-Konfigurationsdateien sind jetzt in der .gitignore Datei aufgeführt und sollten
-so nicht mehr zu "Korruptionen" führen können. Bitte darauf achten, dass auch bei anderen IDEs (Netbeans, Eclipse, ...) solche
-Files in die .gitignore kommen.
+The graphic tiles used in this program are from the public
+domain roguelike tileset "RLTiles".
+The tiles have been modified by Thorsten Köchling.
 
-Der Stand des Projekts in dieser Repo ist wie folgt:
-
-- GUI im verstöpselbaren Status
-- Rooms, Creatures und Weapons funktional
-
-Äh... auf ein Neues!
+You can find the original tileset at:
+http://rltiles.sf.net

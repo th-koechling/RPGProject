@@ -1,4 +1,11 @@
+/*
+ * Created by Thorsten
+ * Style sheet for skinning the graphical user interface (GUI)
+ */
+
+
 .label {
+    -fx-font-family: sans-serif, Arial;
     -fx-text-fill: "white";
     -fx-font-weight: bold;
     -fx-font-size: 12px;
@@ -6,10 +13,10 @@
 
 #topLabel {
     -fx-font-size: 1.7em;
-    -fx-text-fill: blue;
+    -fx-text-fill: "#FF3300";
     -fx-font-weight: bold;
-    -fx-border-color: yellow;
-    -fx-border-width: 1px;
+    -fx-border-color: "#FFBF00";
+    -fx-border-width: 2px;
     -fx-border-radius: 4px;
     -fx-alignment: center;
 }
@@ -37,20 +44,42 @@
 }
 
 .text-area .scroll-pane .content {
-    -fx-background-color: grey;
+    -fx-background-color: lightgrey;
 }
 
 #messageWindow {
     -fx-font-weight: bold;
-    -fx-background-color: "green";
-    -fx-border-width: 4px;
+    -fx-background-color: "darkgrey";
+    -fx-border-width: 3px;
     -fx-border-color: "#FFBF00";
 }
 
 #infoBackground {
     -fx-background-color: linear-gradient(from 5% 25% to 100% 100%, blue, red);
-    -fx-border-width: 4px;
+    -fx-border-width: 3px;
     -fx-border-color: "#FFBF00";
+}
+
+.Pane {
+    -fx-background-color: "#1C1C1C";
+}
+
+#joyPad {
+    -fx-border-width: 3px;
+    -fx-border-color: "#FFBF00";
+}
+
+#statsPane {
+    -fx-border-width: 3px;
+    -fx-border-color: "#FFBF00";
+}
+
+#weaponPicBackground {
+    -fx-background-color: linear-gradient(from 5% 25% to 100% 100%, black, lightgrey);
+}
+
+#armorPicBackground {
+    -fx-background-color: linear-gradient(from 5% 25% to 100% 100%, black, lightgrey);
 }
 
 .text-field {

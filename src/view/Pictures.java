@@ -6,17 +6,24 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by thorsten on 25.07.16.
  *
  * Contains the images used for the visual representation of
- * the dungeon area, monsters, equipment and treasure items in the GUI map.
- *
+ * the dungeon area, monsters, equipment and treasure on the dungeon map, as well as in the
+ * item and inventory view panes of the graphical user interface (GUI).
+ * The graphic tiles used in this program are from the public
+ * domain roguelike tileset "RLTiles". (http://rltiles.sf.net)
+ * The tiles used for the present project were modified (converted to png images, removed background layer).
+ * The picture files are contained in the game's "../view/images/" folder.
+ * Only a part of these tiles ended up in the final version of the game. The other images were left for possible
+ * future extensions of the game
+ * @author Thorsten
  */
 public class Pictures {
 
     // player icon with transparent background
     public static final Image player_transparent = new Image("/view/images/misc/s_fighter.png");
-    // player icon with orange background (better visibility)
+
+    // player icon with orange background (for better visibility). This one is currently in use (Thorsten)
     public static final Image player_orange_bg = new Image("/view/images/misc/s_fighter_orange_bg.png");
 
 
@@ -91,17 +98,6 @@ public class Pictures {
     public static final Image graveyard_pentagram = new Image("/view/images/dungeon/graveyard_pentagram.png");
     public static final Image secret_passage = new Image("/view/images/dungeon/secret_passage.png");
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
     public static final String[] dungeonNames = {"corridor", "crystal_wall", "deep_water", "dngn_enter_abyss", "dngn_entrance", "floor", "floor_lair",
             "floor_light", "floor_room", "floor_swamp", "ice", "lava", "lit_corridor", "altar", "molten_lava", "throne",
             "raised_drawbridge_h", "raised_drawbridge_v", "rock_wall01", "rock_wall05", "rock_wall07", "rock_wall09", "rock_wall10",
@@ -351,6 +347,7 @@ public class Pictures {
             spectral_amulet, spellbook, trumpet, unicorn_horn, violet_gem, life, magic};
 
     // dungeon number one, tiles: import images from disk:
+    // these tiles are used in the first (and currently only) level of the game (Thorsten)
     public static final Image tile01 = new Image("/view/images/dungeon1/01.png");
     public static final Image tile02 = new Image("/view/images/dungeon1/02.png");
     public static final Image tile03 = new Image("/view/images/dungeon1/03.png");
@@ -401,7 +398,8 @@ public class Pictures {
     public static final Image tile66 = new Image("/view/images/dungeon1/66.png");
     public static final Image tile67 = new Image("/view/images/dungeon1/67.png");
 
-    // dungeon number one: tiles are tailored according to the layout:
+    // dungeon number one: tiles are tailored according to the layout
+    // and represent dungeon structure (rock walls) or features (e.g. skeletons, lighting, ...) (Thorsten):
     public static final Image[][] dungeonOne =
             {{tile01, tile02, tile03, tile04, tile05, tile06, tile07},
              {tile11, tile12, tile13, tile14, tile15, tile16, tile17},
@@ -411,7 +409,7 @@ public class Pictures {
              {tile51, tile52, tile53, tile54, tile55, tile56, tile57},
              {tile61, tile62, tile63, tile64, tile65, tile66, tile67}};
 
-    // dungeon number one: hash map containing the images for the infopic view pane:
+    // dungeon number one: hash map containing the images for the infopic view pane of the GUI: (Thorsten)
     public static final Map<String, Image> dungeonOneInfoPics;
     static
     {
@@ -429,7 +427,8 @@ public class Pictures {
             dungeonOneInfoPics.put("Treasure", chest);
     }
 
-    // testing testing testing: a visual map for display on the GUI that shows the dungeon
+    // this is a different level, not currently implemented in the game, but can be used
+    // for an extension (Thorsten)
     public static final Image[][] mapOneImages =
             {{rock_wall09, rock_wall09, rock_wall09, water_nymph, rock_wall09, rock_wall09, rock_wall09},
              {rock_wall09, minotaur, lava, serpent_of_hell, lava, altar, rock_wall09},
@@ -443,13 +442,10 @@ public class Pictures {
     public static final Image[][] testMap = {{ice, ice, balrug, molten_lava},
                          {rock_wall15, imp, fiend, rock_wall10}};
 
-    // for testing purposes, returns random picture of a category (creatures, weapons, ...)
+    // for testing purposes, returns random picture of a category (creatures, weapons, ...) (Thorsten)
     public static Image getRandomPic(Image[] images) {
         Random rand = new Random();
         return images[rand.nextInt(images.length)];
     }
-
-
-
 
 }

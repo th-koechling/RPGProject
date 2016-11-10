@@ -3,7 +3,7 @@ package GameObjects;
 import java.util.Random;
 
 /**
- * Created by tito on 04.07.16.
+ * Created by Thorsten on 04.07.16.
  * modified by Fabian on 02/11/16 merged control into dice, since only dice method in control
  */
 

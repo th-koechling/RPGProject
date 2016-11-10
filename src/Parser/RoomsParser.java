@@ -15,7 +15,7 @@ import java.util.Map;
  * Split into Parser and rooms by Fabian
  */
 public class RoomsParser {
-    public Rooms parseRooms(String roomsPath) {
+    public static Rooms parseRooms(String roomsPath) {
         Path roomsFile = Paths.get(roomsPath);
         Map<String, Room> listOfRooms = new HashMap<>();
         Charset charset = Charset.forName("US-ASCII");
