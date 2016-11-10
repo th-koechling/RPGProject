@@ -1,7 +1,7 @@
 package Parser;
 
-import dungeon.Room;
-import dungeon.Rooms;
+import Data.Room;
+import Data.Rooms;
 
 import java.io.BufferedReader;
 import java.io.IOException;

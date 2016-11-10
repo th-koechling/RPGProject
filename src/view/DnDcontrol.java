@@ -1,17 +1,7 @@
 package view;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import GameObjects.*;
-import Parser.ArmorParser;
-import Parser.CreatureParser;
-import Parser.TreasureParser;
-import Parser.WeaponParser;
-import dungeon.Castle;
-import dungeon.DnDmodel;
-import dungeon.Room;
-import dungeon.Rooms;
+import Data.Room;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,17 +33,7 @@ public class DnDcontrol {
     private Scene scene;
     private Stage primaryStage;
     private String currentWorkDir;
-    private boolean fight = false;
-    private Creature monster;
-    boolean won = false;
-    private Game game = new Game();
-    private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/GameInputFiles/gold.txt");
-    private HashMap<String, Weapon> weapons = WeaponParser.collectWeapons("./src/GameInputFiles/weapons.txt");
-    private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/GameInputFiles/armors.txt");
-    private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/GameInputFiles/creatures.txt",weapons,armours);
-    private Player player = new Player(creatures.get("You"),49);
-    Castle newDungeon = new Castle();
-    Image[][] test2 = newDungeon.getCastleView(); // Martin tmp to test castle class will be removed
+    private Game game;
     private ImageView[][] currentMap;
     private Image[][] currentRoomViewMap;
 
@@ -265,9 +244,7 @@ public class DnDcontrol {
 
     // check all directions for valid movement (th)
     private void adjustMoveButtons() {
-        Rooms current = game.getCurrentMap().getAllRooms();
-        String currentPosition = current.getAktuellePosition();
-        Room currentRoom=current.getRoomByName(currentPosition);
+        Room currentRoom = game.getCurrentRoom();
         Button[] buttons = {go_ahead, go_back, go_left, go_right};
         for (Button button: buttons) {
             button.setDisable(true);
@@ -293,23 +270,28 @@ public class DnDcontrol {
             game.move(direction);
             adjustRoomViews();
             adjustMoveButtons();
-            String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
-            Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
-            if (Pictures.dungeonOneInfoPics.containsKey(room.getContent()))     // show image of item in room
-            {
-                infoPic.setImage(Pictures.dungeonOneInfoPics.get(room.getContent()));
-            }
-            else
-            {
-                infoPic.setImage(null);
-            }
+            adjustInfoPic();
+            adjustLifeStat();
             checkRoom();
     }
 
+    private void adjustInfoPic(){
+        Room room = game.getCurrentRoom();
+        if (game.getCurrentLevel().getDungeonOneInfoPics().containsKey(room.getContent()))     // show image of item in room
+        {
+            infoPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(room.getContent()));
+        }
+        else
+        {
+            infoPic.setImage(null);
+        }
+    }
+    private void adjustLifeStat(){
+        lifeStat.setText(String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
+    }
     // Method that changes the position of the player on the map.
     private void adjustRoomViews(){
-        String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
-        lifeStat.setText(String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp()));
+        String roomName = game.getCurrentRoom().getName();
         messageWindow.setText("");
         if(!roomName.equals("Entry")) {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
@@ -319,13 +301,13 @@ public class DnDcontrol {
             if (match.find()) {
                 posRow = Integer.parseInt(match.group(1)) ;
                 posCol = Integer.parseInt(match.group(2)) - 1;
-                loadDungeonMap(test2);
+                loadDungeonMap(game.getCurrentLevel().getCastleView());
                 Image currentRoomImage = currentRoomViewMap[posRow][posCol];
                 roomPic.setImage(currentRoomImage);
                 currentMap[posRow][posCol].setImage(Pictures.player_orange_bg);
             }
         } else {
-            loadDungeonMap(test2);
+            loadDungeonMap(game.getCurrentLevel().getCastleView());
             Image currentRoomImage = currentRoomViewMap[0][2];
             roomPic.setImage(currentRoomImage);
             currentMap[0][2].setImage(Pictures.player_orange_bg); // eventually add info where in rooms.txt
@@ -334,98 +316,91 @@ public class DnDcontrol {
     }
 
     private void checkRoom() {
-        String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
-        Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
-        String content = room.getContent();
-        String description = room.getDescription();
-        messageWindow.appendText(description);
-        if(creatures.containsKey(content)){
+        String content = game.getCurrentRoom().getContent();
+        messageWindow.appendText(game.getCurrentRoom().getDescription());
+        if(game.getCreatures().containsKey(content)){
             toggleMovement(true);
             attack.setDisable(false);
-            this.monster = creatures.get(content);
-            messageWindow.appendText("Du wirst von " + this.monster.getName() + " angegriffen.");
-            if(won){
-                adjustMoveButtons();
-                room.setContent("none");
-            }
+            game.setMonster(game.getCreatures().get(content));
+            messageWindow.appendText("\n\n" + game.getMonster().getName() + " is in the room!\nYou have to fight!\n");
+            attack.setDisable(false);
         }
-        if(armours.containsKey(content)){
-            messageWindow.appendText("Du hast "+armours.get(content).getName()+" gefunden.\n");
-            boolean added=player.pickupItem(armours.get(content));
-            if(added){
-                messageWindow.appendText("Fund dem Inventar hinzugefügt:");
-                for(Item loot:player.getInventory()){
-                    messageWindow.appendText("\n"+loot.getName()+"--->"+loot.getDescription());
-                }
-                messageWindow.appendText("\nAktuelle angelegte Ruestung: "+player.getArmour().getName()+"\nChecke Inventar...");
-                player.pickBestArmourFromInv();
-                messageWindow.appendText("\nNun angelegt: "+player.getArmour().getName());
-                room.setContent("none");
-                armorPic.setImage(Pictures.dungeonOneInfoPics.get(player.getArmour().getName()));
-                defStat.setText(String.valueOf(player.getArmour().getDefence()));
-            }
+        if(game.getArmours().containsKey(content)){
+            pickup(game.getArmours().get(content));
+            messageWindow.appendText("\nChecking armours...");
+            game.getPlayer().pickBestArmourFromInv();
+            armorPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getArmour().getName()));
+            defStat.setText(String.valueOf(game.getPlayer().getArmour().getDefence()));
+            game.getCurrentRoom().setContent("none");
         }
-        if(weapons.containsKey(content)){
-            messageWindow.appendText("Du hast "+weapons.get(content).getName()+" gefunden.\n");
-            boolean added=player.pickupItem(weapons.get(content));
-            if(added){
-                messageWindow.appendText("Fund dem Inventar hinzugefügt:");
-                for(Item loot:player.getInventory()){
-                    messageWindow.appendText("\n"+loot.getName()+"--->"+loot.getDescription());
-                }
-                messageWindow.appendText("\nAktuelle angelegte Waffe: "+player.getWeapon().getName()+"\nChecke Inventar...");
-                player.pickBestWeaponFromInv();
-                messageWindow.appendText("\nNun angelegt: "+player.getWeapon().getName());
-                room.setContent("none");
-                weaponPic.setImage(Pictures.dungeonOneInfoPics.get(player.getWeapon().getName()));
-                attackStat.setText("" + player.getWeapon().getForce());
-            }
+        if(game.getWeapons().containsKey(content)){
+            pickup(game.getWeapons().get(content));
+            messageWindow.appendText("\nChecking weapons...");
+            game.getPlayer().pickBestWeaponFromInv();
+            weaponPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getWeapon().getName()));
+            adjustDamageView();
+            game.getCurrentRoom().setContent("none");
         }
-        if(treasures.containsKey(content)){
-            messageWindow.appendText("Du hast "+treasures.get(content).getDescription()+" gefunden.\n");
-            boolean added=player.pickupItem(treasures.get(content));
-            if(added){
-                room.setContent("none");
-            }
-            for(Treasure treasure:player.getInventory().getTreasures()){
-                if(treasure.getDescription().equals("The legendary treasure of the dragon.")){
-                    messageWindow.appendText("\n Du hast den Drachenschatz gefunden");
+        if(game.getTreasures().containsKey(content)){
+           pickup(game.getTreasures().get(content));
+           if(game.getCurrentLevel().getWinCondition(game.getPlayer())){
+               game.setLevelsWon(game.getLevelsWon()+1);
+               messageWindow.setText(game.getCurrentLevel().getWinText());
+                if(!game.getWin()){
+                    game.nextLevel();
+                }else{
+                    endGame();
                 }
-            }
+           }
         }
     }
 
 
-    // Method for the fight between player and monsters.
-    private void fight(Creature monster) {
-        String roomName = game.getCurrentMap().getAllRooms().getAktuellePosition();
-        Room room = game.getCurrentMap().getAllRooms().getRoomByName(roomName);
-        messageWindow.appendText("Du wirst von " + monster.getName() + " angegriffen!");
-        if (player.getHp() > 0) {
-            int attackPlayer = player.attack();
+    // Method for the fight between player and monsters. Bleibt hier der Messagebox einträge wegen
+    private boolean fight(Creature monster) {
+        if (game.getPlayer().getHp() > 0) {
+            int attackPlayer = game.getPlayer().attack();
             monster.defend(attackPlayer);
-            messageWindow.appendText("\nDu triffst mit " + attackPlayer + "\n Das Monster hat noch " + monster.getHp() + "\n");
+            messageWindow.appendText("\n->You hit "+monster.getName()+" with " + attackPlayer + "\n"+monster.getName()+" has still " + monster.getHp() + " life points.");
         } else {
-            // todo you died method to end game
-            won = false;
+            messageWindow.setText("You died.");
+            toggleMovement(false);
+            attack.setDisable(true);
+            return false;
         }
         if (monster.getHp() > 0) {
             int attackMonster = monster.attack();
-            player.defend(attackMonster);
-            messageWindow.appendText("\nDas Monster trifft  dich mit " + attackMonster + "\n Du hast noch " + player.getHp() + "\n");
-            lifeStat.setText(String.valueOf(String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp())));
+            game.getPlayer().defend(attackMonster);
+            adjustLifeStat();
+            messageWindow.appendText("\n->"+monster.getName()+" hits you with " + attackMonster + ".\nYou have " + game.getPlayer().getHp() + " life points remaining\n");
+            lifeStat.setText(String.valueOf(String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp())));
         } else {
-            won = true;
             attack.setDisable(true);
-            player.setXp(player.getXp() + 1);
-            System.out.println("xp now: " + player.getXp());
-            xpStat.setText("" + player.getXp());
+            game.getPlayer().setXp(game.getPlayer().getXp() + 1);
+            xpStat.setText("" + game.getPlayer().getXp());
             adjustMoveButtons();
-            room.setContent("none");
-
+            game.getCurrentRoom().setContent("none");
+            return true;
         }
 
-        won = false;
+        return false;
+    }
+    private void endGame(){
+        toggleMovement(false);
+        attack.setDisable(true);
+        toggleView.setDisable(true);
+    }
+
+    private void pickup(Item item){
+        messageWindow.appendText("\n\nYou found "+item.getName()+"\n"+item.getDescription()+".\n");
+        boolean added=game.getPlayer().pickupItem(item);
+        if(added){
+            messageWindow.appendText("Added to inventory.\n\nNow in inventory:\n=====");
+            for(Item loot:game.getPlayer().getInventory()){
+                messageWindow.appendText("\n"+loot.getName()+"\n-> "+loot.getDescription()+"\n=====");
+            }
+            messageWindow.appendText("\n");
+        }
     }
 
 
@@ -442,36 +417,38 @@ public class DnDcontrol {
         }
         infoPic.setImage(null);
         nameDialogue.setVisible(false);
+        currentMap = loadDungeonMap(game.getCurrentLevel().getCastleView());// Martin tmp to test castle class will be removed
+        currentRoomViewMap = game.getCurrentLevel().getViewAllRooms();
+        adjustRoomViews();
+        messageWindow.setText(game.getCurrentLevel().getStartText());
+        lifeStat.setText("" + String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
+        xpStat.setText("" + game.getPlayer().getXp());
+        adjustDamageView();
+        defStat.setText("" + game.getPlayer().getArmour().getDefence());
         adjustMoveButtons();
         toggleView.setDisable(false);
     }
 
 
     private void new_gamePressed(ActionEvent actionEvent) {
-        // test test test
-        //loadDungeonMap(test); // Martin tmp to test castle class will be removed this was default
-        //enterName();
+        game=new Game();
         nameDialogue.setVisible(true);
-        currentMap = loadDungeonMap(test2);// Martin tmp to test castle class will be removed
-        currentRoomViewMap = newDungeon.getViewAllRooms();
-        adjustRoomViews();
-        messageWindow.appendText("Let's go!\n");
-        lifeStat.setText("" + String.valueOf(player.getHp())+" / "+String.valueOf(player.getMaxhp()));
-        xpStat.setText("" + player.getXp());
-        attackStat.setText("" + player.getWeapon().getForce());
-        defStat.setText("" + player.getArmour().getDefence());
+
     }
 
     private void toggleViewPressed(ActionEvent actionEvent) {
-
         switchMapRoomView();
-
+    }
+    private void adjustDamageView(){
+        String minDamage=String.valueOf(2+game.getPlayer().getXp()* (game.getPlayer().getBasedamage()+game.getPlayer().getWeapon().getForce()));
+        String maxDamage=String.valueOf(12+game.getPlayer().getXp()* (game.getPlayer().getBasedamage()+game.getPlayer().getWeapon().getForce()));
+        attackStat.setText(minDamage+" - "+maxDamage);
     }
 
     // implement or call the behavior expected from the game
     // when the player clicks on the "attack" button (thorsten)
     private void attackPressed(ActionEvent actionEvent) {   // test method (thorsten)
-        fight(monster);
+        fight(game.getMonster());
     }
 
     private void toggleMovement(boolean mode){
@@ -513,7 +490,7 @@ public class DnDcontrol {
 
     }
     private ImageView[][] loadDungeonMap(Image[][] images) {
-        newDungeon.positionRoomsByName(); // Martin tmp to test castle class will be removed
+        game.getCurrentLevel().positionRoomsByName();
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
                                    {img10, img11, img12, img13, img14, img15, img16},
                                    {img20, img21, img22, img23, img24, img25, img26},

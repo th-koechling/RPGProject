@@ -12,7 +12,7 @@ O: 1-2
 S: none
 W: none
 Description: A long dark hallway.
-Content: none
+Content: Mithril armour
 
 Name: 1-2
 N: none
@@ -97,7 +97,7 @@ Content: Rothofiedus
 Name: 2-6
 N: 3-6
 O: none
-S: none
+S: 1-6
 W: 2-5
 Description: Dark room with no light.
 Content: none
@@ -143,7 +143,7 @@ Description: Narrow hallway.
 Content: none
 
 Name: 4-4
-N: none
+N: 5-4
 O: 4-5
 S: none
 W: none
@@ -164,5 +164,93 @@ O: none
 S: 4-6
 W: none
 Description: Small room with an old wooden box.
-Content: Treasure
+Content: Map
+
+Name: 1-6
+N: 2-6
+O: none
+S: 0-6
+W: none
+Description: Large Hallway with mysterious cold white light.
+Content: test
+
+Name: 0-6
+N: 1-6
+O: 0-7
+S: none
+W: 0-5
+Description: Crossing with two large tubes, dark with rotten smell to the right and dimly lit with gentle breeze of cold air to the left.
+Content: Dragonscale armour
+
+Name: 0-5
+N: none
+O: 0-6
+S: none
+W: none
+Description: Round room sun-drenched with broken glass all over the ground, the ceiling is too high to get out.
+Content: test
+
+Name: 0-7
+N: none
+O: none
+S: none
+W: 0-6
+Description: Muddy cave with strong rotten smell and foggy greenish light.
+Content: test
+
+Name: 5-4
+N: 6-4
+O: none
+S: 4-4
+W: none
+Description: Ostentatious hallway made of bright shiny stone with huge chandeliers and a luxuriant ceiling painting.
+Content: test
+
+Name: 6-4
+N: none
+O: 6-5
+S: 5-4
+W: 6-3
+Description: Luxuriant hall with sacral ceiling paintings.
+Content: test
+
+Name: 6-5
+N: none
+O: none
+S: none
+W: 6-4
+Description: Shiny room flooded with candle light and walls covered with amber and gold.
+Content: test
+
+Name: 6-3
+N: none
+O: 6-4
+S: none
+W: 6-2
+Description: High hallway flanked with statuary.
+Content: test
+
+Name: 6-2
+N: none
+O: 6-3
+S: 5-2
+W: 6-1
+Description: Disfigured hallway with burn marks and strange writings and symbols on the pillars.
+Content: test
+
+Name: 5-2
+N: 6-2
+O: none
+S: 2-2
+W: none
+Description: Very narrow dark passage with a 3 meter fall at the end.
+Content: test
+
+Name: 6-1
+N: none
+O: 6-2
+S: none
+W: none
+Description: Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.
+Content: test
 

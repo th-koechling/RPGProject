@@ -1,4 +1,4 @@
-package dungeon;
+package Data;
 
 /**
  * Modelliert einen Raum in einem Verlies.
