@@ -17,3 +17,11 @@ Description: Shiny metallic shirt made by dwarven hand.
 Name: Dragonscale armour
 Defence: 4
 Description: Leather shirt made of dragonscales.
+
+Name: Cursed Dragonscale armour
+Defence: 6
+Description: Leather shirt made of dragonscales.
+
+Name: Troll leather armour
+Defence: 5
+Description: Leather shirt made of dragonscales.

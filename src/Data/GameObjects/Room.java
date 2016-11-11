@@ -1,4 +1,4 @@
-package Data;
+package Data.GameObjects;
 
 /**
  * Modelliert einen Raum in einem Verlies.

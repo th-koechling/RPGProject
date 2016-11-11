@@ -1,4 +1,4 @@
-package GameObjects;
+package Data.GameObjects;
 
 import java.util.Random;
 

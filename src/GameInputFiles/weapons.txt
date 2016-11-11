@@ -25,3 +25,15 @@ Description: The teeth of a beast of prey.
 Name: Axe
 Force: 5
 Description: Big battle axe.
+
+Name: OldSword
+Force: 15
+Description: Big battle axe.
+
+Name: Mjolnir
+Force: 17
+Description: Big battle axe.
+
+Name: Sabre
+Force: 11
+Description: Big battle axe.

@@ -1,12 +1,14 @@
 package core;
 
-import GameObjects.*;
+import Data.Level.Easy.Castle;
+import Data.Level.Hard.Castle2;
+import Data.GameObjects.Level;
+import Data.GameObjects.*;
 import Parser.ArmorParser;
 import Parser.CreatureParser;
 import Parser.TreasureParser;
 import Parser.WeaponParser;
-import Data.Level.*;
-import Data.Room;
+import Data.GameObjects.Room;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +56,9 @@ public class Game {
     private int level=0;
 
     public void nextLevel(){
-        level=level+1;
-        currentLevel=levels[level];
+        level=1;
+        levels[levelsWon].load();
+        currentLevel=levels[levelsWon];
 
     }
 
@@ -70,16 +73,19 @@ public class Game {
     private int levelsWon=0;
 
     public Game() {
-        levels=new Level[2];
+        levels = new Level[2];
         levels[0] = new Castle();
         levels[1] = new Castle2();
-        player= new Player(creatures.get("You"),49);
-        currentLevel =levels[level];
+        player = new Player(creatures.get("You"),49);
+        levels[levelsWon].load();
+        currentLevel = levels[levelsWon];
+
     }
 
     public void setMonster(Creature monster) {
         this.monster = monster;
     }
+
     public Level getCurrentLevel() {
         return currentLevel;
     }
@@ -91,8 +97,6 @@ public class Game {
     public Creature getMonster() {
         return monster;
     }
-
-
 
     public void move(String direction){
         currentLevel.getAllRooms().goToNextRoom(direction);

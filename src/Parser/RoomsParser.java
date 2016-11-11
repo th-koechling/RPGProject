@@ -1,7 +1,7 @@
 package Parser;
 
-import Data.Room;
-import Data.Rooms;
+import Data.GameObjects.Room;
+import Data.GameObjects.Rooms;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.Map;
  * Split into Parser and rooms by Fabian
  */
 public class RoomsParser {
-    public static Rooms parseRooms(String roomsPath) {
+    public Rooms parseRooms(String roomsPath) {
         Path roomsFile = Paths.get(roomsPath);
         Map<String, Room> listOfRooms = new HashMap<>();
         Charset charset = Charset.forName("US-ASCII");

@@ -1,4 +1,4 @@
-package Data;
+package Data.GameObjects;
 
 import java.util.Map;
 

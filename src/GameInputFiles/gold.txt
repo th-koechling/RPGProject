@@ -1,5 +1,10 @@
 Name: Treasure
 Description: The legendary treasure of the dragon.
-Name: Map
-Description: An old map of another world.
+Name: Book
+Description: The ancient book about the living dead
+Name: SaphireRing
+Description: A ring once worn by a noble woman.
+Name: Key
+Description: A key made of bones.
+
 

@@ -6,6 +6,5 @@
  * weapons.txt  containing the values for weapons
  * creatures.txt  containing the values for creatures
  * gold.txt  containing the values for treasures
- * rooms.txt  containing the info for the rooms
  */
 package GameInputFiles;

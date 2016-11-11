@@ -1,7 +1,7 @@
 package Parser;
 
 
-import GameObjects.Treasure;
+import Data.GameObjects.Treasure;
 
 import java.io.BufferedReader;
 import java.nio.file.Files;
@@ -20,14 +20,14 @@ public class TreasureParser {
         try{
             BufferedReader br = new BufferedReader( Files.newBufferedReader(textFile));
             String line = br.readLine();
-            String name = null;
+            String name = new String();
             while(line!=null){
                 if(line.contains("Name")){
-                    name = line.split(":")[1].substring(1);
+                    name = line.split(":")[1].substring(1).trim();
                 }
                 if(line.contains("Description")){
                     treasures.put(name,new Treasure(name,line.split(":")[1].substring(1)));
-                    name = null;
+                    name = new String();
                 }
                 line=br.readLine();
             }

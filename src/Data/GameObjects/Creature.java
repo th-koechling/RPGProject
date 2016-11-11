@@ -1,4 +1,4 @@
-package GameObjects;
+package Data.GameObjects;
 
 /**
  * TODO
@@ -36,6 +36,7 @@ public class Creature {
      */
     public int attack() {
         int dice = Dice.throwDice(2,6);
+        //added basedamage and weapondamage to formula, exp is somehow overkill
         return (xp * (basedamage+weapon.getForce())) + dice;
     }
 
@@ -44,7 +45,8 @@ public class Creature {
      * @param attackValue Value of the attack.
      */
     public void defend(int attackValue) {
-        this.hp = this.hp + armour.getDefence() - attackValue;
+        //change formula, so armour actually means something
+        this.hp = this.hp - (int)(attackValue/(armour.getDefence()*0.5));
         if(this.hp < 0){
             this.hp = 0;
         }

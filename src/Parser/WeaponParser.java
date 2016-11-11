@@ -1,6 +1,6 @@
 package Parser;
 
-import GameObjects.Weapon;
+import Data.GameObjects.Weapon;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

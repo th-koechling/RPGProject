@@ -1,6 +1,4 @@
-package GameObjects;
-
-import GameObjects.Item;
+package Data.GameObjects;
 
 /**
  * Created by andre_000 on 27.10.2016.

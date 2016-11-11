@@ -2,7 +2,7 @@ Name: You
 Species: Human
 Description: This is you.
 Experience: 1
-HealthStatus: 200
+HealthStatus: 175
 BaseDamage: 4
 Armor: Shirt
 Weapon: Hand
@@ -10,7 +10,7 @@ Weapon: Hand
 Name: Excursius
 Species: Dragon
 Description: A big green dragon, 5m tall with a 8m long tail.
-Experience: 3
+Experience: 4
 HealthStatus: 25
 BaseDamage: 10
 Armor: Dragonscales
@@ -37,7 +37,7 @@ Weapon: Teeth
 Name: Lothofiedus
 Species: Rat
 Description: A 50cm sized rat; gray with intelligent eyes.
-Experience: 5
+Experience: 1
 HealthStatus: 10
 BaseDamage: 2
 Armor: Ratskin
@@ -46,8 +46,62 @@ Weapon: Teeth
 Name: Rothofiedus
 Species: Rat
 Description: A 50cm sized rat; gray with intelligent eyes.
-Experience: 10
+Experience: 1
 HealthStatus: 10
 BaseDamage: 2
+Armor: Ratskin
+Weapon: Teeth
+
+Name: Dominus
+Species: Dragon
+Description: A big green dragon, 5m tall with a 8m long tail.
+Experience: 5
+HealthStatus: 70
+BaseDamage: 30
+Armor: Dragonscales
+Weapon: Fire
+
+Name: Gloin
+Species: Dwarf
+Description: A small dwarf with a long battle axe.
+Experience: 3
+HealthStatus: 50
+BaseDamage: 20
+Armor: Mithril armour
+Weapon: Axe
+
+Name: Splinter
+Species: Rat
+Description: A 50cm sized rat; gray with intelligent eyes.
+Experience: 2
+HealthStatus: 100
+BaseDamage: 2
+Armor: Ratskin
+Weapon: Teeth
+
+Name: Fidibus
+Species: Rat
+Description: A 50cm sized rat; gray with intelligent eyes.
+Experience: 2
+HealthStatus: 100
+BaseDamage: 2
+Armor: Ratskin
+Weapon: Teeth
+
+Name: Leech
+Species: Rat
+Description: A 50cm sized rat; gray with intelligent eyes.
+Experience: 2
+HealthStatus: 100
+BaseDamage: 2
+Armor: Ratskin
+Weapon: Teeth
+
+Name: Gargoyle
+Species: Gargoyle
+Description: A gargoyle made of stone.
+Experience: 15
+HealthStatus: 1000
+BaseDamage: 15
 Armor: Ratskin
 Weapon: Teeth

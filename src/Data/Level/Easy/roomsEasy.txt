@@ -164,7 +164,7 @@ O: none
 S: 4-6
 W: none
 Description: Small room with an old wooden box.
-Content: Map
+Content: Key
 
 Name: 1-6
 N: 2-6
@@ -188,7 +188,7 @@ O: 0-6
 S: none
 W: none
 Description: Round room sun-drenched with broken glass all over the ground, the ceiling is too high to get out.
-Content: test
+Content: SaphireRing
 
 Name: 0-7
 N: none
@@ -252,5 +252,5 @@ O: 6-2
 S: none
 W: none
 Description: Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.
-Content: test
+Content: Book
 

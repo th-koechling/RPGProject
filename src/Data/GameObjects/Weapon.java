@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GameObjects;
+package Data.GameObjects;
 
 /**
  * This class contains the implementation of a base weapon for the game
