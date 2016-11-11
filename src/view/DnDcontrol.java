@@ -368,13 +368,16 @@ public class DnDcontrol {
             toggleMovement(true);
             attack.setDisable(false);
             game.setMonster(game.getCreatures().get(content));
-            messageWindow.appendText("\n\n" + game.getMonster().getName() + " is in the room!\nYou have to fight!\n");
+            messageWindow.appendText("\\nnA monster is in the room:\n\nName: " + game.getMonster().getName() + "\nSpecies: " +
+                    game.getMonster().getSpecies()+"\nDescription: "+game.getMonster().getDescription()+"\n\n" +
+                    "You have to fight!");
             attack.setDisable(false);
         }
         if(game.getArmours().containsKey(content)){
             pickup(game.getArmours().get(content));
             messageWindow.appendText("\nChecking armours...");
             game.getPlayer().pickBestArmourFromInv();
+            messageWindow.appendText("\nEquipped: \n"+game.getPlayer().getArmour().getName()+"\n"+game.getPlayer().getArmour().getDescription());
             armorPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getArmour().getName()));
             adjustArmourView();
             game.getCurrentRoom().setContent("none");
@@ -383,6 +386,7 @@ public class DnDcontrol {
             pickup(game.getWeapons().get(content));
             messageWindow.appendText("\nChecking weapons...");
             game.getPlayer().pickBestWeaponFromInv();
+            messageWindow.appendText("\nEquipped:\n"+game.getPlayer().getWeapon().getName()+"\n"+game.getPlayer().getWeapon().getDescription());
             weaponPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getWeapon().getName()));
             adjustDamageView();
             game.getCurrentRoom().setContent("none");
@@ -395,7 +399,8 @@ public class DnDcontrol {
                 if(!game.getWin()){
                     game.nextLevel();
                 }else{
-                    messageWindow.appendText("\n\n****\nYou have won the game!\nNo dungeon was too dark...\nNo monster was too big...\nYou are a true hero\n****");
+                    messageWindow.appendText("\n\n****\nYou have completed the game!\nNo dungeon was too dark...\nNo monster was too big...\n"+
+                            playerName.getText()+", YOU are a true hero\n****");
                     endGame();
                 }
             }
@@ -449,10 +454,10 @@ public class DnDcontrol {
     }
 
     private void pickup(Item item){
-        messageWindow.appendText("\n\nYou found:\n"+item.getName()+"\n"+item.getDescription()+".\n");
+        messageWindow.appendText("\n\nYou found:\n"+item.getName()+"\n"+item.getDescription()+".\n\n");
         boolean added=game.getPlayer().pickupItem(item);
         if(added){
-            messageWindow.appendText("Added to inventory.\n\nNow in inventory:\n=====");
+            messageWindow.appendText("Added iten to inventory.\n\nNow in inventory:\n=====");
             for(Item loot:game.getPlayer().getInventory()){
                 messageWindow.appendText("\n"+loot.getName()+"\n-> "+loot.getDescription()+"\n=====");
             }

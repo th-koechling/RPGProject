@@ -49,10 +49,12 @@ public class Castle2 implements Level{
         fillDungeonOneInfoPics();
     }
     public String getStartText(){
-        return "You enter an old castle.\nEverything looks strangely familiar.\nExplore your environment";
+        return "In the land of the ancient evil...\n\nYou are standing at the entrance of a castle again. Everything " +
+                "looks strangely familiar. You can feel a scent of evil....\n\nMonsters might overwhelm you...\n";
     }
     public String getWinText(){
-        return "\nYou have killed the magic dragon and found the treasure.";
+        return "You have killed the ancient evil and found the legendary treasure of the dragon. In the chest you find" +
+                "they key to a new dimension....\n\nJust kidding, you find overflowing riches.\n";
     }
     public boolean getWinCondition(Player player) {
         for (Treasure treasure : player.getInventory().getTreasures()) {

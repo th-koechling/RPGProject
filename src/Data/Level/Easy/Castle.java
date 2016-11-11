@@ -47,11 +47,14 @@ public class Castle implements Level{
         fillDungeonOneInfoPics();
     }
     public String getStartText(){
-        return "Find the legendary treasure of the dragon.\nTake care of monsters!";
+        return "You are on a hunt for the legendary treasure of the dragon. This legendary treasure was protected by " +
+                "Excursius, an ancient wise dragon, for more than one hundred years now. You are standing at the entrance" +
+                " to his castle.\n\nTake care of monsters!\n";
     }
 
     public String getWinText(){
-        return "You have found a way through the castle and killed the dragon, but the treasure is in another castle....";
+        return "You have found a way through the castle and killed Excursius, but he was only one manifestation of " +
+                "the ancient evil that protects the treasure. The bone key opens a door to the land of the ancient evil...";
     }
     public boolean getWinCondition(Player player) {
         for (Treasure treasure : player.getInventory().getTreasures()) {
@@ -97,7 +100,6 @@ public class Castle implements Level{
                 roomView[0][2]= roomImageToDescription.get(pair.getValue().getDescription());
             }
         }
-
         for (int  i = 0; i < castleView.length; i++){
             for (int j = 0; j < castleView[i].length; j++){
                 if(castleView[i][j]== null){
