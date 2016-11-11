@@ -14,12 +14,13 @@ public interface Level {
     //make java doc here and write @override in implementing classes
     //reorder into getters, loaders and modifiers
 
-    /**
-     * Loads a level and makes its recources available.
-     * Needs to be called before a level can be used by the game.
-     * @author Fabian Billenkamp
+
+
+    /*
+     **********************************************************************************
+     *            Getter methods for the different game components                    *
+     **********************************************************************************
      */
-    void load();
 
     /**
      *
@@ -63,6 +64,24 @@ public interface Level {
      */
     String getWinText();
 
+     /*
+     **********************************************************************************
+     *                               Level initialization                             *
+     **********************************************************************************
+     */
+
+    /**
+     * Loads a level and makes its recources available.
+     * Needs to be called before a level can be used by the game.
+     * @author Fabian Billenkamp
+     */
+    void load();
+
+    /*
+     **********************************************************************************
+     *                               Level usage                                      *
+     **********************************************************************************
+     */
     /**
      *
      * @param direction

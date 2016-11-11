@@ -9,37 +9,52 @@ import Parser.CreatureParser;
 import Parser.TreasureParser;
 import Parser.WeaponParser;
 import Data.GameObjects.Room;
-
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Fabian Billenkamp on 08.11.2016.
+ * @author Fabian Billenkamp
  */
 public class Game {
+    private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/GameInputFiles/gold.txt");
+    private HashMap<String, Weapon> weapons = WeaponParser.collectWeapons("./src/GameInputFiles/weapons.txt");
+    private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/GameInputFiles/armors.txt");
+    private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/GameInputFiles/creatures.txt",weapons,armours);
+    private Creature monster;
+    private Player player;
+    private Level currentLevel;
+    private Level[]levels;
+    private int levelsWon=0;
+
+    /*
+     **********************************************************************************
+     *            Getter methods for the different game components                    *
+     **********************************************************************************
+     */
+
     public Map<String, Treasure> getTreasures() {
         return treasures;
     }
 
-    private Map<String, Treasure> treasures = new TreasureParser().parseTreasures("./src/GameInputFiles/gold.txt");
+
 
     public HashMap<String, Weapon> getWeapons() {
         return weapons;
     }
 
-    private HashMap<String, Weapon> weapons = WeaponParser.collectWeapons("./src/GameInputFiles/weapons.txt");
+
 
     public HashMap<String, Armour> getArmours() {
         return armours;
     }
 
-    private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/GameInputFiles/armors.txt");
+
 
     public HashMap<String, Creature> getCreatures() {
         return creatures;
     }
 
-    private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/GameInputFiles/creatures.txt",weapons,armours);
+
 
     public boolean getWin(){
         if(levelsWon>=levels.length){
@@ -49,10 +64,7 @@ public class Game {
         }
     }
 
-    private Creature monster;
-    private Player player;
-    private Level currentLevel;
-    private Level[]levels;
+
 
 
     public void nextLevel(){
@@ -69,7 +81,7 @@ public class Game {
         this.levelsWon = levelsWon;
     }
 
-    private int levelsWon=0;
+
 
     public Game() {
         levels = new Level[2];
