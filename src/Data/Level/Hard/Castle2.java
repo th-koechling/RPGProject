@@ -190,6 +190,7 @@ public class Castle2 implements Level{
 
     // dungeon number one: hash map containing the images for the infopic view pane:
     //moved to castle by FB for better level handling purposes
+    // changed monsters for level 2, so they are not the same as for level 1 (th.)
     private void fillDungeonOneInfoPics()
     {
         dungeonOneInfoPics = new HashMap<String, Image>();
@@ -198,11 +199,11 @@ public class Castle2 implements Level{
         dungeonOneInfoPics.put("OldSword", Pictures.sword_of_power);
         dungeonOneInfoPics.put("Sabre", Pictures.sabre);
         dungeonOneInfoPics.put("Mjolnir", Pictures.hammer);
-        dungeonOneInfoPics.put("Gloin", Pictures.dwarf_king);
-        dungeonOneInfoPics.put("Splinter", Pictures.sewer_rat);
-        dungeonOneInfoPics.put("Fidibus", Pictures.wererat);
-        dungeonOneInfoPics.put("Leech", Pictures.vampire_bat);
-        dungeonOneInfoPics.put("Dominus", Pictures.serpent_of_hell);
+        dungeonOneInfoPics.put("Gloin", Pictures.gnomish_wizard);
+        dungeonOneInfoPics.put("Splinter", Pictures.redback);
+        dungeonOneInfoPics.put("Fidibus", Pictures.lich_old);
+        dungeonOneInfoPics.put("Leech", Pictures.quasit);
+        dungeonOneInfoPics.put("Dominus", Pictures.gloorx_vloq);
         dungeonOneInfoPics.put("Treasure", Pictures.chest);
         dungeonOneInfoPics.put("Gargoyle", Pictures.gargoyle);
     }
