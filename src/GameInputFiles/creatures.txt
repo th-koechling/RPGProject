@@ -53,8 +53,8 @@ Armor: Ratskin
 Weapon: Teeth
 
 Name: Dominus
-Species: Dragon
-Description: A big green dragon, 5m tall with a 8m long tail.
+Species: Demon
+Description: A big demon with burning eyes.
 Experience: 5
 HealthStatus: 70
 BaseDamage: 30
@@ -62,8 +62,8 @@ Armor: Dragonscales
 Weapon: Fire
 
 Name: Gloin
-Species: Dwarf
-Description: A small dwarf with a long battle axe.
+Species: Wizard
+Description: A wise wizard.
 Experience: 3
 HealthStatus: 50
 BaseDamage: 20
@@ -71,8 +71,8 @@ Armor: Mithril armour
 Weapon: Axe
 
 Name: Splinter
-Species: Rat
-Description: A 50cm sized rat; gray with intelligent eyes.
+Species: Spider
+Description: A spider with the size of a small cow.
 Experience: 2
 HealthStatus: 100
 BaseDamage: 2
@@ -80,8 +80,8 @@ Armor: Ratskin
 Weapon: Teeth
 
 Name: Fidibus
-Species: Rat
-Description: A 50cm sized rat; gray with intelligent eyes.
+Species: Skeleton
+Description: A skeleton mage.
 Experience: 2
 HealthStatus: 100
 BaseDamage: 2
@@ -89,8 +89,8 @@ Armor: Ratskin
 Weapon: Teeth
 
 Name: Leech
-Species: Rat
-Description: A 50cm sized rat; gray with intelligent eyes.
+Species: Demon bat
+Description: A blue demon bat.
 Experience: 2
 HealthStatus: 100
 BaseDamage: 2

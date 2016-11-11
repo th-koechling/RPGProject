@@ -20,8 +20,8 @@ Description: Leather shirt made of dragonscales.
 
 Name: Cursed Dragonscale armour
 Defence: 6
-Description: Leather shirt made of dragonscales.
+Description: Made of the scales of a curse dragon.
 
 Name: Troll leather armour
 Defence: 5
-Description: Leather shirt made of dragonscales.
+Description: Tailored troll skin.

@@ -425,8 +425,9 @@ public class DnDcontrol {
             if(game.getPlayer().getHp()==0) {
                 messageWindow.setText("Game over!\n"+monster.getName()+", "+monster.getDescription()+" killed you."
                         +"\nTry to be better next time!");
+                roomPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(monster.getName()));
+                switchMapRoomView();
                 endGame();
-                infoPic.setImage(Pictures.flying_skull);
                 return false;
             }
         } else {
@@ -477,6 +478,9 @@ public class DnDcontrol {
         weaponPic.setImage(null);
         armorPic.setImage(null);
         nameDialogue.setVisible(false);
+        if(roomPic.isVisible()){
+            switchMapRoomView();
+        }
         currentMap = loadDungeonMap(game.getCurrentLevel().getCastleView());// Martin tmp to test castle class will be removed
         currentRoomViewMap = game.getCurrentLevel().getViewAllRooms();
         adjustRoomViews();
