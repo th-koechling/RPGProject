@@ -53,10 +53,9 @@ public class Game {
     private Player player;
     private Level currentLevel;
     private Level[]levels;
-    private int level=0;
+
 
     public void nextLevel(){
-        level=1;
         levels[levelsWon].load();
         currentLevel=levels[levelsWon];
 
@@ -99,7 +98,7 @@ public class Game {
     }
 
     public void move(String direction){
-        currentLevel.getAllRooms().goToNextRoom(direction);
+        currentLevel.move(direction);
         player.heal();
     }
 

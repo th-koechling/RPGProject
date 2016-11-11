@@ -5,17 +5,71 @@ import javafx.scene.image.Image;
 import java.util.Map;
 
 /**
- * Created by Fabian Billenkamp on 10.11.2016.
+ * Interface Level collects all methods that are needed for Levels in the DND game
+ * methods are mostly derived from Castle by Martin and Interface was implemented by Fabian
+ * @author Martin
+ * @author Fabian Billenkamp
  */
 public interface Level {
-    public void load();
-    public Image[][] getCastleView();
-    public  Map<String, Image> getDungeonOneInfoPics();
-    public void move(String direction);
-    public  Image[][] getViewAllRooms();
-    public Rooms getAllRooms();
-    public boolean getWinCondition(Player player);
-    public String getStartText();
-    public String getWinText();
-    public void positionRoomsByName();
+    //make java doc here and write @override in implementing classes
+    //reorder into getters, loaders and modifiers
+
+    /**
+     *
+     */
+    void load();
+
+    /**
+     *
+     * @return
+     */
+    Image[][] getCastleView();
+
+    /**
+     *
+     * @return
+     */
+    Map<String, Image> getDungeonOneInfoPics();
+
+    /**
+     *
+     * @param direction
+     */
+    void move(String direction);
+
+    /**
+     *
+     * @return
+     */
+    Image[][] getViewAllRooms();
+
+    /**
+     *
+     * @return
+     */
+    Rooms getAllRooms();
+
+    /**
+     * @author Fabian Billenkamp
+     * @param player
+     * @return
+     */
+    boolean getWinCondition(Player player);
+
+    /**
+     * @author Fabian Billenkamp
+     * @return
+     */
+    String getStartText();
+
+    /**
+     * @author Fabian Billenkamp
+     * @return
+     */
+    String getWinText();
+
+    /**
+     *
+     */
+    void positionRoomsByName();
 }

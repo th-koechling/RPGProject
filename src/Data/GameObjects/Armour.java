@@ -1,7 +1,10 @@
 package Data.GameObjects;
 
 /**
- * Created by andre_000 on 27.10.2016.
+ * This class is a representation for armours in the DND game, it inherits methods of Item and
+ * adds armour specific methods
+ * @author Fabian Billenkamp
+ * @author Andreas
  */
 public class Armour implements Item {
     private String name;
@@ -22,7 +25,7 @@ public class Armour implements Item {
     }
 
     /**
-     * Default Constructor for a weapon
+     * Default Constructor for an armour
      */
     public Armour(){}
 
@@ -38,23 +41,26 @@ public class Armour implements Item {
      * Getter method for the power of an armor
      * @return int: power value of the armor (used for defense calculations)
      */
-
     public int getDefence() {
         return defence;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description=description;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setName(String name) {
         this.name=name;
     }
 
+    @Override
     public String getName() {
         return name;
     }
