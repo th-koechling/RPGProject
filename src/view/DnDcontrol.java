@@ -502,6 +502,9 @@ public class DnDcontrol {
      */
     private void new_gamePressed(ActionEvent actionEvent) {
         game=new Game();
+        toggleMovement(true);
+        attack.setDisable(true);
+        toggleView.setDisable(true);
         nameDialogue.setVisible(true);
 
     }
