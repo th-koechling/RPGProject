@@ -15,7 +15,9 @@ public interface Level {
     //reorder into getters, loaders and modifiers
 
     /**
-     *
+     * Loads a level and makes its recources available.
+     * Needs to be called before a level can be used by the game.
+     * @author Fabian Billenkamp
      */
     void load();
 
@@ -30,13 +32,6 @@ public interface Level {
      * @return
      */
     Map<String, Image> getDungeonOneInfoPics();
-
-    /**
-     *
-     * @param direction
-     */
-    void move(String direction);
-
     /**
      *
      * @return
@@ -67,6 +62,14 @@ public interface Level {
      * @return
      */
     String getWinText();
+
+    /**
+     *
+     * @param direction
+     */
+    void move(String direction);
+
+
 
     /**
      *
