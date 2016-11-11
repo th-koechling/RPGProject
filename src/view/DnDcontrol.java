@@ -518,7 +518,7 @@ public class DnDcontrol {
     }
     private void adjustArmourView(){
         int defense = game.getPlayer().getArmour().getDefence();
-        int mitigation = 100-(int)((1.0/(defense*0.5))*100);
+        int mitigation = 100-(int)((1.0/(defense*0.6))*100);
         defStat.setText(defense+" ("+mitigation+"%)");
     }
 

@@ -46,7 +46,7 @@ public class Creature {
      */
     public void defend(int attackValue) {
         //change formula, so armour actually means something
-        this.hp = this.hp - (int)(attackValue/(armour.getDefence()*0.5));
+        this.hp = this.hp - (int)(attackValue/(armour.getDefence()*0.6));
         if(this.hp < 0){
             this.hp = 0;
         }
