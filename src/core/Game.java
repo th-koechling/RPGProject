@@ -28,61 +28,13 @@ public class Game {
 
     /*
      **********************************************************************************
-     *            Getter methods for the different game components                    *
+     *                              Game constructor                                  *
      **********************************************************************************
      */
 
-    public Map<String, Treasure> getTreasures() {
-        return treasures;
-    }
-
-
-
-    public HashMap<String, Weapon> getWeapons() {
-        return weapons;
-    }
-
-
-
-    public HashMap<String, Armour> getArmours() {
-        return armours;
-    }
-
-
-
-    public HashMap<String, Creature> getCreatures() {
-        return creatures;
-    }
-
-
-
-    public boolean getWin(){
-        if(levelsWon>=levels.length){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-
-
-
-    public void nextLevel(){
-        levels[levelsWon].load();
-        currentLevel=levels[levelsWon];
-
-    }
-
-    public int getLevelsWon() {
-        return levelsWon;
-    }
-
-    public void setLevelsWon(int levelsWon) {
-        this.levelsWon = levelsWon;
-    }
-
-
-
+    /**
+     *
+     */
     public Game() {
         levels = new Level[2];
         levels[0] = new Castle();
@@ -93,29 +45,146 @@ public class Game {
 
     }
 
-    public void setMonster(Creature monster) {
-        this.monster = monster;
+
+
+    /*
+     **********************************************************************************
+     *            Getter methods for the different game components                    *
+     **********************************************************************************
+     */
+
+    /**
+     *
+     * @return
+     */
+    public Map<String, Treasure> getTreasures() {
+        return treasures;
     }
 
+    /**
+     *
+     * @return
+     */
+    public HashMap<String, Weapon> getWeapons() {
+        return weapons;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public HashMap<String, Armour> getArmours() {
+        return armours;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public HashMap<String, Creature> getCreatures() {
+        return creatures;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean getWin(){
+        if(levelsWon>=levels.length){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Room getCurrentRoom(){
+        return currentLevel.getAllRooms().getRoomByName(currentLevel.getAllRooms().getAktuellePosition());
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getLevelsWon() {
+        return levelsWon;
+    }
+
+    /**
+     *
+     * @return
+     */
     public Level getCurrentLevel() {
         return currentLevel;
     }
 
+    /**
+     *
+     * @return
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     *
+     * @return
+     */
     public Creature getMonster() {
         return monster;
     }
 
+
+    /*
+     **********************************************************************************
+     *                                Level change                                    *
+     **********************************************************************************
+     */
+
+    /**
+     *
+     */
+    public void nextLevel(){
+        levels[levelsWon].load();
+        currentLevel=levels[levelsWon];
+
+    }
+
+    /**
+     *
+     * @param levelsWon
+     */
+    public void setLevelsWon(int levelsWon) {
+        this.levelsWon = levelsWon;
+    }
+
+    /*
+     **********************************************************************************
+     *                        Current level manipulation                              *
+     **********************************************************************************
+     */
+
+    /**
+     * 
+     * @param direction
+     */
     public void move(String direction){
         currentLevel.move(direction);
         player.heal();
     }
-
-    public Room getCurrentRoom(){
-        return currentLevel.getAllRooms().getRoomByName(currentLevel.getAllRooms().getAktuellePosition());
+    /**
+     *
+     * @param monster
+     */
+    public void setMonster(Creature monster) {
+        this.monster = monster;
     }
+
+
+
 
 }

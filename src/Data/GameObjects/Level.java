@@ -14,8 +14,6 @@ public interface Level {
     //make java doc here and write @override in implementing classes
     //reorder into getters, loaders and modifiers
 
-
-
     /*
      **********************************************************************************
      *            Getter methods for the different game components                    *
