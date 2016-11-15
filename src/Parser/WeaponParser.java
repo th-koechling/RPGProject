@@ -48,7 +48,8 @@ public class WeaponParser {
     }
     /**
      * Returns an array that contains all weapons saved in weapons.txt
-     * @returnArray  with all weapons
+     * @return Array  with all weapons
+     * @param file a .txt file with the weaponvalues for the DND game
      */
     //could delete this method now since we use the files from method call in dnd control (also see creatures)
     public static HashMap<String, Weapon> collectWeapons(String file){

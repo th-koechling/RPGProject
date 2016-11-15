@@ -11,9 +11,19 @@ import java.util.List;
  * @author Fabian Billenkamp
  */
 public class Inventory implements Iterable<Item>{
+    /*
+    **********************************************************************************
+    *                                  Variables                                     *
+    **********************************************************************************
+    */
     private Item[] items;
     private int maxCapacity;
 
+    /*
+    **********************************************************************************
+    *                                  Constructors                                  *
+    **********************************************************************************
+    */
     /**
      * Creates an Inventory that can store objects that implement the Interface Item in an array
      * Current implementation allows to store more or less unlimited items (up to Integer.MAX_VALUE)
@@ -43,7 +53,11 @@ public class Inventory implements Iterable<Item>{
         this.items[0]=item;
     }
 
-
+    /*
+     **********************************************************************************
+     *                                  Inventory methods                             *
+     **********************************************************************************
+     */
     /**
      * Adds an Object that implements the Interface item to the inventory, as long as there is space and returns the status
      * @param item The item object to be added
@@ -86,6 +100,7 @@ public class Inventory implements Iterable<Item>{
         }
         return item;
     }
+
     /**
      * Returns the number of items in the inventory (the actual size of the inventory)
      * @return integer total number of items
@@ -93,6 +108,7 @@ public class Inventory implements Iterable<Item>{
     public int getMaxCapacity(){
         return maxCapacity;
     }
+
     /**
      * Returns the number of items in the inventory (the actual size of the inventory)
      * @return integer total number of items
@@ -138,7 +154,7 @@ public class Inventory implements Iterable<Item>{
     }
 
     /**
-     * Returns aan armour array of all armours in the inventory
+     * Returns an armour array of all armours in the inventory
      * @return an Armour[]
      */
     public Armour[] getArmours() {
@@ -156,8 +172,9 @@ public class Inventory implements Iterable<Item>{
         }
         return armours;
     }
+
     /**
-     * Returns a weapon array of all treasures in the inventory
+     * Returns a treasure array of all treasures in the inventory
      * @return a Treasure[]
      */
     public Treasure[] getTreasures() {
@@ -176,7 +193,8 @@ public class Inventory implements Iterable<Item>{
     }
 
     /**
-     * This method is used to determine the weakest weapon by force from inventory and remove it
+     * This method is used to determine the weakest weapon by force from inventory
+     * @return Weapon: the weakest weapon in the inventory, if non available, a dummy is returned
      */
     public Weapon getWeakestWeapon(){
         Weapon dummy = new Weapon("Dummy",Integer.MAX_VALUE,"Dummy");
@@ -190,8 +208,8 @@ public class Inventory implements Iterable<Item>{
     }
 
     /**
-     * Returns a weapon array of all treasures in the inventory
-     * @return a Treasure[]
+     * This method is used to determine the strongest weapon by force from inventory
+     * @return Weapon: the strongest weapon in the inventory, if non available, a dummy is returned
      */
     public Weapon getBestWeapon() {
         Weapon dummy = new Weapon("Dummy",0,"Dummy");
@@ -204,6 +222,10 @@ public class Inventory implements Iterable<Item>{
         return dummy;
     }
 
+    /**
+     * This method is used to determine the best armour by defence from inventory
+     * @return Armour: the best armour in the inventory, if non available, a dummy is returned
+     */
     public Armour getBestArmour() {
         Armour dummy = new Armour("Dummy",0,"Dummy");
         Armour[] armours = getArmours();
@@ -219,7 +241,6 @@ public class Inventory implements Iterable<Item>{
      * Creates an Iterator for the Item[] items
      * @return an ItemIterator over the items in the Item[] items
      */
-    @Override
     public Iterator<Item> iterator(){
         return new ItemIterator(items);
     }
@@ -228,7 +249,6 @@ public class Inventory implements Iterable<Item>{
     /**
      *Inner Class containing the Iterator functions for ItemIterator
      */
-
     class ItemIterator implements Iterator<Item>{
         private int zaehler;
         Item[] items;
@@ -253,7 +273,7 @@ public class Inventory implements Iterable<Item>{
 
         /**
          * Method for finding out if there is a next item
-         * @return true if zaehler<items.length false if zaehler not < items.length
+         * @return boolean true if zaehler smaller than items.length, false: else
          */
         public boolean hasNext() {
             if (zaehler < items.length) {

@@ -6,16 +6,36 @@
 package Data.GameObjects;
 
 /**
- *
  * @author Fabian Billenkamp
  */
 public class Player extends Creature {
-
+    /*
+    **********************************************************************************
+    *                                  Variables                                     *
+    **********************************************************************************
+    */
     int inventorySpace;
     boolean isAlive;
     boolean hasDragonTreasure;
     Inventory inventory;
 
+    /*
+    **********************************************************************************
+    *                                  Constructors                                  *
+    **********************************************************************************
+    */
+    /**
+     * This constructor for a PLayer takes all possible values as parameters
+     * @param name String: Playername
+     * @param species String: Playerspecies
+     * @param description String: Player description
+     * @param xp Integer: Experiencepoints
+     * @param hp Integer: Healthpoints
+     * @param basedamage Integer: Player Basedamage
+     * @param armour Armour: Player Armour
+     * @param weapon Weapon: Player Weapon
+     * @param inventorySpace Integer: Size of the Player Inventory
+     */
     public Player(String name, String species, String description, int xp, int hp, int basedamage, Armour armour, Weapon weapon, int inventorySpace) {
         super(name, species, description,xp, hp,basedamage, armour, weapon);
         this.isAlive = true;
@@ -27,6 +47,13 @@ public class Player extends Creature {
         }
 
     }
+
+    /**
+     * This constructor for Player takes a Creature model as the basis for creating a player.
+     * The values from creature are transcribed into Player
+     * @param model: Creature: the Creature model the Player is based on
+     * @param inventorySpace: Integer: Size of the Player Inventory
+     */
     public Player(Creature model, int inventorySpace) {
         super(model.getName(), model.getSpecies(), model.getDescription(),model.getXp(), model.getMaxhp(),model.getBasedamage(), model.getArmour(), model.getWeapon());
         this.inventorySpace = inventorySpace;
@@ -36,22 +63,26 @@ public class Player extends Creature {
         }
     }
 
-
+   /*
+    **********************************************************************************
+    *                              Player methods                                    *
+    **********************************************************************************
+    */
     /**
-     * @Author Fabian Billenkamp
      * This method returns the free space in a player inventory
+     * @author Fabian Billenkamp
+     * @deprecated
      */
     public int getInventorySpace() {
         return this.inventory.getFreeCapacity();
     }
+
     /**
-     * @Author Fabian Billenkamp
      * This method is used to take an item object and add the object to the inventory
      * In case the item can not be added due to inventory being full, the weakest
      * weapon is removed from inventory and the item is added.
+     * @author Fabian Billenkamp
      */
-    //Since currently there is only one non-weapon item, no conflicts should emerge from this.
-    //
     public boolean pickupItem(Item item){
         boolean added = this.inventory.addItem(item);
         if(!added){
@@ -59,17 +90,22 @@ public class Player extends Creature {
             this.inventory.removeItem(weakest);
             added=this.inventory.addItem(item);
         }
-
         return added;
     }
+
     /**
-     * @Author Fabian Billenkamp
      * This method sets the weapon of a player to be the best weapon by force from the inventory
+     * @author Fabian Billenkamp
      */
     public void pickBestWeaponFromInv(){
         this.setWeapon(inventory.getBestWeapon());
     }
 
+    /**
+     * This method sets the armour of a player to be the best weapon by force from the inventory
+     * @author Fabian Billenkamp
+     * @author Andreas
+     */
     public void pickBestArmourFromInv(){
         this.setArmour(inventory.getBestArmour());
     }

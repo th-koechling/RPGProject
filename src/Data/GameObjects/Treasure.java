@@ -24,23 +24,30 @@ public class Treasure implements Item {
         this.setDescription(description);
     }
 
-
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public String getDescription() {
         return description;
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void setDescription(String description) {
         this.description=description;
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public void setName(String name) {
         this.name=name;
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public String getName() {
         return name;
     }

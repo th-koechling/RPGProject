@@ -1,32 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Data.Level.Hard;
+package Data.Level;
 
 /**
+ * This class represents the original DND level
  *
+ * A DND level has to deliver the following objects:
+ * -...
+ * -...
+ * -a win condition->realized via getter method
+ * -an opening text>realized via getter method
+ * -a closing text>realized via getter method
  * @author Martins
+ * @author Fabian Billenkamp
  */
-
-
-import Data.GameObjects.Room;
-import Data.GameObjects.Rooms;
-import Data.GameObjects.Player;
-import Data.GameObjects.Treasure;
-import Parser.RoomsParser;
-import Data.GameObjects.Level;
-import javafx.scene.image.Image;
-import view.Pictures;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
+import Data.GameObjects.Player;
+import Data.GameObjects.Treasure;
+import view.*;
+import Data.GameObjects.Room;
+import Data.GameObjects.Rooms;
+import Parser.RoomsParser;
+import javafx.scene.image.Image;
 
 
-public class Castle2 implements Level{
+public class Castle implements Level{
+    /*
+     **********************************************************************************
+     *                                  Variables                                     *
+     **********************************************************************************
+     */
     private Image[][] castleView;
     private Map<String, Room> test;
     private Map<String, Image> imageToDescription;
@@ -35,12 +38,91 @@ public class Castle2 implements Level{
     private Rooms allRooms;
     private Map<String, Image> dungeonOneInfoPics;
 
-    public Castle2() {
+    /*
+     **********************************************************************************
+     *                                 Constructor                                    *
+     **********************************************************************************
+     */
+    /**
+     * @author Martins
+     */
+    public Castle() {
         this.castleView = new Image[7][7];
         this.roomView = new Image[7][7];
     }
+    /*
+     **********************************************************************************
+     *            Getter methods for the different variables                          *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     */
+    public String getStartText(){
+        return "You are on a hunt for the legendary treasure of the dragon. This legendary treasure was protected by " +
+                "Excursius, an ancient wise dragon, for more than one hundred years now. You are standing at the entrance" +
+                " to his castle.\n\nTake care of monsters!\n";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getWinText(){
+        return "You have found a way through the castle and killed Excursius, but he was only one manifestation of " +
+                "the ancient evil that protects the treasure. The bone key opens a door to the land of the ancient evil...";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean getWinCondition(Player player) {
+        for (Treasure treasure : player.getInventory().getTreasures()) {
+            if (treasure.getDescription().contains("A key made of bones")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  Map<String, Image> getDungeonOneInfoPics() {
+        return dungeonOneInfoPics;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  Image[][] getCastleView(){
+        return castleView;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  Image[][] getViewAllRooms(){
+        return roomView;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Rooms getAllRooms(){
+        return allRooms;
+    }
+
+    /*
+     **********************************************************************************
+     *                                Level initialization                            *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     * Using roomsEasy.txt for loading a level layout
+     */
     public void load(){
-        allRooms = new RoomsParser().parseRooms("src/Data/Level/Hard/roomsHard.txt");
+        allRooms = new RoomsParser().parseRooms("src/Data/Level/roomsEasy.txt");
         test = allRooms.getRoomMap();
         imageToDescription = new HashMap<>();
         roomImageToDescription = new HashMap<>();
@@ -48,44 +130,63 @@ public class Castle2 implements Level{
         fillImageToDescription();
         fillDungeonOneInfoPics();
     }
-    public String getStartText(){
-        return "In the land of the ancient evil...\n\nYou are standing at the entrance of a castle again. Everything " +
-                "looks strangely familiar. You can feel a scent of evil....\n\nMonsters might overwhelm you...\n";
-    }
-    public String getWinText(){
-        return "You have killed the ancient evil and found the legendary treasure of the dragon. In the chest you find" +
-                "they key to a new dimension....\n\nJust kidding, you find overflowing riches.\n";
-    }
-    public boolean getWinCondition(Player player) {
-        for (Treasure treasure : player.getInventory().getTreasures()) {
-            if (treasure.getDescription().contains("The legendary treasure of the dragon.")) {
-                return true;
-            }
 
-        }
-        return false;
-    }
-
-
-    public  Map<String, Image> getDungeonOneInfoPics() {
-        return dungeonOneInfoPics;
-    }
-
-
-
-
-
+    /*
+     **********************************************************************************
+     *                                Game methods                                    *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     */
     public void move(String direction){
         allRooms.goToNextRoom(direction);
     }
 
-    public  Image[][] getCastleView(){
-        return castleView;
-    }
-    public  Image[][] getViewAllRooms(){
-        return roomView;
+    /*
+     **********************************************************************************
+     *                  Public picture manipulation methods                           *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     */
+    public void positionRoomsByName()  {
+        fillImageToDescription();
+        for (Map.Entry<String, Room> pair : test.entrySet()) {
+            Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
+            int posRow = 0;
+            int posCol = 0;
+            Matcher match = pattern.matcher(pair.getKey());
+            if (match.find()) {
+                posRow = Integer.parseInt(match.group(1));
+                posCol = Integer.parseInt(match.group(2))-1;
+                castleView[posRow][posCol]= imageToDescription.get(pair.getValue().getDescription());
+                roomView[posRow][posCol]= roomImageToDescription.get(pair.getValue().getDescription());
+            }
+            if(pair.getKey().contains("Entry")){
+                castleView[0][2]= imageToDescription.get(pair.getValue().getDescription()); // eventually add info where in rooms.txt
+                roomView[0][2]= roomImageToDescription.get(pair.getValue().getDescription());
+            }
+        }
+        for (int  i = 0; i < castleView.length; i++){
+            for (int j = 0; j < castleView[i].length; j++){
+                if(castleView[i][j]== null){
+                    castleView[i][j] = Pictures.tile01;
+                    roomView[i][j] = Pictures.rock_wall01;
+                }
+            }
+        }
     }
 
+    /*
+     **********************************************************************************
+     *                  Private picture manipulation methods                          *
+     **********************************************************************************
+     */
+    /*
+        Documentation for private method goes here!
+     */
     private void fillImageToDescription(){
         imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", Pictures.tile03);
         imageToDescription.put("A long dark hallway.", Pictures.tile11);
@@ -147,66 +248,33 @@ public class Castle2 implements Level{
         roomImageToDescription.put("Ostentatious hallway made of bright shiny stone with huge chandeliers and a luxuriant ceiling painting.", Pictures.fancy_hallway);
         roomImageToDescription.put("Luxuriant hall with sacral ceiling paintings.", Pictures.fancy_hall);
         roomImageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", Pictures.amber_gold);
-        roomImageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", Pictures.graveyard_pentagram);
+        roomImageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", view.Pictures.graveyard_pentagram);
         roomImageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", Pictures.secret_passage);
         roomImageToDescription.put("High hallway flanked with statuary.", Pictures.statue_hallway);
         roomImageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", Pictures.disfigured_hallway);
          
     }
 
-    public void positionRoomsByName()  {
-        fillImageToDescription();
-        for (Map.Entry<String, Room> pair : test.entrySet()) {
-             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
-             int posRow = 0;
-             int posCol = 0;
-             Matcher match = pattern.matcher(pair.getKey());
-             if (match.find()) {
-                    posRow = Integer.parseInt(match.group(1));
-                    posCol = Integer.parseInt(match.group(2))-1;
-                    castleView[posRow][posCol]= imageToDescription.get(pair.getValue().getDescription());
-                    roomView[posRow][posCol]= roomImageToDescription.get(pair.getValue().getDescription());
-             }
-             if(pair.getKey().contains("Entry")){
-                
-                 castleView[0][2]= imageToDescription.get(pair.getValue().getDescription()); // eventually add info where in rooms.txt
-                 roomView[0][2]= roomImageToDescription.get(pair.getValue().getDescription());
-             }
-        }
-        
-        for (int  i = 0; i < castleView.length; i++){
-            for (int j = 0; j < castleView[i].length; j++){
-                if(castleView[i][j]== null){
-                    castleView[i][j] = Pictures.tile01;
-                    roomView[i][j] = Pictures.rock_wall01;
-                }
-                    
-            }
-        }
-                    
-    }
-
-    public Rooms getAllRooms(){
-        return allRooms;
-    }
-
-    // dungeon number one: hash map containing the images for the infopic view pane:
-    //moved to castle by FB for better level handling purposes
-    // changed monsters for level 2, so they are not the same as for level 1 (th.)
+    /*
+        Documentation for private method goes here!
+        -dungeon number one: hash map containing the images for the infopic view pane:
+        -moved to castle by FB for better level handling purposes
+     */
     private void fillDungeonOneInfoPics()
     {
         dungeonOneInfoPics = new HashMap<String, Image>();
-        dungeonOneInfoPics.put("Troll leather armour", Pictures.troll_leather_armor);
-        dungeonOneInfoPics.put("Cursed Dragonscale armour", Pictures.shimmering_dragon_scale_mail);
-        dungeonOneInfoPics.put("OldSword", Pictures.sword_of_power);
-        dungeonOneInfoPics.put("Sabre", Pictures.sabre);
-        dungeonOneInfoPics.put("Mjolnir", Pictures.hammer);
-        dungeonOneInfoPics.put("Gloin", Pictures.gnomish_wizard);
-        dungeonOneInfoPics.put("Splinter", Pictures.redback);
-        dungeonOneInfoPics.put("Fidibus", Pictures.lich_old);
-        dungeonOneInfoPics.put("Leech", Pictures.quasit);
-        dungeonOneInfoPics.put("Dominus", Pictures.gloorx_vloq);
-        dungeonOneInfoPics.put("Treasure", Pictures.chest);
-        dungeonOneInfoPics.put("Gargoyle", Pictures.gargoyle);
+        dungeonOneInfoPics.put("Mithril armour", Pictures.elven_mithril_coat);
+        dungeonOneInfoPics.put("Dragonscale armour", Pictures.dragon_armor);
+        dungeonOneInfoPics.put("Sword", Pictures.sword1);
+        dungeonOneInfoPics.put("Knife", Pictures.crysknife);
+        dungeonOneInfoPics.put("Lance", Pictures.lance);
+        dungeonOneInfoPics.put("Grodagrim", Pictures.dwarf_king);
+        dungeonOneInfoPics.put("Gothofiedus", Pictures.sewer_rat);
+        dungeonOneInfoPics.put("Lothofiedus", Pictures.wererat);
+        dungeonOneInfoPics.put("Rothofiedus", Pictures.vampire_bat);
+        dungeonOneInfoPics.put("Excursius", Pictures.serpent_of_hell);
+        dungeonOneInfoPics.put("Key", Pictures.skeleton_key);
+        dungeonOneInfoPics.put("SaphireRing", Pictures.sapphire_ring);
+        dungeonOneInfoPics.put("Book",Pictures.book_of_the_dead);
     }
 }

@@ -1,64 +1,72 @@
-package Data.GameObjects;
+package Data.Level;
 
+import Data.GameObjects.Player;
+import Data.GameObjects.Rooms;
 import javafx.scene.image.Image;
 
 import java.util.Map;
 
 /**
  * Interface Level collects all methods that are needed for Levels in the DND game
- * methods are mostly derived from Castle by Martin and Interface was implemented by Fabian
+ * Methods are mostly derived from Castle by Martin and Interface was implemented by Fabian
  * @author Martin
+ * @author Andreas
  * @author Fabian Billenkamp
  */
 public interface Level {
-    //make java doc here and write @override in implementing classes
-    //reorder into getters, loaders and modifiers
-
     /*
      **********************************************************************************
-     *            Getter methods for the different game components                    *
+     *               Getter methods for the different components                      *
      **********************************************************************************
      */
 
     /**
-     *
-     * @return
+     * Please fill.
+     * @return your documentation
+     * @author Martin?
      */
     Image[][] getCastleView();
 
     /**
-     *
-     * @return
+     * Please fill.
+     * @return your documentation
+     * @author Martin?
      */
     Map<String, Image> getDungeonOneInfoPics();
+
     /**
-     *
-     * @return
+     * Please fill.
+     * @return your documentation
+     * @author Martin?
      */
     Image[][] getViewAllRooms();
 
     /**
-     *
-     * @return
+     * Please fill.
+     * @return your documentation
+     * @author Martin?
      */
     Rooms getAllRooms();
 
     /**
+     * This method is used to determine if a player meets the win condition of a level.
+     * @param player the current DND player
+     * @return boolean: true: if the player meets the win condition of the level, false: else
      * @author Fabian Billenkamp
-     * @param player
-     * @return
      */
     boolean getWinCondition(Player player);
 
     /**
+     * This method is used for getting the opening text of a level
+     * @return String: the opening text for a level
      * @author Fabian Billenkamp
-     * @return
      */
     String getStartText();
 
     /**
+     * This method is used for getting the closing text of a level
+     * @return String: the closing text for a level
      * @author Fabian Billenkamp
-     * @return
      */
     String getWinText();
 
@@ -69,7 +77,7 @@ public interface Level {
      */
 
     /**
-     * Loads a level and makes its recources available.
+     * Loads a level and makes its objects and picture tilesets available.
      * Needs to be called before a level can be used by the game.
      * @author Fabian Billenkamp
      */
@@ -81,15 +89,16 @@ public interface Level {
      **********************************************************************************
      */
     /**
-     *
-     * @param direction
+     * Please fill.
+     * your documentation
+     * @author unknown Martin Andreas Jonas?
      */
     void move(String direction);
 
-
-
     /**
-     *
+     * Please fill.
+     * your documentation
+     * @author unknown Martin Andreas Jonas?
      */
     void positionRoomsByName();
 }

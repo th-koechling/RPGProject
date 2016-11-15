@@ -22,12 +22,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import core.Game;
+import Data.Game;
 
 /**
  * This class mediates player control over the available in-game actions via the graphical user interface (GUI)
  * @author Thorsten
- * @coauthor TODO
+ * @author TODO
  *
  */
 public class DnDcontrol {

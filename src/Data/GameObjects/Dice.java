@@ -38,9 +38,9 @@ public class Dice {
     /**
      * This method is used to create a temporary dice, throw it and return the results
      * @author Andreas
-     * @coauthor Fabian
-     * @param numberOfDice
-     * @param numberOfPips
+     * @author Fabian
+     * @param numberOfDice Integer: number of dice used
+     * @param numberOfPips Integer: number of pips per dice
      * @return the total number rolled in the dice throw
      */
     public static int throwDice(int numberOfDice, int numberOfPips) {
