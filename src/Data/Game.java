@@ -232,7 +232,7 @@ public class Game {
 
 
     private void setItemImages(){
-        for(String name :currentLevel.getDungeonOneInfoPics().keySet()){
+        for(String name : currentLevel.getDungeonOneInfoPics().keySet()){
             itemViewInfo.put(name,currentLevel.getDungeonOneInfoPics().get(name));
         }
     }

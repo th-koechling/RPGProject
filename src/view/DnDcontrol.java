@@ -434,6 +434,9 @@ public class DnDcontrol {
                 messageWindow.setText("Game over!\n"+monster.getName()+", "+monster.getDescription()+" killed you."
                         +"\nTry to be better next time!");
                 roomPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(monster.getName()));
+                roomPic.setVisible(true);
+                infoPic.setImage(Pictures.rip);
+                dungeon_map.setGridLinesVisible(false);
                 switchMapRoomView();
                 endGame();
                 return false;

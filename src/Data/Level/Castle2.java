@@ -285,5 +285,16 @@ public class Castle2 implements Level{
         dungeonOneInfoPics.put("Excursius", Pictures.serpent_of_hell);
         dungeonOneInfoPics.put("Ratskin",Pictures.animal_skin);
         dungeonOneInfoPics.put("Teeth",Pictures.unicorn_horn);
+        dungeonOneInfoPics.put("Mithril armour", Pictures.elven_mithril_coat);
+        dungeonOneInfoPics.put("Dragonscale armour", Pictures.dragon_armor);
+        dungeonOneInfoPics.put("Sword", Pictures.sword1);
+        dungeonOneInfoPics.put("Knife", Pictures.crysknife);
+        dungeonOneInfoPics.put("Lance", Pictures.lance);
+        dungeonOneInfoPics.put("Key", Pictures.skeleton_key);
+        dungeonOneInfoPics.put("SaphireRing", Pictures.sapphire_ring);
+        dungeonOneInfoPics.put("Book",Pictures.book_of_the_dead);
+        dungeonOneInfoPics.put("Ratskin",Pictures.animal_skin);
+        dungeonOneInfoPics.put("Teeth",Pictures.unicorn_horn);
+        dungeonOneInfoPics.put("Dragonscales",Pictures.violet_gem);
     }
 }

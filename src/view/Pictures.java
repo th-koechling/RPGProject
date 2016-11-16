@@ -331,6 +331,6 @@ public class Pictures {
     public static final Image tile65 = new Image("/view/images/dungeon1/65.png");
     public static final Image tile66 = new Image("/view/images/dungeon1/66.png");
     public static final Image tile67 = new Image("/view/images/dungeon1/67.png");
-
+    public static final Image rip = new Image("/view/images/misc/grave.png");
 
 }
