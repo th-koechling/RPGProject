@@ -26,13 +26,13 @@ Name: Axe
 Force: 5
 Description: Big battle axe.
 
-Name: OldSword
-Force: 15
+Name: Old Sword
+Force: 16
 Description: A sword of the old poeple.
 
 Name: Mjolnir
 Force: 17
-Description: Thors hamme.
+Description: Thors hammer.
 
 Name: Sabre
 Force: 11

@@ -5,10 +5,10 @@ package Data.GameObjects;
  */
 public class Creature {
     /*
-    **********************************************************************************
-    *                                  Variables                                     *
-    **********************************************************************************
-    */
+     **********************************************************************************
+     *                                  Variables                                     *
+     **********************************************************************************
+     */
     private String name;
     private String species;
     private String description;
@@ -59,8 +59,7 @@ public class Creature {
      */
     public int attack() {
         int dice = Dice.throwDice(2,6);
-        //added basedamage and weapondamage to formula, exp is somehow overkill
-        return (xp * (basedamage+weapon.getForce())) + dice;
+        return getRawdamage() + dice;
     }
 
     /**
@@ -68,8 +67,7 @@ public class Creature {
      * @param attackValue Value of the attack.
      */
     public void defend(int attackValue) {
-        //changed formula, so armour actually means something
-        this.hp = this.hp - (int)(attackValue/(armour.getDefence()*0.6));
+        this.hp = this.hp - getDamagePassing(attackValue);
         if(this.hp < 0){
             this.hp = 0;
         }
@@ -92,6 +90,40 @@ public class Creature {
      *            Getter & Setter methods for the different variables                 *
      **********************************************************************************
      */
+
+    /**
+     *
+     * @return
+     */
+    public int getRawdamage(){
+        /*
+         **********************************************************************************
+         * Here a modificiation of the original formula from the script is used.          *
+         * The used formula here takes creature base damage, weapon force and experience  *
+         * into considderation for a raw damage before adding of dice values.             *
+         * Also experienced is divided to not get too high attack from xp.                *
+         * Fabian Billenkamp                                                              *
+         **********************************************************************************
+         */
+        return (int)((xp/2.) * (basedamage+weapon.getForce()));
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int getDamagePassing(int attackValue){
+        /*
+         **********************************************************************************
+         * Here a modificiation of the original formula from the script is used.          *
+         * The used formula here take armour into consideration by %  rather than         *
+         * by substraction, this makes armour effective also against bigger hits.         *
+         * Fabian Billenkamp                                                              *
+         **********************************************************************************
+         */
+        return (int)(attackValue -(attackValue *(armour.getDefence()/10.)));
+    }
+
 
     /**
      * please

@@ -6,9 +6,9 @@ package Data.Level;
  * A DND level has to deliver the following objects:
  * -...
  * -...
- * -a win condition->realized via getter method
- * -an opening text>realized via getter method
- * -a closing text>realized via getter method
+ * -a win condition - realized via getter method
+ * -an opening text - realized via getter method
+ * -a closing text - realized via getter method
  * @author Martins
  * @author Fabian Billenkamp
  */
@@ -57,6 +57,7 @@ public class Castle implements Level{
      */
     /**
      * {@inheritDoc}
+     * Here the starting text for level one of the DND implementation is loaded.
      */
     public String getStartText(){
         return "You are on a hunt for the legendary treasure of the dragon. This legendary treasure was protected by " +
@@ -276,5 +277,7 @@ public class Castle implements Level{
         dungeonOneInfoPics.put("Key", Pictures.skeleton_key);
         dungeonOneInfoPics.put("SaphireRing", Pictures.sapphire_ring);
         dungeonOneInfoPics.put("Book",Pictures.book_of_the_dead);
+        dungeonOneInfoPics.put("Ratskin",Pictures.animal_skin);
+        dungeonOneInfoPics.put("Teeth",Pictures.unicorn_horn);
     }
 }

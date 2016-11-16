@@ -11,7 +11,7 @@ import java.util.Map;
  * Methods are mostly derived from Castle by Martin and Interface was implemented by Fabian
  * @author Martin
  * @author Andreas
- * @author Fabian Billenkamp
+ * @author Fabian Billenkamp - Realisation Castle als Interface
  */
 public interface Level {
     /*
@@ -58,7 +58,7 @@ public interface Level {
 
     /**
      * This method is used for getting the opening text of a level
-     * @return String: the opening text for a level
+     * @return String: the opening text for a level.
      * @author Fabian Billenkamp
      */
     String getStartText();

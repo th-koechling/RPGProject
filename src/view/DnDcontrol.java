@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -325,7 +326,9 @@ public class DnDcontrol {
     private void adjustLifeStat(){
         lifeStat.setText(String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
     }
-    // Method that changes the position of the player on the map.
+    /*
+        Method that changes the position of the player on the map.
+     */
     private void adjustRoomViews(){
         String roomName = game.getCurrentRoom().getName();
         messageWindow.setText("");
@@ -366,9 +369,8 @@ public class DnDcontrol {
         messageWindow.appendText(game.getCurrentRoom().getDescription());
         if(game.getCreatures().containsKey(content)){
             toggleMovement(true);
-            attack.setDisable(false);
             game.setMonster(game.getCreatures().get(content));
-            messageWindow.appendText("\\nnA monster is in the room:\n\nName: " + game.getMonster().getName() + "\nSpecies: " +
+            messageWindow.appendText("\nA monster is in the room:\n\nName: " + game.getMonster().getName() + "\nSpecies: " +
                     game.getMonster().getSpecies()+"\nDescription: "+game.getMonster().getDescription()+"\n\n" +
                     "You have to fight!");
             attack.setDisable(false);
@@ -393,6 +395,7 @@ public class DnDcontrol {
         }
         if(game.getTreasures().containsKey(content)){
             pickup(game.getTreasures().get(content));
+            game.getCurrentRoom().setContent("none");
             if(game.getCurrentLevel().getWinCondition(game.getPlayer())){
                 game.setLevelsWon(game.getLevelsWon()+1);
                 messageWindow.setText(game.getCurrentLevel().getWinText());
@@ -426,7 +429,6 @@ public class DnDcontrol {
             game.getPlayer().defend(attackMonster);
             adjustLifeStat();
             messageWindow.appendText("\n->"+monster.getName()+" hits you with " + attackMonster + ".\nYou have " + game.getPlayer().getHp() + " life points remaining\n");
-            lifeStat.setText(String.valueOf(String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp())));
             if(game.getPlayer().getHp()==0) {
                 messageWindow.setText("Game over!\n"+monster.getName()+", "+monster.getDescription()+" killed you."
                         +"\nTry to be better next time!");
@@ -437,10 +439,27 @@ public class DnDcontrol {
             }
         } else {
             attack.setDisable(true);
-            game.getPlayer().setXp(game.getPlayer().getXp() + 1);
+            game.getPlayer().setXp(game.getPlayer().getXp() + monster.getXp());
             xpStat.setText("" + game.getPlayer().getXp());
             adjustDamageView();
             adjustMoveButtons();
+            String monsterweapon= monster.getWeapon().getName();
+            messageWindow.appendText("\n\nYou killed "+monster.getName()+" and examine his remains.");
+            if(new Random().nextInt(2)==0 && !monsterweapon.equals("Fire")) {
+                pickup(monster.getWeapon());
+                messageWindow.appendText("\nChecking weapons...");
+                game.getPlayer().pickBestWeaponFromInv();
+                messageWindow.appendText("\nEquipped:\n"+game.getPlayer().getWeapon().getName()+"\n"+game.getPlayer().getWeapon().getDescription());
+                weaponPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getWeapon().getName()));
+                adjustDamageView();
+            }else{
+                pickup(monster.getArmour());
+                messageWindow.appendText("\nChecking armours...");
+                game.getPlayer().pickBestArmourFromInv();
+                messageWindow.appendText("\nEquipped: \n"+game.getPlayer().getArmour().getName()+"\n"+game.getPlayer().getArmour().getDescription());
+                armorPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getArmour().getName()));
+                adjustArmourView();
+            }
             game.getCurrentRoom().setContent("none");
             return true;
         }
@@ -457,7 +476,7 @@ public class DnDcontrol {
         messageWindow.appendText("\n\nYou found:\n"+item.getName()+"\n"+item.getDescription()+".\n\n");
         boolean added=game.getPlayer().pickupItem(item);
         if(added){
-            messageWindow.appendText("Added iten to inventory.\n\nNow in inventory:\n=====");
+            messageWindow.appendText("Added item to inventory.\nNow in inventory:\n=====");
             for(Item loot:game.getPlayer().getInventory()){
                 messageWindow.appendText("\n"+loot.getName()+"\n-> "+loot.getDescription()+"\n=====");
             }
@@ -521,16 +540,16 @@ public class DnDcontrol {
      */
     private void toggleViewPressed(ActionEvent actionEvent) {
         switchMapRoomView();
-
     }
+
     private void adjustDamageView(){
-        String minDamage=String.valueOf(2+game.getPlayer().getXp()* (game.getPlayer().getBasedamage()+game.getPlayer().getWeapon().getForce()));
-        String maxDamage=String.valueOf(12+game.getPlayer().getXp()* (game.getPlayer().getBasedamage()+game.getPlayer().getWeapon().getForce()));
+        String minDamage=String.valueOf(2+(game.getPlayer().getRawdamage()));
+        String maxDamage=String.valueOf(12+(game.getPlayer().getRawdamage()));
         attackStat.setText(minDamage+" - "+maxDamage);
     }
     private void adjustArmourView(){
         int defense = game.getPlayer().getArmour().getDefence();
-        int mitigation = 100-(int)((1.0/(defense*0.6))*100);
+        int mitigation = 100 - game.getPlayer().getDamagePassing(100);
         defStat.setText(defense+" ("+mitigation+"%)");
     }
 

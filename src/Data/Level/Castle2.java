@@ -2,11 +2,11 @@ package Data.Level;
 
 /**
  * This class represents a copy of Castle.
- * Castle2 also represents a DND level with its own room file& win condition, while the tileset of Castle has been reused.
+ * Castle2 also represents a DND level with its own room file & win condition, while the tileset of Castle has been reused.
  * Pictures related to game events are adjusted.
- * This class serves for proof of principle reasons to show extendebility of the DND game.
+ * This class serves as a proof of principle reasons to show extendebility of the DND game.
  * The main idea here is extension and reusage of object components and graphical components, while completely
- * new quests can be created through a Level implementation combined with a rooms.txt.
+ * new quests can be created through a Level implementation combined with an individual rooms.txt.
  * @author Fabian Billenkamp
  * @author Martin
  */
@@ -46,7 +46,7 @@ public class Castle2 implements Level{
      */
     /**
      * See Castle.
-     * Similar to castle creates a Castle2 object, which has 2 image matrizes set to a size of 7x7.
+     * Similar to Castle creates a Castle2 object, which has 2 image matrizes set to a size of 7x7.
      */
     public Castle2() {
         this.castleView = new Image[7][7];
@@ -60,6 +60,7 @@ public class Castle2 implements Level{
      */
     /**
      * {@inheritDoc}
+     *  Here the starting text for level two of the DND implementation is loaded.
      */
     public String getStartText(){
         return "In the land of the ancient evil...\n\nYou are standing at the entrance of a castle again. Everything " +
@@ -277,5 +278,12 @@ public class Castle2 implements Level{
         dungeonOneInfoPics.put("Dominus", Pictures.gloorx_vloq);
         dungeonOneInfoPics.put("Treasure", Pictures.chest);
         dungeonOneInfoPics.put("Gargoyle", Pictures.gargoyle);
+        dungeonOneInfoPics.put("Grodagrim", Pictures.dwarf_king);
+        dungeonOneInfoPics.put("Gothofiedus", Pictures.sewer_rat);
+        dungeonOneInfoPics.put("Lothofiedus", Pictures.wererat);
+        dungeonOneInfoPics.put("Rothofiedus", Pictures.vampire_bat);
+        dungeonOneInfoPics.put("Excursius", Pictures.serpent_of_hell);
+        dungeonOneInfoPics.put("Ratskin",Pictures.animal_skin);
+        dungeonOneInfoPics.put("Teeth",Pictures.unicorn_horn);
     }
 }

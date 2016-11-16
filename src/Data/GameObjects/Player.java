@@ -45,7 +45,6 @@ public class Player extends Creature {
         if(!weapon.getName().equals("Hand")){
             inventory.addItem(weapon);
         }
-
     }
 
     /**

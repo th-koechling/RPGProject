@@ -10,18 +10,18 @@ Weapon: Hand
 Name: Excursius
 Species: Dragon
 Description: A big green dragon, 5m tall with a 8m long tail.
-Experience: 4
-HealthStatus: 25
-BaseDamage: 10
+Experience: 5
+HealthStatus: 75
+BaseDamage: 30
 Armor: Dragonscales
 Weapon: Fire
 
 Name: Grodagrim
 Species: Dwarf
 Description: A small dwarf with a long battle axe.
-Experience: 2
-HealthStatus: 35
-BaseDamage: 7
+Experience: 3
+HealthStatus: 40
+BaseDamage: 33
 Armor: Mithril armour
 Weapon: Axe
 
@@ -29,8 +29,8 @@ Name: Gothofiedus
 Species: Rat
 Description: A 50cm sized rat; gray with intelligent eyes.
 Experience: 1
-HealthStatus: 10
-BaseDamage: 2
+HealthStatus: 15
+BaseDamage: 10
 Armor: Ratskin
 Weapon: Teeth
 
@@ -38,8 +38,8 @@ Name: Lothofiedus
 Species: Rat
 Description: A 50cm sized rat; gray with intelligent eyes.
 Experience: 1
-HealthStatus: 10
-BaseDamage: 2
+HealthStatus: 15
+BaseDamage: 10
 Armor: Ratskin
 Weapon: Teeth
 
@@ -47,8 +47,8 @@ Name: Rothofiedus
 Species: Rat
 Description: A 50cm sized rat; gray with intelligent eyes.
 Experience: 1
-HealthStatus: 10
-BaseDamage: 2
+HealthStatus: 25
+BaseDamage: 15
 Armor: Ratskin
 Weapon: Teeth
 
@@ -56,26 +56,26 @@ Name: Dominus
 Species: Demon
 Description: A big demon with burning eyes.
 Experience: 5
-HealthStatus: 70
+HealthStatus: 500
 BaseDamage: 30
 Armor: Dragonscales
-Weapon: Fire
+Weapon: Old Sword
 
 Name: Gloin
 Species: Wizard
 Description: A wise wizard.
 Experience: 3
-HealthStatus: 50
-BaseDamage: 20
-Armor: Mithril armour
-Weapon: Axe
+HealthStatus: 200
+BaseDamage: 25
+Armor: Troll leather armour
+Weapon: Lance
 
 Name: Splinter
 Species: Spider
 Description: A spider with the size of a small cow.
-Experience: 2
-HealthStatus: 100
-BaseDamage: 2
+Experience: 3
+HealthStatus: 150
+BaseDamage: 30
 Armor: Ratskin
 Weapon: Teeth
 
@@ -83,25 +83,25 @@ Name: Fidibus
 Species: Skeleton
 Description: A skeleton mage.
 Experience: 2
-HealthStatus: 100
-BaseDamage: 2
+HealthStatus: 300
+BaseDamage: 30
 Armor: Ratskin
-Weapon: Teeth
+Weapon: Sword
 
 Name: Leech
 Species: Demon bat
 Description: A blue demon bat.
 Experience: 2
-HealthStatus: 100
-BaseDamage: 2
-Armor: Ratskin
-Weapon: Teeth
+HealthStatus: 150
+BaseDamage: 35
+Armor: Cursed Dragonscale armour
+Weapon: Sword
 
 Name: Gargoyle
 Species: Gargoyle
 Description: A gargoyle made of stone.
-Experience: 15
-HealthStatus: 1000
-BaseDamage: 15
-Armor: Ratskin
-Weapon: Teeth
+Experience: 6
+HealthStatus: 700
+BaseDamage: 45
+Armor: Cursed Dragonscale armour
+Weapon: Mjolnir
