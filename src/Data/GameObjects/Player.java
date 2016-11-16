@@ -51,6 +51,7 @@ public class Player extends Creature {
         if(!weapon.getName().equals("Hand")){
             inventory.addItem(weapon);
         }
+        inventory.addItem(armour);
     }
 
     /**
@@ -66,6 +67,7 @@ public class Player extends Creature {
         if(!this.getWeapon().getName().equals("Hand")){
             inventory.addItem(this.getWeapon());
         }
+        inventory.addItem(model.getArmour());
     }
 
    /*

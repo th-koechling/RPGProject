@@ -404,7 +404,7 @@ public class DnDcontrol {
                     game.nextLevel();
                 }else{
                     messageWindow.appendText("\n\n****\nYou have completed the game!\nNo dungeon was too dark...\nNo monster was too big...\n"+
-                            playerName.getText()+", YOU are a true hero\n****");
+                                                playerName.getText()+", YOU are a true hero\n****");
                     endGame();
                 }
             }
@@ -437,6 +437,7 @@ public class DnDcontrol {
                 roomPic.setVisible(true);
                 infoPic.setImage(Pictures.rip);
                 dungeon_map.setGridLinesVisible(false);
+                toggleView.setText("Room");
                 switchMapRoomView();
                 endGame();
                 return false;
@@ -501,6 +502,9 @@ public class DnDcontrol {
         infoPic.setImage(null);
         weaponPic.setImage(null);
         armorPic.setImage(null);
+        adjustArmourView();
+        adjustDamageView();
+        armorPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getArmour().getName()));
         nameDialogue.setVisible(false);
         if(roomPic.isVisible()){
             switchMapRoomView();
@@ -512,8 +516,6 @@ public class DnDcontrol {
         messageWindow.appendText("\n"+game.getCurrentRoom().getDescription());
         lifeStat.setText("" + String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
         xpStat.setText("" + game.getPlayer().getXp());
-        adjustDamageView();
-        adjustArmourView();
         adjustMoveButtons();
         toggleView.setDisable(false);
     }

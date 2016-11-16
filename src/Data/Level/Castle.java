@@ -280,5 +280,7 @@ public class Castle implements Level{
         dungeonOneInfoPics.put("Ratskin",Pictures.animal_skin);
         dungeonOneInfoPics.put("Teeth",Pictures.unicorn_horn);
         dungeonOneInfoPics.put("Dragonscales",Pictures.violet_gem);
+        dungeonOneInfoPics.put("Axe",Pictures.battle_axe1);
+        dungeonOneInfoPics.put("Shirt",Pictures.cloak);
     }
 }
