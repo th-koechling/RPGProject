@@ -5,6 +5,11 @@
  */
 package Data.GameObjects;
 
+import Data.Game;
+import javafx.scene.image.Image;
+import view.Pictures;
+
+
 /**
  * @author Fabian Billenkamp
  */
@@ -18,6 +23,7 @@ public class Player extends Creature {
     boolean isAlive;
     boolean hasDragonTreasure;
     Inventory inventory;
+    private Image [][] inventoryView;
 
     /*
     **********************************************************************************
@@ -34,13 +40,13 @@ public class Player extends Creature {
      * @param basedamage Integer: Player Basedamage
      * @param armour Armour: Player Armour
      * @param weapon Weapon: Player Weapon
-     * @param inventorySpace Integer: Size of the Player Inventory
      */
-    public Player(String name, String species, String description, int xp, int hp, int basedamage, Armour armour, Weapon weapon, int inventorySpace) {
+    public Player(String name, String species, String description, int xp, int hp, int basedamage, Armour armour, Weapon weapon) {
         super(name, species, description,xp, hp,basedamage, armour, weapon);
+        inventoryView=new Image[7][7];
         this.isAlive = true;
         this.hasDragonTreasure = false;
-        this.inventorySpace = inventorySpace;
+        this.inventorySpace = 49;
         this.inventory = new Inventory((inventorySpace));
         if(!weapon.getName().equals("Hand")){
             inventory.addItem(weapon);
@@ -51,11 +57,11 @@ public class Player extends Creature {
      * This constructor for Player takes a Creature model as the basis for creating a player.
      * The values from creature are transcribed into Player
      * @param model: Creature: the Creature model the Player is based on
-     * @param inventorySpace: Integer: Size of the Player Inventory
      */
-    public Player(Creature model, int inventorySpace) {
+    public Player(Creature model) {
         super(model.getName(), model.getSpecies(), model.getDescription(),model.getXp(), model.getMaxhp(),model.getBasedamage(), model.getArmour(), model.getWeapon());
-        this.inventorySpace = inventorySpace;
+        this.inventorySpace = 49;
+        this.inventoryView= new Image[7][7];
         this.inventory = new Inventory((inventorySpace));
         if(!this.getWeapon().getName().equals("Hand")){
             inventory.addItem(this.getWeapon());
@@ -114,4 +120,24 @@ public class Player extends Creature {
      * @return The inventory
      */
     public Inventory getInventory(){return  this.inventory;}
+
+    public Image[][] getInventoryView(Game game){
+        int pos = 0;
+        for(int i=0;i<inventoryView.length;i++){
+            for(int j=0;j<inventoryView[i].length;j++){
+                if(pos<inventory.getSize()){
+                    inventoryView[i][j]= game.getItemViewInfo().get(inventory.showItem(pos).getName());
+                    pos++;
+                }else{
+                    inventoryView[i][j]= Pictures.corridor;
+                }
+            }
+        }
+
+        return inventoryView;
+    }
+
+
 }
+
+

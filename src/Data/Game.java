@@ -9,6 +9,8 @@ import Parser.CreatureParser;
 import Parser.TreasureParser;
 import Parser.WeaponParser;
 import Data.GameObjects.Room;
+import javafx.scene.image.Image;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +30,7 @@ public class Game {
     private HashMap<String, Weapon> weapons = WeaponParser.collectWeapons("./src/Data/GameObjectFiles/weapons.txt");
     private HashMap<String, Armour> armours = ArmorParser.parseArmours("./src/Data/GameObjectFiles/armors.txt");
     private HashMap<String, Creature> creatures = CreatureParser.collectCreatures("./src/Data/GameObjectFiles/creatures.txt",weapons,armours);
+    private HashMap<String, Image> itemViewInfo= new HashMap<>();
     private Creature monster;
     private Player player;
     private Level currentLevel;
@@ -48,9 +51,10 @@ public class Game {
         levels = new Level[2];
         levels[0] = new Castle();
         levels[1] = new Castle2();
-        player = new Player(creatures.get("You"),49);
+        player = new Player(creatures.get("You"));
         levels[levelsWon].load();
         currentLevel = levels[levelsWon];
+        setItemImages();
     }
 
     /*
@@ -165,6 +169,8 @@ public class Game {
         return monster;
     }
 
+    public HashMap<String,Image> getItemViewInfo(){return itemViewInfo;}
+
 
     /*
      **********************************************************************************
@@ -181,6 +187,7 @@ public class Game {
         if (levelsWon<levels.length) {
             levels[levelsWon].load();
             currentLevel = levels[levelsWon];
+            setItemImages();
         }
     }
 
@@ -221,5 +228,12 @@ public class Game {
      */
     public void setMonster(Creature monster) {
         this.monster = monster;
+    }
+
+
+    private void setItemImages(){
+        for(String name :currentLevel.getDungeonOneInfoPics().keySet()){
+            itemViewInfo.put(name,currentLevel.getDungeonOneInfoPics().get(name));
+        }
     }
 }

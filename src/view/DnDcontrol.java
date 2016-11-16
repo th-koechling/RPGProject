@@ -40,6 +40,7 @@ public class DnDcontrol {
     private ImageView[][] currentMap;
     private Image[][] currentRoomViewMap;
 
+
     // declaration of the GUI elements referred to as variables by the game (Thorsten)
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -297,6 +298,7 @@ public class DnDcontrol {
      */
     private void move(String direction){
         game.move(direction);
+        messageWindow.setText("");
         adjustRoomViews();
         adjustMoveButtons();
         adjustInfoPic();
@@ -331,7 +333,6 @@ public class DnDcontrol {
      */
     private void adjustRoomViews(){
         String roomName = game.getCurrentRoom().getName();
-        messageWindow.setText("");
         if(!roomName.equals("Entry")) {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
             int posRow = 0;
@@ -473,14 +474,10 @@ public class DnDcontrol {
     }
 
     private void pickup(Item item){
-        messageWindow.appendText("\n\nYou found:\n"+item.getName()+"\n"+item.getDescription()+".\n\n");
+        messageWindow.appendText("\n\nYou found:\n"+item.getName()+"\n"+item.getDescription()+".\n");
         boolean added=game.getPlayer().pickupItem(item);
         if(added){
-            messageWindow.appendText("Added item to inventory.\nNow in inventory:\n=====");
-            for(Item loot:game.getPlayer().getInventory()){
-                messageWindow.appendText("\n"+loot.getName()+"\n-> "+loot.getDescription()+"\n=====");
-            }
-            messageWindow.appendText("\n");
+            messageWindow.appendText("The item was added to the inventory.\n");
         }
     }
 
@@ -585,25 +582,39 @@ public class DnDcontrol {
                 {img40, img41, img42, img43, img44, img45, img46},
                 {img50, img51, img52, img53, img54, img55, img56},
                 {img60, img61, img62, img63, img64, img65, img66}};
-        if (!roomPic.isVisible()) {
-            toggleView.setText("Map");
-            for (int i = 0; i < imageCells.length; i++) {
-                for (int j = 0; j < imageCells[0].length; j++) {
-                    imageCells[i][j].setVisible(false);
-                }
-            }
-            dungeon_map.setGridLinesVisible(false);
-            roomPic.setVisible(true);
-        } else {
-            toggleView.setText("Room");
-            for (int i = 0; i < imageCells.length; i++) {
-                for (int j = 0; j < imageCells[0].length; j++) {
-                    imageCells[i][j].setVisible(true);
-                }
-            }
-            dungeon_map.setGridLinesVisible(true);
-            roomPic.setVisible(false);
+        switch(toggleView.getText()){
+            case "Map": loadDungeonMap(game.getCurrentLevel().getCastleView());
+                        adjustRoomViews();
+                        for (int i = 0; i < imageCells.length; i++) {
+                            for (int j = 0; j < imageCells[0].length; j++) {
+                                imageCells[i][j].setVisible(true);
+                            }
+                        }
+                        toggleView.setText("Room");
+                        break;
+            case "Room":
+                        toggleView.setText("Items");
+                        for (int i = 0; i < imageCells.length; i++) {
+                            for (int j = 0; j < imageCells[0].length; j++) {
+                                imageCells[i][j].setVisible(false);
+                            }
+                        }
+                        dungeon_map.setGridLinesVisible(false);
+                        roomPic.setVisible(true);
+                        break;
+            case "Items":
+                        roomPic.setVisible(false);
+                        loadInventoryMap();
+                        toggleView.setText("Map");
+                        for (int i = 0; i < imageCells.length; i++) {
+                            for (int j = 0; j < imageCells[0].length; j++) {
+                                imageCells[i][j].setVisible(true);
+                            }
+                        }
+                        dungeon_map.setGridLinesVisible(true);
+                        break;
         }
+
 
     }
 
@@ -624,6 +635,23 @@ public class DnDcontrol {
                 {img50, img51, img52, img53, img54, img55, img56},
                 {img60, img61, img62, img63, img64, img65, img66}};
 
+        for(int i = 0; i < imageCells.length; i++) {
+            for(int j = 0; j < imageCells[0].length; j++) {
+                imageCells[i][j].setImage(images[i][j]);
+            }
+        }
+        return imageCells;
+    }
+
+    private ImageView[][] loadInventoryMap() {
+        Image[][] images=game.getPlayer().getInventoryView(game);
+        ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
+                {img10, img11, img12, img13, img14, img15, img16},
+                {img20, img21, img22, img23, img24, img25, img26},
+                {img30, img31, img32, img33, img34, img35, img36},
+                {img40, img41, img42, img43, img44, img45, img46},
+                {img50, img51, img52, img53, img54, img55, img56},
+                {img60, img61, img62, img63, img64, img65, img66}};
         for(int i = 0; i < imageCells.length; i++) {
             for(int j = 0; j < imageCells[0].length; j++) {
                 imageCells[i][j].setImage(images[i][j]);
