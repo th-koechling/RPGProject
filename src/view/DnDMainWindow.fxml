@@ -95,7 +95,7 @@ when the player is asked to provide a name for the character exploring the dunge
          <children>
              <ImageView fx:id="backgroundPic" layoutX="3.0" layoutY="3.0" fitHeight="194.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="false">
             </ImageView>
-            <ImageView fx:id="infoPic" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="infoPic" layoutX="3.0" layoutY="3.0" fitHeight="194.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="false">
                <image>
                   <Image url="@images/monsters/sandestin.png" />
                </image>
