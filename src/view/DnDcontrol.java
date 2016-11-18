@@ -70,9 +70,6 @@ public class DnDcontrol {
     private Label topLabel; // Value injected by FXMLLoader
     private DnDmodel model;
 
-    @FXML // fx:id="pick_up
-    private Button pick_up;
-
     @FXML // fx:id="messageWindow"  //
     private TextArea messageWindow;  // also done by hand, does this work?
 
@@ -84,6 +81,9 @@ public class DnDcontrol {
 
     @FXML // fx:id="infoPic"
     private ImageView infoPic;
+    
+    @FXML // fx:id="backgroundPic"
+    private ImageView backgroundPic;
 
     @FXML // fx:id="nameDialogue"
     private Pane nameDialogue;
@@ -315,9 +315,11 @@ public class DnDcontrol {
         if (game.getCurrentLevel().getDungeonOneInfoPics().containsKey(room.getContent()))     // show image of item in room
         {
             infoPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(room.getContent()));
+            backgroundPic.setVisible(false);
         }
         else
         {
+            backgroundPic.setVisible(true);
             infoPic.setImage(null);
         }
     }
@@ -344,12 +346,14 @@ public class DnDcontrol {
                 loadDungeonMap(game.getCurrentLevel().getCastleView());
                 Image currentRoomImage = currentRoomViewMap[posRow][posCol];
                 roomPic.setImage(currentRoomImage);
+                backgroundPic.setImage(currentRoomImage);
                 currentMap[posRow][posCol].setImage(Pictures.player_orange_bg);
             }
         } else {
             loadDungeonMap(game.getCurrentLevel().getCastleView());
             Image currentRoomImage = currentRoomViewMap[0][2];
             roomPic.setImage(currentRoomImage);
+            backgroundPic.setImage(currentRoomImage);
             currentMap[0][2].setImage(Pictures.player_orange_bg); // eventually add info where in rooms.txt
 
         }
@@ -532,6 +536,7 @@ public class DnDcontrol {
         attack.setDisable(true);
         toggleView.setDisable(true);
         nameDialogue.setVisible(true);
+        backgroundPic.setVisible(true);
 
     }
 

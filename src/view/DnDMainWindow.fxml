@@ -93,11 +93,14 @@ when the player is asked to provide a name for the character exploring the dunge
       <Button fx:id="toggleView" layoutX="603.0" layoutY="468.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="95.0" text="Room" />
       <Pane fx:id="infoBackground" layoutX="36.0" layoutY="80.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0">
          <children>
+             <ImageView fx:id="backgroundPic" layoutX="3.0" layoutY="3.0" fitHeight="194.0" fitWidth="194.0" pickOnBounds="true" preserveRatio="false">
+            </ImageView>
             <ImageView fx:id="infoPic" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/monsters/sandestin.png" />
                </image>
             </ImageView>
+            
             <Pane fx:id="nameDialogue" prefHeight="200.0" prefWidth="200.0" visible="false">
                <children>
                   <Button fx:id="nameOk" layoutX="75.0" layoutY="136.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="OK" textAlignment="CENTER">
