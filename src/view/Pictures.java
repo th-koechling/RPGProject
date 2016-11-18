@@ -63,6 +63,7 @@ public class Pictures {
     public static final Image stone_arch = new Image("/view/images/dungeon/stone_arch.png");
     public static final Image tree = new Image("/view/images/dungeon/tree.png");
     public static final Image web = new Image("/view/images/dungeon/web.png");
+    //For room view individually searched and processed to fit the individual room descriptions (Martin Schneider)
     public static final Image romm_Window = new Image("/view/images/dungeon/rommWithWindow.png");
     public static final Image hallway_light = new Image("/view/images/dungeon/hallway_light.png");
     public static final Image t_junction = new Image("/view/images/dungeon/t_junction.png");

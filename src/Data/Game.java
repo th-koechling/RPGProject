@@ -232,8 +232,8 @@ public class Game {
 
 
     private void setItemImages(){
-        for(String name : currentLevel.getDungeonOneInfoPics().keySet()){
-            itemViewInfo.put(name,currentLevel.getDungeonOneInfoPics().get(name));
+        for(String name : currentLevel.getDungeonInfoPics().keySet()){
+            itemViewInfo.put(name,currentLevel.getDungeonInfoPics().get(name));
         }
     }
 }

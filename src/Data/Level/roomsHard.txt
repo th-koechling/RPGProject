@@ -243,7 +243,7 @@ N: 6-2
 O: none
 S: 2-2
 W: none
-Description: Very narrow dark passage with a 3 meter fall at the end.
+Description: Very narrow and dark, you found a secret passage! With a 3 meter fall at the end...
 Content: test
 
 Name: 6-1

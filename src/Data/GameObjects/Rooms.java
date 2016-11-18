@@ -84,7 +84,11 @@ public class Rooms {
         this.aktuellePosition = aktuellePosition;
     }
     
-    // created from Martin
+    /**
+     * Returns the has map of the rooms parsed from the room text file.
+     * @author Martin Schneider
+     * @return roomMap
+     */
     public static Map getRoomMap() {
         return roomMap;
     }

@@ -9,9 +9,9 @@ import java.util.Map;
 /**
  * Interface Level collects all methods that are needed for Levels in the DND game
  * Methods are mostly derived from Castle by Martin and Interface was implemented by Fabian
- * @author Martin
+ * @author Martin Schneider
  * @author Andreas
- * @author Fabian Billenkamp - Realisation Castle als Interface
+ * @author Fabian Billenkamp - Realisation Castle as Interface
  */
 public interface Level {
     /*
@@ -21,30 +21,40 @@ public interface Level {
      */
 
     /**
-     * Please fill.
-     * @return your documentation
-     * @author Martin?
+     * Returns the image matrix containing the pictures for the map view of the dungeon.
+     * The picture position in the matrix is based on the room name (it's position).
+     * In this way the picture arrangement equals the dungeon architecture specified
+     * in the room text file. 
+     * @return Image[][] of the castle map
+     * @author Martin Schneider
      */
     Image[][] getCastleView();
 
     /**
-     * Please fill.
-     * @return your documentation
-     * @author Martin?
+     * Returns the has map containing room content string-, picture pairs for
+     * the room content of the current castle. The map content is specified
+     * via the room text file content. The pictures are matched via the
+     * content string.
+     * @return Map<String, Image>
+     * @author Martin Schneider
      */
-    Map<String, Image> getDungeonOneInfoPics();
+    Map<String, Image> getDungeonInfoPics();
 
     /**
-     * Please fill.
-     * @return your documentation
-     * @author Martin?
+     * Returns the image matrix containing the pictures for the room view of 
+     * the dungeon. The picture position in the matrix is based on
+     * the room name (it's position). In this way the picture arrangement
+     * equals the dungeon architecture specified in the room text file. 
+     * @return Image[][] of the rooms in the castle
+     * @author Martin Schneider
      */
     Image[][] getViewAllRooms();
 
     /**
-     * Please fill.
-     * @return your documentation
-     * @author Martin?
+     * Returns the Rooms object from the current castle based on the
+     * parsed room text fiele of the level.
+     * @return Rooms
+     * @author Martin Schneider
      */
     Rooms getAllRooms();
 
@@ -90,15 +100,22 @@ public interface Level {
      */
     /**
      * Please fill.
-     * your documentation
-     * @author unknown Martin Andreas Jonas?
+     * two move methods!
+     * @author all? -used in DnDcontrol
+     * @author Fabian Billenkamp and Jonas -used in castles / Rooms
      */
     void move(String direction);
 
     /**
-     * Please fill.
-     * your documentation
-     * @author unknown Martin Andreas Jonas?
+     * Calls "fillImageToDescription()" to fill the hash maps containing
+     * description string, map- and room pictures. Then each room name is parsed
+     * to get the designated position in the castle architecture. The parsed numbers
+     * are adjusted to fit the matrix pattern and the case "Entry" is handled
+     * individually. Then the room description is searched in botch hash maps
+     * and the designated pictures are placed at the parsed position of the 
+     * image matices for map- and room view. For matrix positions with no room
+     * a level dependent default picture is placed.
+     * @author Martin Schneider
      */
     void positionRoomsByName();
 }

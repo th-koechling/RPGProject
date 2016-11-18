@@ -8,7 +8,7 @@ package Data.Level;
  * The main idea here is extension and reusage of object components and graphical components, while completely
  * new quests can be created through a Level implementation combined with an individual rooms.txt.
  * @author Fabian Billenkamp
- * @author Martin
+ * @author Martin Schneider
  */
 
 
@@ -32,12 +32,12 @@ public class Castle2 implements Level{
      **********************************************************************************
      */
     private Image[][] castleView;
-    private Map<String, Room> test;
+    private Map<String, Room> currentRoomsMap;
     private Map<String, Image> imageToDescription;
     private Image[][] roomView;
     private Map<String, Image> roomImageToDescription;
     private Rooms allRooms;
-    private Map<String, Image> dungeonOneInfoPics;
+    private Map<String, Image> dungeonTwoInfoPics;
 
     /*
      **********************************************************************************
@@ -45,8 +45,10 @@ public class Castle2 implements Level{
      **********************************************************************************
      */
     /**
-     * See Castle.
-     * Similar to Castle creates a Castle2 object, which has 2 image matrizes set to a size of 7x7.
+     * Creates a Castle containing two image matrices to display the castle map
+     * and the idividual room pictures. Currently the dimensions of the matrices
+     * are fixed due to the display grid dimensions in the fxml.
+     * @author Martin Schneider
      */
     public Castle2() {
         this.castleView = new Image[7][7];
@@ -60,7 +62,7 @@ public class Castle2 implements Level{
      */
     /**
      * {@inheritDoc}
-     *  Here the starting text for level two of the DND implementation is loaded.
+     * Here the starting text for level two of the DND implementation is loaded.
      */
     public String getStartText(){
         return "In the land of the ancient evil...\n\nYou are standing at the entrance of a castle again. Everything " +
@@ -69,6 +71,7 @@ public class Castle2 implements Level{
 
     /**
      * {@inheritDoc}
+     * Here the text up on winning level two of the DND implementation is loaded.
      */
     public String getWinText(){
         return "You have killed the ancient evil and found the legendary treasure of the dragon. In the chest you find" +
@@ -77,6 +80,8 @@ public class Castle2 implements Level{
 
     /**
      * {@inheritDoc}
+     * *Here the win condition for level two of the DND implementation is tested.
+     * The item "The legendary treasure of the dragon." has to be in the inventory.
      */
     public boolean getWinCondition(Player player) {
         for (Treasure treasure : player.getInventory().getTreasures()) {
@@ -89,6 +94,17 @@ public class Castle2 implements Level{
 
     /**
      * {@inheritDoc}
+     * Here content of level two is returned.
+     * @return dungeonTwoInfoPics
+     */
+    public  Map<String, Image> getDungeonInfoPics() {
+        return dungeonTwoInfoPics;
+    }
+
+    /**
+     * {@inheritDoc}
+     * Here with the return:
+     * @return castleView
      */
     public  Image[][] getCastleView(){
         return castleView;
@@ -96,6 +112,8 @@ public class Castle2 implements Level{
 
     /**
      * {@inheritDoc}
+     * Here with the return:
+     * @return roomView
      */
     public  Image[][] getViewAllRooms(){
         return roomView;
@@ -103,13 +121,8 @@ public class Castle2 implements Level{
 
     /**
      * {@inheritDoc}
-     */
-    public  Map<String, Image> getDungeonOneInfoPics() {
-        return dungeonOneInfoPics;
-    }
-
-    /**
-     * {@inheritDoc}
+     * Here the Rooms object on level two is returned.
+     * @return allRooms
      */
     public Rooms getAllRooms(){
         return allRooms;
@@ -122,16 +135,16 @@ public class Castle2 implements Level{
      */
     /**
      * {@inheritDoc}
-     * Using roomsHard.txt for loading a level layout
+     * Using roomsHard.txt for loading a level layout.
      */
     public void load(){
         allRooms = new RoomsParser().parseRooms("src/Data/Level/roomsHard.txt");
-        test = allRooms.getRoomMap();
+        currentRoomsMap = allRooms.getRoomMap();
         imageToDescription = new HashMap<>();
         roomImageToDescription = new HashMap<>();
-        dungeonOneInfoPics = new HashMap<>();
+        dungeonTwoInfoPics = new HashMap<>();
         fillImageToDescription();
-        fillDungeonOneInfoPics();
+        fillDungeonTwoInfoPics();
     }
 
     /*
@@ -153,10 +166,14 @@ public class Castle2 implements Level{
      */
     /**
      * {@inheritDoc}
+     * Here in level two of the DND implementation the image matrices
+     * "castleView" and "roomView" are filled and pictures of red walls
+     * are used to fill grids with no content. This graphically separates
+     * level two from level one.
      */
     public void positionRoomsByName()  {
         fillImageToDescription();
-        for (Map.Entry<String, Room> pair : test.entrySet()) {
+        for (Map.Entry<String, Room> pair : currentRoomsMap.entrySet()) {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
             int posRow = 0;
             int posCol = 0;
@@ -187,8 +204,11 @@ public class Castle2 implements Level{
      *                  Private picture manipulation methods                          *
      **********************************************************************************
      */
-    /*
-        This method is copied from Class Castle
+    /**
+     * Fills the hash maps containing string-, picture pairs for the dungeon map view and
+     * the room view of the castle in level two of the DND implementation. 
+     * The description strings of the rooms are matched with their designated 
+     * picture for map and room.
      */
     private void fillImageToDescription(){
         imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", Pictures.tile03);
@@ -220,9 +240,10 @@ public class Castle2 implements Level{
         imageToDescription.put("Luxuriant hall with sacral ceiling paintings.", Pictures.tile64);
         imageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", Pictures.tile65);
         imageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", Pictures.tile61);
-        imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", Pictures.tile52);
+        imageToDescription.put("Very narrow and dark, you found a secret passage! With a 3 meter fall at the end...", Pictures.tile52);
         imageToDescription.put("High hallway flanked with statuary.", Pictures.tile63);
         imageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", Pictures.tile62);
+        
         roomImageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", Pictures.dungeon_entry);
         roomImageToDescription.put("A long dark hallway.", Pictures.long_dark_hallway);
         roomImageToDescription.put("A small room, sparsely lighted by a torch." ,Pictures.small_torch);
@@ -252,51 +273,50 @@ public class Castle2 implements Level{
         roomImageToDescription.put("Luxuriant hall with sacral ceiling paintings.", Pictures.fancy_hall);
         roomImageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", Pictures.amber_gold);
         roomImageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", Pictures.graveyard_pentagram);
-        roomImageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", Pictures.secret_passage);
+        roomImageToDescription.put("Very narrow and dark, you found a secret passage! With a 3 meter fall at the end...", Pictures.secret_passage);
         roomImageToDescription.put("High hallway flanked with statuary.", Pictures.statue_hallway);
         roomImageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", Pictures.disfigured_hallway);
-         
     }
 
-     /*
-        This method is copied from Class Castle and slightly modified
-        -changed items for level 2
-        -changed monsters for level 2, so they are not the same as for level 1 (th.)
-      */
-    private void fillDungeonOneInfoPics()
+     /**
+     * Fills the hash map containing string- and picture pairs for room content display
+     * in level two of the DND implementation. The content strings of rooms being
+     * items or creatures are matched to their designated picture.
+     */
+    private void fillDungeonTwoInfoPics()
     {
-        dungeonOneInfoPics = new HashMap<String, Image>();
-        dungeonOneInfoPics.put("Troll leather armour", Pictures.troll_leather_armor);
-        dungeonOneInfoPics.put("Cursed Dragonscale armour", Pictures.shimmering_dragon_scale_mail);
-        dungeonOneInfoPics.put("OldSword", Pictures.sword_of_power);
-        dungeonOneInfoPics.put("Sabre", Pictures.sabre);
-        dungeonOneInfoPics.put("Mjolnir", Pictures.hammer);
-        dungeonOneInfoPics.put("Gloin", Pictures.gnomish_wizard);
-        dungeonOneInfoPics.put("Splinter", Pictures.redback);
-        dungeonOneInfoPics.put("Fidibus", Pictures.lich_old);
-        dungeonOneInfoPics.put("Leech", Pictures.quasit);
-        dungeonOneInfoPics.put("Dominus", Pictures.gloorx_vloq);
-        dungeonOneInfoPics.put("Treasure", Pictures.chest);
-        dungeonOneInfoPics.put("Gargoyle", Pictures.gargoyle);
-        dungeonOneInfoPics.put("Grodagrim", Pictures.dwarf_king);
-        dungeonOneInfoPics.put("Gothofiedus", Pictures.sewer_rat);
-        dungeonOneInfoPics.put("Lothofiedus", Pictures.wererat);
-        dungeonOneInfoPics.put("Rothofiedus", Pictures.vampire_bat);
-        dungeonOneInfoPics.put("Excursius", Pictures.serpent_of_hell);
-        dungeonOneInfoPics.put("Ratskin",Pictures.animal_skin);
-        dungeonOneInfoPics.put("Teeth",Pictures.unicorn_horn);
-        dungeonOneInfoPics.put("Mithril armour", Pictures.elven_mithril_coat);
-        dungeonOneInfoPics.put("Dragonscale armour", Pictures.dragon_armor);
-        dungeonOneInfoPics.put("Sword", Pictures.sword1);
-        dungeonOneInfoPics.put("Knife", Pictures.crysknife);
-        dungeonOneInfoPics.put("Lance", Pictures.lance);
-        dungeonOneInfoPics.put("Key", Pictures.skeleton_key);
-        dungeonOneInfoPics.put("SaphireRing", Pictures.sapphire_ring);
-        dungeonOneInfoPics.put("Book",Pictures.book_of_the_dead);
-        dungeonOneInfoPics.put("Ratskin",Pictures.animal_skin);
-        dungeonOneInfoPics.put("Teeth",Pictures.unicorn_horn);
-        dungeonOneInfoPics.put("Dragonscales",Pictures.violet_gem);
-        dungeonOneInfoPics.put("Axe",Pictures.battle_axe1);
-        dungeonOneInfoPics.put("Shirt",Pictures.cloak);
+        dungeonTwoInfoPics = new HashMap<String, Image>();
+        dungeonTwoInfoPics.put("Troll leather armour", Pictures.troll_leather_armor);
+        dungeonTwoInfoPics.put("Cursed Dragonscale armour", Pictures.shimmering_dragon_scale_mail);
+        dungeonTwoInfoPics.put("OldSword", Pictures.sword_of_power);
+        dungeonTwoInfoPics.put("Sabre", Pictures.sabre);
+        dungeonTwoInfoPics.put("Mjolnir", Pictures.hammer);
+        dungeonTwoInfoPics.put("Gloin", Pictures.gnomish_wizard);
+        dungeonTwoInfoPics.put("Splinter", Pictures.redback);
+        dungeonTwoInfoPics.put("Fidibus", Pictures.lich_old);
+        dungeonTwoInfoPics.put("Leech", Pictures.quasit);
+        dungeonTwoInfoPics.put("Dominus", Pictures.gloorx_vloq);
+        dungeonTwoInfoPics.put("Treasure", Pictures.chest);
+        dungeonTwoInfoPics.put("Gargoyle", Pictures.gargoyle);
+        dungeonTwoInfoPics.put("Grodagrim", Pictures.dwarf_king);
+        dungeonTwoInfoPics.put("Gothofiedus", Pictures.sewer_rat);
+        dungeonTwoInfoPics.put("Lothofiedus", Pictures.wererat);
+        dungeonTwoInfoPics.put("Rothofiedus", Pictures.vampire_bat);
+        dungeonTwoInfoPics.put("Excursius", Pictures.serpent_of_hell);
+        dungeonTwoInfoPics.put("Ratskin",Pictures.animal_skin);
+        dungeonTwoInfoPics.put("Teeth",Pictures.unicorn_horn);
+        dungeonTwoInfoPics.put("Mithril armour", Pictures.elven_mithril_coat);
+        dungeonTwoInfoPics.put("Dragonscale armour", Pictures.dragon_armor);
+        dungeonTwoInfoPics.put("Sword", Pictures.sword1);
+        dungeonTwoInfoPics.put("Knife", Pictures.crysknife);
+        dungeonTwoInfoPics.put("Lance", Pictures.lance);
+        dungeonTwoInfoPics.put("Key", Pictures.skeleton_key);
+        dungeonTwoInfoPics.put("SaphireRing", Pictures.sapphire_ring);
+        dungeonTwoInfoPics.put("Book",Pictures.book_of_the_dead);
+        dungeonTwoInfoPics.put("Ratskin",Pictures.animal_skin);
+        dungeonTwoInfoPics.put("Teeth",Pictures.unicorn_horn);
+        dungeonTwoInfoPics.put("Dragonscales",Pictures.violet_gem);
+        dungeonTwoInfoPics.put("Axe",Pictures.battle_axe1);
+        dungeonTwoInfoPics.put("Shirt",Pictures.cloak);
     }
 }

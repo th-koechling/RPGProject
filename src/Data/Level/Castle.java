@@ -9,7 +9,7 @@ package Data.Level;
  * -a win condition - realized via getter method
  * -an opening text - realized via getter method
  * -a closing text - realized via getter method
- * @author Martins
+ * @author Martin Schneider
  * @author Fabian Billenkamp
  */
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public class Castle implements Level{
      **********************************************************************************
      */
     private Image[][] castleView;
-    private Map<String, Room> test;
+    private Map<String, Room> currentRoomsMap;
     private Map<String, Image> imageToDescription;
     private Image[][] roomView;
     private Map<String, Image> roomImageToDescription;
@@ -44,7 +44,10 @@ public class Castle implements Level{
      **********************************************************************************
      */
     /**
-     * @author Martins
+     * Creates a Castle containing two image matrices to display the castle map
+     * and the idividual room pictures. Currently the dimensions of the matrices
+     * are fixed due to the display grid dimensions in the fxml.
+     * @author Martin Schneider
      */
     public Castle() {
         this.castleView = new Image[7][7];
@@ -67,6 +70,7 @@ public class Castle implements Level{
 
     /**
      * {@inheritDoc}
+     * Here the text up on winning level one of the DND implementation is loaded.
      */
     public String getWinText(){
         return "You have found a way through the castle and killed Excursius, but he was only one manifestation of " +
@@ -75,6 +79,8 @@ public class Castle implements Level{
 
     /**
      * {@inheritDoc}
+     * Here the win condition for level one of the DND implementation is tested.
+     * The item "A key made of bones" has to be in the inventory.
      */
     public boolean getWinCondition(Player player) {
         for (Treasure treasure : player.getInventory().getTreasures()) {
@@ -87,13 +93,17 @@ public class Castle implements Level{
 
     /**
      * {@inheritDoc}
+     * Here content of level one is returned.
+     * @return dungeonOneInfoPics
      */
-    public  Map<String, Image> getDungeonOneInfoPics() {
+    public  Map<String, Image> getDungeonInfoPics() {
         return dungeonOneInfoPics;
     }
 
     /**
      * {@inheritDoc}
+     * Here with the return:
+     * @return castleView
      */
     public  Image[][] getCastleView(){
         return castleView;
@@ -101,6 +111,8 @@ public class Castle implements Level{
 
     /**
      * {@inheritDoc}
+      Here with the return:
+     * @return roomView
      */
     public  Image[][] getViewAllRooms(){
         return roomView;
@@ -108,6 +120,8 @@ public class Castle implements Level{
 
     /**
      * {@inheritDoc}
+     * Here the Rooms object on level one is returned.
+     * @return allRooms
      */
     public Rooms getAllRooms(){
         return allRooms;
@@ -120,11 +134,11 @@ public class Castle implements Level{
      */
     /**
      * {@inheritDoc}
-     * Using roomsEasy.txt for loading a level layout
+     * Using roomsEasy.txt for loading a level layout.
      */
     public void load(){
         allRooms = new RoomsParser().parseRooms("src/Data/Level/roomsEasy.txt");
-        test = allRooms.getRoomMap();
+        currentRoomsMap = allRooms.getRoomMap();
         imageToDescription = new HashMap<>();
         roomImageToDescription = new HashMap<>();
         dungeonOneInfoPics = new HashMap<>();
@@ -151,10 +165,13 @@ public class Castle implements Level{
      */
     /**
      * {@inheritDoc}
+     * Here in level one of the DND implementation the image matrices
+     * "castleView" and "roomView" are filled and pictures of grey walls
+     * are used to fill grids with no content.
      */
     public void positionRoomsByName()  {
         fillImageToDescription();
-        for (Map.Entry<String, Room> pair : test.entrySet()) {
+        for (Map.Entry<String, Room> pair : currentRoomsMap.entrySet()) {
             Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
             int posRow = 0;
             int posCol = 0;
@@ -185,8 +202,11 @@ public class Castle implements Level{
      *                  Private picture manipulation methods                          *
      **********************************************************************************
      */
-    /*
-        Documentation for private method goes here!
+    /**
+     * Fills the hash maps containing string-, picture pairs for the dungeon map view and
+     * the room view of the castle in level one of the DND implementation. 
+     * The description strings of the rooms are matched with their designated 
+     * picture for map and room.
      */
     private void fillImageToDescription(){
         imageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", Pictures.tile03);
@@ -218,7 +238,7 @@ public class Castle implements Level{
         imageToDescription.put("Luxuriant hall with sacral ceiling paintings.", Pictures.tile64);
         imageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", Pictures.tile65);
         imageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", Pictures.tile61);
-        imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", Pictures.tile52);
+        imageToDescription.put("Very narrow and dark, you found a secret passage! With a 3 meter fall at the end...", Pictures.tile52);
         imageToDescription.put("High hallway flanked with statuary.", Pictures.tile63);
         imageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", Pictures.tile62);
         
@@ -251,16 +271,15 @@ public class Castle implements Level{
         roomImageToDescription.put("Luxuriant hall with sacral ceiling paintings.", Pictures.fancy_hall);
         roomImageToDescription.put("Shiny room flooded with candle light and walls covered with amber and gold.", Pictures.amber_gold);
         roomImageToDescription.put("Graveyard with burned still glowing trees all inside a church like room with a large pentagram on the ceiling, the air is filled with burning ash and a red light seems to emerge from the pentagram.", view.Pictures.graveyard_pentagram);
-        roomImageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", Pictures.secret_passage);
+        roomImageToDescription.put("Very narrow and dark, you found a secret passage! With a 3 meter fall at the end...", Pictures.secret_passage);
         roomImageToDescription.put("High hallway flanked with statuary.", Pictures.statue_hallway);
         roomImageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", Pictures.disfigured_hallway);
-         
     }
 
-    /*
-        Documentation for private method goes here!
-        -dungeon number one: hash map containing the images for the infopic view pane:
-        -moved to castle by FB for better level handling purposes
+    /**
+     * Fills the hash map containing string- and picture pairs for room content display
+     * in level one of the DND implementation. The content strings of rooms being
+     * items or creatures are matched to their designated picture.
      */
     private void fillDungeonOneInfoPics()
     {

@@ -106,9 +106,6 @@ public class DnDcontrol {
     @FXML // fx:id="armorPic"
     private ImageView armorPic;
 
-    @FXML // fx:id="testButton"
-    private Button testButton;
-
     @FXML // fx:id="new_game"
     private Button new_game;
 
@@ -124,10 +121,10 @@ public class DnDcontrol {
     @FXML // fx:id="defStat"
     private TextField defStat;
 
-    @FXML // fx:id="infoPic2"  //test
+    @FXML // fx:id="roomPic"
     private ImageView roomPic;
 
-    @FXML // fx:id="dungeon_map" // test
+    @FXML // fx:id="dungeon_map"
     private GridPane dungeon_map;
 
     /* the map grid, broken up into 49 (7 by 7) individual cells. Each cell can hold a small square image
@@ -312,9 +309,9 @@ public class DnDcontrol {
      */
     private void adjustInfoPic(){
         Room room = game.getCurrentRoom();
-        if (game.getCurrentLevel().getDungeonOneInfoPics().containsKey(room.getContent()))     // show image of item in room
+        if (game.getCurrentLevel().getDungeonInfoPics().containsKey(room.getContent()))     // show image of item in room
         {
-            infoPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(room.getContent()));
+            infoPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(room.getContent()));
             backgroundPic.setVisible(false);
         }
         else
@@ -330,8 +327,14 @@ public class DnDcontrol {
     private void adjustLifeStat(){
         lifeStat.setText(String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
     }
-    /*
-        Method that changes the position of the player on the map.
+    /**
+     * Method that changes the position of the player on the map.
+     * First the name of the players current room is parsed.
+     * Then the "currentMap" image matrix is updated with the avatar picture
+     * at the palyer position. Wth the current position also the current
+     * "roomPic" is updated as well as the "backgroundPic". The "Entry" 
+     * position is handled individually.
+     * @author Martin Schneider
      */
     private void adjustRoomViews(){
         String roomName = game.getCurrentRoom().getName();
@@ -385,7 +388,7 @@ public class DnDcontrol {
             messageWindow.appendText("\nChecking armours...");
             game.getPlayer().pickBestArmourFromInv();
             messageWindow.appendText("\nEquipped: \n"+game.getPlayer().getArmour().getName()+"\n"+game.getPlayer().getArmour().getDescription());
-            armorPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getArmour().getName()));
+            armorPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(game.getPlayer().getArmour().getName()));
             adjustArmourView();
             game.getCurrentRoom().setContent("none");
         }
@@ -394,7 +397,7 @@ public class DnDcontrol {
             messageWindow.appendText("\nChecking weapons...");
             game.getPlayer().pickBestWeaponFromInv();
             messageWindow.appendText("\nEquipped:\n"+game.getPlayer().getWeapon().getName()+"\n"+game.getPlayer().getWeapon().getDescription());
-            weaponPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getWeapon().getName()));
+            weaponPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(game.getPlayer().getWeapon().getName()));
             adjustDamageView();
             game.getCurrentRoom().setContent("none");
         }
@@ -437,7 +440,7 @@ public class DnDcontrol {
             if(game.getPlayer().getHp()==0) {
                 messageWindow.setText("Game over!\n"+monster.getName()+", "+monster.getDescription()+" killed you."
                         +"\nTry to be better next time!");
-                roomPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(monster.getName()));
+                roomPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(monster.getName()));
                 roomPic.setVisible(true);
                 infoPic.setImage(Pictures.rip);
                 dungeon_map.setGridLinesVisible(false);
@@ -459,14 +462,14 @@ public class DnDcontrol {
                 messageWindow.appendText("\nChecking weapons...");
                 game.getPlayer().pickBestWeaponFromInv();
                 messageWindow.appendText("\nEquipped:\n"+game.getPlayer().getWeapon().getName()+"\n"+game.getPlayer().getWeapon().getDescription());
-                weaponPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getWeapon().getName()));
+                weaponPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(game.getPlayer().getWeapon().getName()));
                 adjustDamageView();
             }else{
                 pickup(monster.getArmour());
                 messageWindow.appendText("\nChecking armours...");
                 game.getPlayer().pickBestArmourFromInv();
                 messageWindow.appendText("\nEquipped: \n"+game.getPlayer().getArmour().getName()+"\n"+game.getPlayer().getArmour().getDescription());
-                armorPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getArmour().getName()));
+                armorPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(game.getPlayer().getArmour().getName()));
                 adjustArmourView();
             }
             game.getCurrentRoom().setContent("none");
@@ -508,12 +511,12 @@ public class DnDcontrol {
         armorPic.setImage(null);
         adjustArmourView();
         adjustDamageView();
-        armorPic.setImage(game.getCurrentLevel().getDungeonOneInfoPics().get(game.getPlayer().getArmour().getName()));
+        armorPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(game.getPlayer().getArmour().getName()));
         nameDialogue.setVisible(false);
         if(roomPic.isVisible()){
             switchMapRoomView();
         }
-        currentMap = loadDungeonMap(game.getCurrentLevel().getCastleView());// Martin tmp to test castle class will be removed
+        currentMap = loadDungeonMap(game.getCurrentLevel().getCastleView());
         currentRoomViewMap = game.getCurrentLevel().getViewAllRooms();
         adjustRoomViews();
         messageWindow.setText(playerName.getText()+", your adventure has started.\n"+game.getCurrentLevel().getStartText());
@@ -582,7 +585,16 @@ public class DnDcontrol {
 
     /**
      * Switches between displaying the dungeon map or the room view on
-     * the large panel in the middle of the GUI (TODO: author Martin?)
+     * the large panel in the middle of the GUI. In case the "toggleView" button
+     * is clicked with text "Map", the dungeon map is loaded and updated all pictures
+     * of the map grid are set visible. The buttonn text is changed to "Room".
+     * In case button text is "Room" all map pictures and the grid is set invisible.
+     * The "roomPic" is set visible and button text is changed to "Items".
+     * In case button text is "Items" the  "loadInventoryMap" is loaded.
+     * The "roomPic" is set invisible whereas the grid and the pictures within it are
+     * set visible. Button text is changed to "Map".
+     * @author Martin Schneider
+     * @author Fabian Billenkamp
      */
     private void switchMapRoomView(){
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
@@ -669,5 +681,4 @@ public class DnDcontrol {
         }
         return imageCells;
     }
-
 }
