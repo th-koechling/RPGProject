@@ -173,7 +173,7 @@ public class Castle implements Level{
         for (int  i = 0; i < castleView.length; i++){
             for (int j = 0; j < castleView[i].length; j++){
                 if(castleView[i][j]== null){
-                    castleView[i][j] = Pictures.tile01;
+                    castleView[i][j] = Pictures.rock_wall07;
                     roomView[i][j] = Pictures.rock_wall01;
                 }
             }
@@ -221,6 +221,7 @@ public class Castle implements Level{
         imageToDescription.put("Very narrow dark passage with a 3 meter fall at the end.", Pictures.tile52);
         imageToDescription.put("High hallway flanked with statuary.", Pictures.tile63);
         imageToDescription.put("Disfigured hallway with burn marks and strange writings and symbols on the pillars.", Pictures.tile62);
+        
         roomImageToDescription.put("You see the entry to a dark dungeon. Just go ahead to enter!", Pictures.dungeon_entry);
         roomImageToDescription.put("A long dark hallway.", Pictures.long_dark_hallway);
         roomImageToDescription.put("A small room, sparsely lighted by a torch." ,Pictures.small_torch);
