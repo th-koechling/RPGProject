@@ -1,7 +1,8 @@
 package Data.GameObjects;
 
 /**
- * TODO
+ * This class is a representation for creatures in the DND game. It contains all attributes of the creature such as name, species, xp, hp, equipped weapons & armors etc.
+ * @author Andreas Hoek
  */
 public class Creature {
     /*
@@ -25,15 +26,15 @@ public class Creature {
     **********************************************************************************
     */
     /**
-     * this
-     * @param name has
-     * @param species to
-     * @param description be
-     * @param xp done
-     * @param hp stil
-     * @param basedamage for
-     * @param armour this
-     * @param weapon class
+     * Constructor for a new creature.
+     * @param name String: The name of the creature
+     * @param species String: The species of the creature (e.g. Human, Dragon,...)
+     * @param description String: A description of the creature
+     * @param xp int: Value of the experience of the creature. The xp value affects the attack power of the creature.
+     * @param hp int: Value for the health of the creature.
+     * @param basedamage int: Basic Damage the creature causes without equipped weapons.
+     * @param armour Armour: Current equipped Armour of the creature.
+     * @param weapon Weapon: Current equipped Weapon of the creature.
      */
     public Creature(String name, String species, String description, int xp, int hp, int basedamage, Armour armour, Weapon weapon) {
         this.maxhp = hp;
@@ -55,7 +56,7 @@ public class Creature {
     */
     /**
      * Carries out an attack by the creature (Player or NPC)
-     * @return Int Value of the attack.
+     * @return int: Value of the attack.
      */
     public int attack() {
         int dice = Dice.throwDice(2,6);
@@ -64,7 +65,7 @@ public class Creature {
 
     /**
      * If the creature gets attacked, it can defend itself and reduce the incoming damage.
-     * @param attackValue Value of the attack.
+     * @param attackValue int: Value of the attack.
      */
     public void defend(int attackValue) {
         this.hp = this.hp - getDamagePassing(attackValue);
@@ -74,7 +75,7 @@ public class Creature {
     }
 
     /**
-     * Fill in
+     * The creature can heal itself by changing rooms until its max hp is recovered.
      */
     public void heal(){
         if(this.hp + 7 <= maxhp){
@@ -92,8 +93,8 @@ public class Creature {
      */
 
     /**
-     *
-     * @return
+     * Getter method for the dealed damage by a creature.
+     * @return int: Dealed damage by the creature in an attack.
      */
     public int getRawdamage(){
         /*
@@ -109,8 +110,8 @@ public class Creature {
     }
 
     /**
-     *
-     * @return
+     * Getter method for the damage that hits a creature.
+     * @return int: Damage that hits the creature during an attack by a hostile creature.
      */
     public int getDamagePassing(int attackValue){
         /*
@@ -126,56 +127,56 @@ public class Creature {
 
 
     /**
-     * please
-     * @param name fill
+     * Setter method for the name of a creature.
+     * @param name String: Name for the creature.
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * please
-     * @param species fill
+     * Setter method for the species of a creature.
+     * @param species String: Species for the creature.
      */
     public void setSpecies(String species) {
         this.species = species;
     }
 
     /**
-     * please
-     * @param description fill
+     * Setter method for the description of a creature.
+     * @param description String: Description for the creature.
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * please
-     * @param xp fill
+     * Setter method for the xp value of a creature.
+     * @param xp int: xp value for the creature.
      */
     public void setXp(int xp) {
         this.xp = xp;
     }
 
     /**
-     * please
-     * @param hp fill
+     * Setter method for the hp value of a creature.
+     * @param hp int: hp value for the creature.
      */
     public void setHp(int hp) {
         this.hp = hp;
     }
 
     /**
-     * please
-     * @param armour fill
+     * Setter method for the armour of a creature.
+     * @param armour armour: Armour to be equipped.
      */
     public void setArmour(Armour armour) {
         this.armour = armour;
     }
 
     /**
-     * please
-     * @param weapon fill
+     * Setter method for the weapon of a creature.
+     * @param weapon weapon: Weapon to be equipped.
      */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
