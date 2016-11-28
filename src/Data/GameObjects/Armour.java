@@ -4,7 +4,7 @@ package Data.GameObjects;
  * This class is a representation for armours in the DND game, it inherits methods of Item and
  * adds armour specific methods
  * @author Fabian Billenkamp
- * @author Andreas
+ * @author Andreas Hoek
  */
 public class Armour implements Item {
     /*

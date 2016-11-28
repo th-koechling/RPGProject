@@ -12,6 +12,7 @@ import view.Pictures;
 
 /**
  * @author Fabian Billenkamp
+ * @author Andreas Hoek
  */
 public class Player extends Creature {
     /*
