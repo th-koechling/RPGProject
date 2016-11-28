@@ -168,7 +168,7 @@ public class Creature {
 
     /**
      * Setter method for the armour of a creature.
-     * @param armour armour: Armour to be equipped.
+     * @param armour Armour: Armour to be equipped.
      */
     public void setArmour(Armour armour) {
         this.armour = armour;
@@ -176,77 +176,77 @@ public class Creature {
 
     /**
      * Setter method for the weapon of a creature.
-     * @param weapon weapon: Weapon to be equipped.
+     * @param weapon Weapon: Weapon to be equipped.
      */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the name of a creature.
+     * @return String: Name of the creature.
      */
     public String getName() {
         return this.name;
     }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the species of a creature.
+     * @return String: Species of the creature.
      */
     public String getSpecies() {
         return this.species;
     }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the description of a creature.
+     * @return String: Description of the creature.
      */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the xp value of a creature.
+     * @return int: xp value of the creature.
      */
     public int getXp() {
         return this.xp;
     }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the hp value of a creature.
+     * @return int: hp value of the creature.
      */
     public int getHp() {
         return this.hp;
     }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the armour of a creature.
+     * @return Armour: Armour of the creature.
      */
     public Armour getArmour() {
         return this.armour;
     }
 
     /**
-     * please
-     * @return fill
+     * Setter method for the weapon of a creature.
+     * @return Weapon: Weapon of the creature.
      */
     public Weapon getWeapon() {
         return this.weapon;
     }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the maximal reachable hp value of a creature.
+     * @return int: Maximal reachable hp value of the creature
      */
     public int getMaxhp() {return this.maxhp; }
 
     /**
-     * please
-     * @return fill
+     * Getter method for the basedamage value a creature deals.
+     * @return int: Basedamage of the creature.
      */
     public int getBasedamage(){return this.basedamage;}
 }
