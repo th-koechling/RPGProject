@@ -8,26 +8,30 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
- * Created by Fabian Billenkamp and Andreas based on WeaponParser 02.11.2016.
+ * This class is the representation of a parser for treasures.txt files based on WeaponParser.java
+ * @author Andreas Hoek
+ * @author Fabian Billenkamp
  */
 public class ArmorParser {
-
+    /*
+     **********************************************************************************
+     *                               Parsing Method                                   *
+     **********************************************************************************
+     */
+    /**
+     * This method is used to create a hash map of armours from a txt file.
+     * @param file The Path where the armours.txt file is located
+     * @return HashMap: Armourname:Armour
+     */
     public static HashMap<String,Armour> parseArmours (String file) {
         HashMap<String, Armour> allArmours = new HashMap<>();
         try {
             BufferedReader br = readFile(file);
-
-
-
             String name = "";
             int defence = 0;
             String description = "";
-
-
             String line;
-
             while ((line = br.readLine()) != null) {
-
                 if (line.matches("Name: .*")) {
                     name = line.substring(6);
                 } else if (line.matches("Defence: .*")) {

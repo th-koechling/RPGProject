@@ -53,64 +53,21 @@ public class Inventory implements Iterable<Item>{
         this.items[0]=item;
     }
 
-    /*
+     /*
      **********************************************************************************
-     *                                  Inventory methods                             *
+     *            Getter methods for different inventory variables                    *
      **********************************************************************************
      */
     /**
-     * Adds an Object that implements the Interface item to the inventory, as long as there is space and returns the status
-     * @param item The item object to be added
-     * @return true if there was space for the item and it was added, false if the item could not be added
-     */
-    public boolean addItem(Item item){
-        if(items.length<maxCapacity) {
-            Item[] temp = new Item[items.length + 1];
-            for (int i = 0; i < items.length; i++) {
-                temp[i] = items[i];
-            }
-            temp[items.length] = item;
-            items = temp;
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * Returns the item at an index of the inventory, without removing it from the inventory
-     * @param index the inventory index to show
-     * @return the item object at index
-     */
-    public Item showItem(int index){
-        return items[index];
-    }
-
-    /**
-     * Removes an item from the inventory
-     * @param item the item that should be removed from the inventory
-     * @return the item that was removed
-     */
-    public Item removeItem(Item item){
-        List<Item> temp = new ArrayList<Item>(Arrays.asList(items));
-        temp.remove(item);
-        items=new Item[0];
-        for(Item keep : temp){
-            addItem(keep);
-        }
-        return item;
-    }
-
-    /**
-     * Returns the number of items in the inventory (the actual size of the inventory)
-     * @return integer total number of items
+     * Returns the maximum number of items the inventory can store (the actual size of the inventory)
+     * @return Integer: maximum number of items the inventory can store
      */
     public int getMaxCapacity(){
         return maxCapacity;
     }
 
     /**
-     * Returns the number of items in the inventory (the actual size of the inventory)
+     * Returns the number of items in the inventory (the current size of the inventory)
      * @return integer total number of items
      */
     public int getSize(){
@@ -118,8 +75,8 @@ public class Inventory implements Iterable<Item>{
     }
 
     /**
-     * Returns the free capacity for a number of item objects
-     * @return integer maximum total capacity for items
+     * Returns the free capacity for an inventory (number of item objects that can still be stored)
+     * @return Integer: maximum capacity for additional items
      */
     public int getFreeCapacity() {
         return maxCapacity-items.length;
@@ -127,7 +84,7 @@ public class Inventory implements Iterable<Item>{
 
     /**
      * Returns the item array of the inventory
-     * @return Item[] inventory
+     * @return Item[]: Items inventory
      */
     public Item[] getItems() {
         return items;
@@ -135,7 +92,7 @@ public class Inventory implements Iterable<Item>{
 
     /**
      * Returns a weapon array of all weapons in the inventory
-     * @return a Weapon[]
+     * @return Weapon[]: Weapons in inventory
      */
     public Weapon[] getWeapons() {
         Weapon[] weapons=new Weapon[0];
@@ -155,7 +112,7 @@ public class Inventory implements Iterable<Item>{
 
     /**
      * Returns an armour array of all armours in the inventory
-     * @return an Armour[]
+     * @return Armour[]: Armours in inventory
      */
     public Armour[] getArmours() {
         Armour[] armours=new Armour[0];
@@ -175,7 +132,7 @@ public class Inventory implements Iterable<Item>{
 
     /**
      * Returns a treasure array of all treasures in the inventory
-     * @return a Treasure[]
+     * @return Treasure[]: Treasures in inventory
      */
     public Treasure[] getTreasures() {
         Treasure[] treasures=new Treasure[0];
@@ -236,6 +193,60 @@ public class Inventory implements Iterable<Item>{
         }
         return dummy;
     }
+
+    /*
+     **********************************************************************************
+     *                       Additional inventory methods                             *
+     **********************************************************************************
+     */
+    /**
+     * Adds an Object that implements the Interface item to the inventory, as long as there is space and returns the status
+     * @param item The item object to be added
+     * @return true if there was space for the item and it was added, false if the item could not be added
+     */
+    public boolean addItem(Item item){
+        if(items.length<maxCapacity) {
+            Item[] temp = new Item[items.length + 1];
+            for (int i = 0; i < items.length; i++) {
+                temp[i] = items[i];
+            }
+            temp[items.length] = item;
+            items = temp;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Returns the item at an index of the inventory, without removing it from the inventory
+     * @param index the inventory index to show
+     * @return the item object at index
+     */
+    public Item showItem(int index){
+        return items[index];
+    }
+
+    /**
+     * Removes an item from the inventory
+     * @param item the item that should be removed from the inventory
+     * @return the item that was removed
+     */
+    public Item removeItem(Item item){
+        List<Item> temp = new ArrayList<Item>(Arrays.asList(items));
+        temp.remove(item);
+        items=new Item[0];
+        for(Item keep : temp){
+            addItem(keep);
+        }
+        return item;
+    }
+
+   /*
+     **********************************************************************************
+     *                       Iterable implementation                                  *
+     **********************************************************************************
+     */
 
     /**
      * Creates an Iterator for the Item[] items

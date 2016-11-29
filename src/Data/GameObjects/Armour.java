@@ -37,6 +37,7 @@ public class Armour implements Item {
      * Default Constructor for an armour
      */
     public Armour(){}
+
     /*
      **********************************************************************************
      *            Getter methods for the different variables                          *

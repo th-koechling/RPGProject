@@ -3,6 +3,7 @@ package Data.GameObjects;
 /**
  * This class is a representation for creatures in the DND game. It contains all attributes of the creature such as name, species, xp, hp, equipped weapons & armors etc.
  * @author Andreas Hoek
+ * @author Fabian Billenkamp
  */
 public class Creature {
     /*

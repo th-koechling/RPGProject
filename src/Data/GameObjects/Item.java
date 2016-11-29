@@ -7,7 +7,7 @@ package Data.GameObjects;
 public interface Item{
     /*
      **********************************************************************************
-     *            Getter methods for the different variables                          *
+     *            Setter methods for the different variables                          *
      **********************************************************************************
      */
     /**
@@ -24,7 +24,7 @@ public interface Item{
 
     /*
      **********************************************************************************
-     *            Setter methods for the different variables                          *
+     *            Getter methods for the different variables                          *
      **********************************************************************************
      */
     /**

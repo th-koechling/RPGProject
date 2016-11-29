@@ -1,8 +1,6 @@
 package Parser;
 
-
 import Data.GameObjects.Treasure;
-
 import java.io.BufferedReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,9 +9,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Fabian Billenkamp on 20.10.2016.
+ * This class is the representation of a parser for treasures.txt files
+ * @author Fabian Billenkamp
  */
 public class TreasureParser {
+    /*
+     **********************************************************************************
+     *                               Parsing Method                                   *
+     **********************************************************************************
+     */
+    /**
+     * This method is used to create a hash map of treasures from a txt file.
+     * @param treasureFilePath The Path where the treasures.txt file is located
+     * @return HashMap: Treasurename:Treasure
+     */
     public Map<String, Treasure> parseTreasures(String treasureFilePath){
         Map<String, Treasure> treasures = new HashMap<>();
         Path textFile= Paths.get(treasureFilePath).toAbsolutePath();

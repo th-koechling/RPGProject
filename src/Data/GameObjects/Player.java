@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Data.GameObjects;
 
 import Data.Game;
@@ -11,8 +6,10 @@ import view.Pictures;
 
 
 /**
+ * The class player extends Creature and adds inventory functionality as well as inventory usage
  * @author Fabian Billenkamp
  * @author Andreas Hoek
+ * @author Martin
  */
 public class Player extends Creature {
     /*
@@ -73,7 +70,7 @@ public class Player extends Creature {
 
    /*
     **********************************************************************************
-    *                              Player methods                                    *
+    *                              Getter methods                                    *
     **********************************************************************************
     */
     /**
@@ -85,6 +82,41 @@ public class Player extends Creature {
         return this.inventory.getFreeCapacity();
     }
 
+    /**
+     * Getter method for player inventory
+     * @return The inventory
+     */
+    public Inventory getInventory(){return  this.inventory;}
+
+    /**
+     * This method returns an Image matrix representing the current player inventory.
+     * @param game the current game
+     * @return Image[][]: an Image Matrix representing the inventory
+     * @author Fabian
+     * @author Martin
+     */
+    public Image[][] getInventoryView(Game game){
+        int pos = 0;
+        for(int i=0;i<inventoryView.length;i++){
+            for(int j=0;j<inventoryView[i].length;j++){
+                if(pos<inventory.getSize()){
+                    inventoryView[i][j]= game.getItemViewInfo().get(inventory.showItem(pos).getName());
+                    pos++;
+                }else{
+                    inventoryView[i][j]= Pictures.corridor;
+                }
+            }
+        }
+
+        return inventoryView;
+    }
+
+
+    /*
+    **********************************************************************************
+    *                              Further player methods                            *
+    **********************************************************************************
+    */
     /**
      * This method is used to take an item object and add the object to the inventory
      * In case the item can not be added due to inventory being full, the weakest
@@ -104,6 +136,7 @@ public class Player extends Creature {
     /**
      * This method sets the weapon of a player to be the best weapon by force from the inventory
      * @author Fabian Billenkamp
+     * @author Andreas
      */
     public void pickBestWeaponFromInv(){
         this.setWeapon(inventory.getBestWeapon());
@@ -118,27 +151,9 @@ public class Player extends Creature {
         this.setArmour(inventory.getBestArmour());
     }
 
-    /**
-     * Getter method for player inventory
-     * @return The inventory
-     */
-    public Inventory getInventory(){return  this.inventory;}
 
-    public Image[][] getInventoryView(Game game){
-        int pos = 0;
-        for(int i=0;i<inventoryView.length;i++){
-            for(int j=0;j<inventoryView[i].length;j++){
-                if(pos<inventory.getSize()){
-                    inventoryView[i][j]= game.getItemViewInfo().get(inventory.showItem(pos).getName());
-                    pos++;
-                }else{
-                    inventoryView[i][j]= Pictures.corridor;
-                }
-            }
-        }
 
-        return inventoryView;
-    }
+
 
 
 }

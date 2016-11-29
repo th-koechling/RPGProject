@@ -85,7 +85,7 @@ public class Rooms {
     }
     
     /**
-     * Returns the has map of the rooms parsed from the room text file.
+     * Returns the hash map of the rooms parsed from the room text file.
      * @author Martin Schneider
      * @return roomMap
      */

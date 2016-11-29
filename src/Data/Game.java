@@ -10,7 +10,6 @@ import Parser.TreasureParser;
 import Parser.WeaponParser;
 import Data.GameObjects.Room;
 import javafx.scene.image.Image;
-
 import java.util.HashMap;
 import java.util.Map;
 

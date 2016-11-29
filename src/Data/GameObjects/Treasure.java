@@ -6,14 +6,24 @@
 package Data.GameObjects;
 
 /**
- * This class implements features of treasures.
- * Treasures implement methods from Item
+ * This class contains the methods and properties for treasures.
+ * Treasures implement methods of Item
  * @author Fabian Billenkamp
  */
 public class Treasure implements Item {
+    /*
+    **********************************************************************************
+    *                                  Variables                                     *
+    **********************************************************************************
+    */
     private String name;
     private String description;
 
+    /*
+     **********************************************************************************
+     *                                 Constructors                                   *
+     **********************************************************************************
+     */
     /**
      * Constructor for a treasure with name, value and description
      * @param name String: the name of the treasure
@@ -24,6 +34,11 @@ public class Treasure implements Item {
         this.setDescription(description);
     }
 
+    /*
+     **********************************************************************************
+     *            Getter methods for the different variables                          *
+     **********************************************************************************
+     */
     /**
      * {@inheritDoc}
      */
@@ -31,6 +46,17 @@ public class Treasure implements Item {
         return description;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public String getName() {
+        return name;
+    }
+    /*
+     **********************************************************************************
+     *            Setter methods for the different variables                          *
+     **********************************************************************************
+     */
     /**
      * {@inheritDoc}
      */
@@ -45,11 +71,6 @@ public class Treasure implements Item {
         this.name=name;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String getName() {
-        return name;
-    }
+
 
 }
