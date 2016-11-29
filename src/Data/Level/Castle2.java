@@ -2,7 +2,7 @@ package Data.Level;
 
 /**
  * This class represents a copy of Castle.
- * Castle2 also represents a DND level with its own room file & win condition, while the tileset of Castle has been reused.
+ * Castle2 also represents a DND level with its own room file & win condition.
  * Pictures related to game events are adjusted.
  * This class serves as a proof of principle reasons to show extendebility of the DND game.
  * The main idea here is extension and reusage of object components and graphical components, while completely
@@ -46,7 +46,7 @@ public class Castle2 implements Level{
      */
     /**
      * Creates a Castle containing two image matrices to display the castle map
-     * and the idividual room pictures. Currently the dimensions of the matrices
+     * and the individual room pictures. Currently the dimensions of the matrices
      * are fixed due to the display grid dimensions in the fxml.
      * @author Martin Schneider
      */
@@ -58,6 +58,60 @@ public class Castle2 implements Level{
     /*
      **********************************************************************************
      *            Getter methods for the different variables                          *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     * Here content of level two is returned.
+     */
+    public  Map<String, Image> getDungeonInfoPics() {
+        return dungeonTwoInfoPics;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  Image[][] getCastleView(){
+        return castleView;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  Image[][] getViewAllRooms(){
+        return roomView;
+    }
+
+    /**
+     * {@inheritDoc}
+     * Here the Rooms object of level two is returned.
+     */
+    public Rooms getAllRooms(){
+        return allRooms;
+    }
+
+    /*
+     **********************************************************************************
+     *                                Level initialization                            *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     * Using roomsHard.txt for loading a level layout.
+     */
+    public void load(){
+        allRooms = new RoomsParser().parseRooms("src/Data/Level/roomsHard.txt");
+        currentRoomsMap = allRooms.getRoomMap();
+        imageToDescription = new HashMap<>();
+        roomImageToDescription = new HashMap<>();
+        dungeonTwoInfoPics = new HashMap<>();
+        fillImageToDescription();
+        fillDungeonTwoInfoPics();
+    }
+
+    /*
+     **********************************************************************************
+     *                                Game methods                                    *
      **********************************************************************************
      */
     /**
@@ -92,66 +146,6 @@ public class Castle2 implements Level{
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     * Here content of level two is returned.
-     * @return dungeonTwoInfoPics
-     */
-    public  Map<String, Image> getDungeonInfoPics() {
-        return dungeonTwoInfoPics;
-    }
-
-    /**
-     * {@inheritDoc}
-     * Here with the return:
-     * @return castleView
-     */
-    public  Image[][] getCastleView(){
-        return castleView;
-    }
-
-    /**
-     * {@inheritDoc}
-     * Here with the return:
-     * @return roomView
-     */
-    public  Image[][] getViewAllRooms(){
-        return roomView;
-    }
-
-    /**
-     * {@inheritDoc}
-     * Here the Rooms object on level two is returned.
-     * @return allRooms
-     */
-    public Rooms getAllRooms(){
-        return allRooms;
-    }
-
-    /*
-     **********************************************************************************
-     *                                Level initialization                            *
-     **********************************************************************************
-     */
-    /**
-     * {@inheritDoc}
-     * Using roomsHard.txt for loading a level layout.
-     */
-    public void load(){
-        allRooms = new RoomsParser().parseRooms("src/Data/Level/roomsHard.txt");
-        currentRoomsMap = allRooms.getRoomMap();
-        imageToDescription = new HashMap<>();
-        roomImageToDescription = new HashMap<>();
-        dungeonTwoInfoPics = new HashMap<>();
-        fillImageToDescription();
-        fillDungeonTwoInfoPics();
-    }
-
-    /*
-     **********************************************************************************
-     *                                Game methods                                    *
-     **********************************************************************************
-     */
     /**
      * {@inheritDoc}
      */
@@ -288,7 +282,7 @@ public class Castle2 implements Level{
         dungeonTwoInfoPics = new HashMap<String, Image>();
         dungeonTwoInfoPics.put("Troll leather armour", Pictures.troll_leather_armor);
         dungeonTwoInfoPics.put("Cursed Dragonscale armour", Pictures.shimmering_dragon_scale_mail);
-        dungeonTwoInfoPics.put("OldSword", Pictures.sword_of_power);
+        dungeonTwoInfoPics.put("Old Sword", Pictures.sword_of_power);
         dungeonTwoInfoPics.put("Sabre", Pictures.sabre);
         dungeonTwoInfoPics.put("Mjolnir", Pictures.hammer);
         dungeonTwoInfoPics.put("Gloin", Pictures.gnomish_wizard);

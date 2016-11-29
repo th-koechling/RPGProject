@@ -1,14 +1,7 @@
 package Data.Level;
 
 /**
- * This class represents the original DND level
- *
- * A DND level has to deliver the following objects:
- * -...
- * -...
- * -a win condition - realized via getter method
- * -an opening text - realized via getter method
- * -a closing text - realized via getter method
+ * This class represents the original DND level.
  * @author Martin Schneider
  * @author Fabian Billenkamp
  */
@@ -45,9 +38,8 @@ public class Castle implements Level{
      */
     /**
      * Creates a Castle containing two image matrices to display the castle map
-     * and the idividual room pictures. Currently the dimensions of the matrices
+     * and the individual room pictures. Currently the dimensions of the matrices
      * are fixed due to the display grid dimensions in the fxml.
-     * @author Martin Schneider
      */
     public Castle() {
         this.castleView = new Image[7][7];
@@ -56,6 +48,62 @@ public class Castle implements Level{
     /*
      **********************************************************************************
      *            Getter methods for the different variables                          *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     * Here the info pic for the current content of a room is returned or room picture when empty.
+     * @return dungeonOneInfoPics: Map String room name:Image contentpicture/roompicture
+     */
+    public  Map<String, Image> getDungeonInfoPics() {
+        return dungeonOneInfoPics;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  Image[][] getCastleView(){
+        return castleView;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public  Image[][] getViewAllRooms(){
+        return roomView;
+    }
+
+    /**
+     * {@inheritDoc}
+     * Here the Rooms object of level one is returned.
+     * @return allRooms
+     */
+    public Rooms getAllRooms(){
+        return allRooms;
+    }
+
+    /*
+     **********************************************************************************
+     *                                Level initialization                            *
+     **********************************************************************************
+     */
+    /**
+     * {@inheritDoc}
+     * Using roomsEasy.txt for loading the level layout.
+     */
+    public void load(){
+        allRooms = new RoomsParser().parseRooms("src/Data/Level/roomsEasy.txt");
+        currentRoomsMap = allRooms.getRoomMap();
+        imageToDescription = new HashMap<>();
+        roomImageToDescription = new HashMap<>();
+        dungeonOneInfoPics = new HashMap<>();
+        fillImageToDescription();
+        fillDungeonOneInfoPics();
+    }
+
+    /*
+     **********************************************************************************
+     *                                Game methods                                    *
      **********************************************************************************
      */
     /**
@@ -91,66 +139,6 @@ public class Castle implements Level{
         return false;
     }
 
-    /**
-     * {@inheritDoc}
-     * Here content of level one is returned.
-     * @return dungeonOneInfoPics
-     */
-    public  Map<String, Image> getDungeonInfoPics() {
-        return dungeonOneInfoPics;
-    }
-
-    /**
-     * {@inheritDoc}
-     * Here with the return:
-     * @return castleView
-     */
-    public  Image[][] getCastleView(){
-        return castleView;
-    }
-
-    /**
-     * {@inheritDoc}
-      Here with the return:
-     * @return roomView
-     */
-    public  Image[][] getViewAllRooms(){
-        return roomView;
-    }
-
-    /**
-     * {@inheritDoc}
-     * Here the Rooms object on level one is returned.
-     * @return allRooms
-     */
-    public Rooms getAllRooms(){
-        return allRooms;
-    }
-
-    /*
-     **********************************************************************************
-     *                                Level initialization                            *
-     **********************************************************************************
-     */
-    /**
-     * {@inheritDoc}
-     * Using roomsEasy.txt for loading a level layout.
-     */
-    public void load(){
-        allRooms = new RoomsParser().parseRooms("src/Data/Level/roomsEasy.txt");
-        currentRoomsMap = allRooms.getRoomMap();
-        imageToDescription = new HashMap<>();
-        roomImageToDescription = new HashMap<>();
-        dungeonOneInfoPics = new HashMap<>();
-        fillImageToDescription();
-        fillDungeonOneInfoPics();
-    }
-
-    /*
-     **********************************************************************************
-     *                                Game methods                                    *
-     **********************************************************************************
-     */
     /**
      * {@inheritDoc}
      */

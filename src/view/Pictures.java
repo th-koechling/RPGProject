@@ -21,17 +21,12 @@ import java.util.Random;
 public class Pictures {
 
 
-    /*
-    Removed clutter and moved the item picture comparison to castles where it seems more suitable
-    like this Pictures functions as an Image storage class that makes Images available to all parts
-    of the game (recycling etc.)
-     */
-
     // player icon with transparent background
     public static final Image player_transparent = new Image("/view/images/misc/s_fighter.png");
 
     // player icon with orange background (for better visibility). This one is currently in use (Thorsten)
     public static final Image player_orange_bg = new Image("/view/images/misc/s_fighter_orange_bg.png");
+
     // Dungeon environment
     public static final Image corridor = new Image("/view/images/dungeon/corridor.png");
     public static final Image crystal_wall = new Image("/view/images/dungeon/crystal_wall.png");
@@ -63,6 +58,7 @@ public class Pictures {
     public static final Image stone_arch = new Image("/view/images/dungeon/stone_arch.png");
     public static final Image tree = new Image("/view/images/dungeon/tree.png");
     public static final Image web = new Image("/view/images/dungeon/web.png");
+
     //For room view individually searched and processed to fit the individual room descriptions (Martin Schneider)
     public static final Image romm_Window = new Image("/view/images/dungeon/rommWithWindow.png");
     public static final Image hallway_light = new Image("/view/images/dungeon/hallway_light.png");
@@ -103,6 +99,7 @@ public class Pictures {
     public static final Image disfigured_hallway = new Image("/view/images/dungeon/disfigured_hallway.png");
     public static final Image graveyard_pentagram = new Image("/view/images/dungeon/graveyard_pentagram.png");
     public static final Image secret_passage = new Image("/view/images/dungeon/secret_passage.png");
+
     // enemies, monsters, NPCs
     public static final Image ancient_lich = new Image("view/images/monsters/ancient_lich.png");
     public static final Image antaeus = new Image("view/images/monsters/antaeus.png");
@@ -214,6 +211,7 @@ public class Pictures {
     public static final Image red_dragon_hi = new Image("view/images/monsters/red_dragon_hi.png");
     public static final Image sewer_rat = new Image("view/images/monsters/sewer_rat.png");
     public static final Image wererat = new Image("view/images/monsters/wererat.png");
+
     // weapons
     public static final Image lance = new Image("/view/images/weapons/lance.png");
     public static final Image athame = new Image("/view/images/weapons/athame.png");
@@ -239,6 +237,7 @@ public class Pictures {
     public static final Image hand_crossbow = new Image("/view/images/weapons/hand_crossbow.png");
     public static final Image staff_of_olgreb = new Image("/view/images/weapons/staff_of_olgreb.png");
     public static final Image sword_of_power = new Image("/view/images/weapons/sword_of_power.png");
+
     // body armor
     public static final Image animal_skin = new Image("/view/images/armor/animal_skin.png");
     public static final Image banded_mail = new Image("/view/images/armor/banded_mail.png");
@@ -256,6 +255,7 @@ public class Pictures {
     public static final Image shimmering_dragon_scale_mail = new Image("/view/images/armor/shimmering_dragon_scale_mail.png");
     public static final Image orcish_platemail = new Image("/view/images/armor/orcish_platemail.png");
     public static final Image troll_leather_armor = new Image("/view/images/armor/troll_leather_armor.png");
+
     // treasure, misc items
     public static final Image book_of_the_dead = new Image("/view/images/treasure/book_of_the_dead.png");
     public static final Image candelabrum = new Image("/view/images/treasure/candelabrum.png");
@@ -281,8 +281,8 @@ public class Pictures {
     public static final Image magic = new Image("/view/images/treasure/magic.png");
     public static final Image heart = new Image("/view/images/misc/heart.png");
     public static final Image roadToXp = new Image("/view/images/misc/road_to_xp.png");
-    // dungeon number one, tiles: import images from disk:
-    // these tiles are used in the first (and currently only) level of the game (Thorsten)
+
+    // dungeon tiles:
     public static final Image tile01 = new Image("/view/images/dungeon1/01.png");
     public static final Image tile02 = new Image("/view/images/dungeon1/02.png");
     public static final Image tile03 = new Image("/view/images/dungeon1/03.png");

@@ -1,9 +1,9 @@
 package Data.GameObjects;
 
 /**
- * This class is a representation for creatures in the DND game. It contains all attributes of the creature such as name, species, xp, hp, equipped weapons & armors etc.
+ * This class is a representation for creatures in the DND game. It contains all attributes of
+ * the creature such as name, species, xp, hp, equipped weapons and armors etc.
  * @author Andreas Hoek
- * @author Fabian Billenkamp
  */
 public class Creature {
     /*
@@ -39,12 +39,12 @@ public class Creature {
      */
     public Creature(String name, String species, String description, int xp, int hp, int basedamage, Armour armour, Weapon weapon) {
         this.maxhp = hp;
+        this.basedamage=basedamage;
         this.setName(name);
         this.setSpecies(species);
         this.setDescription(description);
         this.setXp(xp);
         this.setHp(hp);
-        this.basedamage=basedamage;
         this.setArmour(armour);
         this.setWeapon(weapon);
     }
@@ -86,16 +86,9 @@ public class Creature {
         }
     }
 
-
-    /*
-     **********************************************************************************
-     *            Getter & Setter methods for the different variables                 *
-     **********************************************************************************
-     */
-
     /**
-     * Getter method for the dealed damage by a creature.
-     * @return int: Dealed damage by the creature in an attack.
+     * Method for the dealt damage by a creature.
+     * @return int: Dealt damage by the creature in an attack.
      */
     public int getRawdamage(){
         /*
@@ -111,7 +104,8 @@ public class Creature {
     }
 
     /**
-     * Getter method for the damage that hits a creature.
+     * Method for the damage that hits a creature.
+     * @param attackValue Integer: the incoming damage
      * @return int: Damage that hits the creature during an attack by a hostile creature.
      */
     public int getDamagePassing(int attackValue){
@@ -127,6 +121,11 @@ public class Creature {
     }
 
 
+    /*
+     **********************************************************************************
+     *            Getter & Setter methods for the different variables                 *
+     **********************************************************************************
+     */
     /**
      * Setter method for the name of a creature.
      * @param name String: Name for the creature.

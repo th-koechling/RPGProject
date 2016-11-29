@@ -44,7 +44,7 @@ O: none
 S: none
 W: 2-1
 Description: An old chamber thomb with lots of cobweb.
-Content: OldSword
+Content: Old Sword
 
 Name: 2-3
 N: 3-3

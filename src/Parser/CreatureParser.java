@@ -11,13 +11,28 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
- * This class parses creatures from a .txt file and returns them as a HashMap
+ * This class parses creatures from a .txt file and returns them as a HashMap.
  * @author Patrick Barth
  */
 public class CreatureParser {
 
+    /*
+     **********************************************************************************
+     *                               Parsing Method                                   *
+     **********************************************************************************
+     */
 
-    public CreatureParser(){}
+    /**
+     * Parses all creatures from a .txt file
+     * @param creatureFile .txt file that contains the creatures
+     * @param weapons HashMap that contains all weapons
+     * @param armours HashMap that contains all armours
+     * @return HashMap that contains all creatures. Key is the name of the monster, value the creature object
+     */
+    public static HashMap<String, Creature> collectCreatures(String creatureFile, HashMap<String,Weapon> weapons, HashMap<String,Armour> armours){
+        return parseCreatures(creatureFile,weapons,armours);
+    }
+
     private static HashMap<String,Creature> parseCreatures (String file, HashMap<String,Weapon> weapons, HashMap<String,Armour> armours){
         HashMap<String, Creature> allCreatures = new HashMap<>();
         try {
@@ -62,23 +77,6 @@ public class CreatureParser {
         return allCreatures;
 
     }
-
-
-    /**
-     * Parses all creatures from a .txt file
-     * @param creaturefile .txt file that contains the creatures
-     * @param weapons HashMaps that contains all weapons
-     * @param armours HashMap that contains all armours
-     * @return HashMap that contains all creatures. Key is the name of the monster, value the creature object
-     */
-    public static HashMap<String, Creature> collectCreatures(String creaturefile, HashMap<String,Weapon> weapons, HashMap<String,Armour> armours){
-        return parseCreatures(creaturefile,weapons,armours);
-    }
-
-
-
-
-
 
     private static BufferedReader readFile(String file) throws IOException{
         FileInputStream fis = new FileInputStream(file);

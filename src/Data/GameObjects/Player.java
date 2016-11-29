@@ -9,7 +9,7 @@ import view.Pictures;
  * The class player extends Creature and adds inventory functionality as well as inventory usage
  * @author Fabian Billenkamp
  * @author Andreas Hoek
- * @author Martin
+ * @author Martin Schneider
  */
 public class Player extends Creature {
     /*
@@ -74,26 +74,20 @@ public class Player extends Creature {
     **********************************************************************************
     */
     /**
-     * This method returns the free space in a player inventory
-     * @author Fabian Billenkamp
-     * @deprecated
-     */
-    public int getInventorySpace() {
-        return this.inventory.getFreeCapacity();
-    }
-
-    /**
      * Getter method for player inventory
      * @return The inventory
      */
     public Inventory getInventory(){return  this.inventory;}
 
+    /*
+    **********************************************************************************
+    *                              Further player methods                            *
+    **********************************************************************************
+    */
     /**
      * This method returns an Image matrix representing the current player inventory.
      * @param game the current game
-     * @return Image[][]: an Image Matrix representing the inventory
-     * @author Fabian
-     * @author Martin
+     * @return Image[][]: an Image Matrix representing the items containced in the inventory
      */
     public Image[][] getInventoryView(Game game){
         int pos = 0;
@@ -111,16 +105,21 @@ public class Player extends Creature {
         return inventoryView;
     }
 
-
-    /*
-    **********************************************************************************
-    *                              Further player methods                            *
-    **********************************************************************************
-    */
+    /**
+     * This method returns the free space in a player inventory
+     * @author Fabian Billenkamp
+     * @return Integer: capacity for additional items
+     * @deprecated
+     */
+    public int getInventorySpace() {
+        return this.inventory.getFreeCapacity();
+    }
     /**
      * This method is used to take an item object and add the object to the inventory
      * In case the item can not be added due to inventory being full, the weakest
      * weapon is removed from inventory and the item is added.
+     * @param item an Item to be added to the inventory
+     * @return boolean: true, if item was picked up, else false
      * @author Fabian Billenkamp
      */
     public boolean pickupItem(Item item){

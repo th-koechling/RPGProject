@@ -27,12 +27,19 @@ import Data.Game;
 
 /**
  * This class mediates player control over the available in-game actions via the graphical user interface (GUI)
- * @author Thorsten
- * @author TODO
- *
+ * @author Thorsten Köchling
+ * @author Andreas Hoek
+ * @author Patrick Barth
+ * @author Martin Schneider
+ * @author Fabian Billenkamp
+ * @author Hung Dang
  */
 public class DnDcontrol {
-
+    /*
+     **********************************************************************************
+     *                               Variables                                        *
+     **********************************************************************************
+     */
     private Scene scene;
     private Stage primaryStage;
     private String currentWorkDir;
@@ -40,8 +47,11 @@ public class DnDcontrol {
     private ImageView[][] currentMap;
     private Image[][] currentRoomViewMap;
 
-
-    // declaration of the GUI elements referred to as variables by the game (Thorsten)
+    /*
+     **********************************************************************************
+     *                               Declaration of the GUI elements                  *
+     **********************************************************************************
+     */
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -68,7 +78,6 @@ public class DnDcontrol {
 
     @FXML // fx:id="topLabel"
     private Label topLabel; // Value injected by FXMLLoader
-    private DnDmodel model;
 
     @FXML // fx:id="messageWindow"  //
     private TextArea messageWindow;  // also done by hand, does this work?
@@ -127,7 +136,8 @@ public class DnDcontrol {
     @FXML // fx:id="dungeon_map"
     private GridPane dungeon_map;
 
-    /* the map grid, broken up into 49 (7 by 7) individual cells. Each cell can hold a small square image
+    /*
+     * the map grid, broken up into 49 (7 by 7) individual cells. Each cell can hold a small square image
      * for illustration purposes (dungeon features) (Thorsten)
      */
     @FXML
@@ -138,62 +148,10 @@ public class DnDcontrol {
             img40, img41, img42, img43, img44, img45, img46,      // row 4
             img50, img51, img52, img53, img54, img55, img56,      // row 5
             img60, img61, img62, img63, img64, img65, img66;      // row 6
-
-    /**
-     * Init control
+    /*
+     * This method is called by the FXMLLoader when initialization is complete
      */
-    public DnDcontrol(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-        init();
-        primaryStage.setResizable(false);
-    }
-
-
-    /**
-     * Initializes the main window (Thorsten)
-     *
-     */
-    private void init() {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DnDMainWindow.fxml"));
-        fxmlLoader.setController(this);
-
-        try {
-            Scene scene = new Scene(fxmlLoader.load());
-            this.scene = scene;
-            scene.getStylesheets().add("/view/styles.css");
-            messageWindow.setEditable(false);   // --> player can't change the messages on-screen (thorsten)
-            this.currentWorkDir = System.getProperty("user.home");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setModel(DnDmodel game) {
-
-        this.model = game;
-    }
-
-    /**
-     * Displays the main window (Thorsten)
-     *
-     */
-    public void showAndWait() {
-
-        // setting the stage
-        this.primaryStage.setScene(this.scene);
-        this.primaryStage.setTitle("Into the dungeon!");
-        this.primaryStage.show();
-        attack.setDisable(true);
-        go_ahead.setDisable(true);
-        go_right.setDisable(true);
-        go_left.setDisable(true);
-        go_back.setDisable(true);
-        toggleView.setDisable(true);
-
-    }
-
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+    @FXML
     void initialize() {
         assert anchor != null : "fx:id=\"anchor\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
         assert exit != null : "fx:id=\"exit\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
@@ -202,7 +160,6 @@ public class DnDcontrol {
         assert go_right != null : "fx:id=\"go_right\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
         assert go_left != null : "fx:id=\"go_left\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
         assert topLabel != null : "fx:id=\"topLabel\" was not injected: check your FXML file 'DnDMainWindow.fxml'.";
-
 
         /*
          * For each button: Assign function to action
@@ -219,78 +176,68 @@ public class DnDcontrol {
         nameOk.setOnAction(this::nameOkPressed);
     }
 
-
-    /**
-     * Action for exit button. (Thorsten)
-     * @param actionEvent press the 'Exit' button
+    /*
+     **********************************************************************************
+     *                               Constructor                                      *
+     **********************************************************************************
      */
-    private void exitPressed(ActionEvent actionEvent) {
-        Platform.exit();        // destroys resources before exiting (calls Application.stop())
+    /**
+     * Initialize control.
+     * @param primaryStage Stage. The primary GUI stage.
+     */
+    public DnDcontrol(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        init();
+        primaryStage.setResizable(false);
+    }
+
+    /*
+     **********************************************************************************
+     *                               DND initialization methods                       *
+     **********************************************************************************
+     */
+    /**
+     * Displays the main window.
+     */
+    public void showAndWait() {
+        this.primaryStage.setScene(this.scene);
+        this.primaryStage.setTitle("Into the dungeon!");
+        this.primaryStage.show();
+        attack.setDisable(true);
+        go_ahead.setDisable(true);
+        go_right.setDisable(true);
+        go_left.setDisable(true);
+        go_back.setDisable(true);
+        toggleView.setDisable(true);
+
     }
 
     /**
-     * Action for go_ahead button. (Thorsten)
-     * @param actionEvent press the 'Up-Arrow' button
+     * Initializes the main window.
      */
-    private void go_aheadPressed(ActionEvent actionEvent) {
-        move("S");
-    }
-
-    /**
-     * Action for go_left button. (Thorsten)
-     * @param actionEvent press the 'Left-Arrow'  button
-     */
-    private void go_leftPressed(ActionEvent actionEvent) {
-        move("W");
-    }
-
-    /**
-     * Action for go_right button. (Thorsten)
-     * @param actionEvent press the 'Right-Arrow' button
-     */
-    private void go_rightPressed(ActionEvent actionEvent) {
-        move("O");
-    }
-
-    /**
-     * Action for go_back button. (Thorsten)
-     * @param actionEvent press the 'Down-Arrow' button
-     */
-    private void go_backPressed(ActionEvent actionEvent) {
-        move("N");
-    }
-
-    /**
-     * Determines the valid directions in which the player can move on the map.
-     * and toggles accessibility of the corresponding buttons.
-     * Movement buttons that point to an invalid direction are greyed out. (Thorsten)
-     */
-    private void adjustMoveButtons() {
-        Room currentRoom = game.getCurrentRoom();
-        Button[] buttons = {go_ahead, go_back, go_left, go_right};
-        for (Button button: buttons) {
-            button.setDisable(true);
-        }
-        if (!(currentRoom.getSued().equals("none"))) {
-            go_ahead.setDisable(false);
-
-        }
-        if (!(currentRoom.getNord().equals("none"))) {
-            go_back.setDisable(false);
-
-        }
-        if (!(currentRoom.getWest().equals("none"))) {
-            go_left.setDisable(false);
-
-        }
-        if (!(currentRoom.getOst().equals("none"))) {
-            go_right.setDisable(false);
+    private void init() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DnDMainWindow.fxml"));
+        fxmlLoader.setController(this);
+        try {
+            Scene scene = new Scene(fxmlLoader.load());
+            this.scene = scene;
+            scene.getStylesheets().add("/view/styles.css");
+            messageWindow.setEditable(false);   // --> player can't change the messages on-screen (thorsten)
+            this.currentWorkDir = System.getProperty("user.home");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    /*
+     **********************************************************************************
+     *                               DND game maintenance methods                     *
+     **********************************************************************************
+     */
     /**
-     * When the player moves on the dungeon map this method displays graphical and text information
-     * about the new location. (TODO..., Thorsten, ...)
+     * When the player moves, the game and the dungeon map are updated.
+     * The method updates graphical interface and text information about the new
+     * location.
      * @param direction the direction in which the player moves
      */
     private void move(String direction){
@@ -303,70 +250,12 @@ public class DnDcontrol {
         checkRoom();
     }
 
-
-    /**
-     * Method that changes the position of the player on the map. (TODO author)
-     */
-    private void adjustInfoPic(){
-        Room room = game.getCurrentRoom();
-        if (game.getCurrentLevel().getDungeonInfoPics().containsKey(room.getContent()))     // show image of item in room
-        {
-            infoPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(room.getContent()));
-            backgroundPic.setVisible(false);
-        }
-        else
-        {
-            backgroundPic.setVisible(true);
-            infoPic.setImage(null);
-        }
-    }
-
-    /**
-     *
-     */
-    private void adjustLifeStat(){
-        lifeStat.setText(String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
-    }
-    /**
-     * Method that changes the position of the player on the map.
-     * First the name of the players current room is parsed.
-     * Then the "currentMap" image matrix is updated with the avatar picture
-     * at the palyer position. Wth the current position also the current
-     * "roomPic" is updated as well as the "backgroundPic". The "Entry" 
-     * position is handled individually.
-     * @author Martin Schneider
-     */
-    private void adjustRoomViews(){
-        String roomName = game.getCurrentRoom().getName();
-        if(!roomName.equals("Entry")) {
-            Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
-            int posRow = 0;
-            int posCol = 0;
-            Matcher match = pattern.matcher(roomName);
-            if (match.find()) {
-                posRow = Integer.parseInt(match.group(1)) ;
-                posCol = Integer.parseInt(match.group(2)) - 1;
-                loadDungeonMap(game.getCurrentLevel().getCastleView());
-                Image currentRoomImage = currentRoomViewMap[posRow][posCol];
-                roomPic.setImage(currentRoomImage);
-                backgroundPic.setImage(currentRoomImage);
-                currentMap[posRow][posCol].setImage(Pictures.player_orange_bg);
-            }
-        } else {
-            loadDungeonMap(game.getCurrentLevel().getCastleView());
-            Image currentRoomImage = currentRoomViewMap[0][2];
-            roomPic.setImage(currentRoomImage);
-            backgroundPic.setImage(currentRoomImage);
-            currentMap[0][2].setImage(Pictures.player_orange_bg); // eventually add info where in rooms.txt
-
-        }
-    }
-
     /**
      * Takes inventory of a room in the dungeon and displays information about the location
      * (flavor text) and, if encountered, about monsters or items.
-     * Found armor and weapons are picked up, compared to the ones in the player's inventory
-     * and equipped if their stats exceed those. (TODO: author)
+     * Found armor, weapons or treasures are picked up, compared to the ones in the player's inventory
+     * and equipped if their stats exceed those.
+     * If a monster is encountered, a fight is initialized.
      *
      */
     private void checkRoom() {
@@ -411,7 +300,7 @@ public class DnDcontrol {
                     game.nextLevel();
                 }else{
                     messageWindow.appendText("\n\n****\nYou have completed the game!\nNo dungeon was too dark...\nNo monster was too big...\n"+
-                                                playerName.getText()+", YOU are a true hero\n****");
+                            playerName.getText()+", YOU are a true hero\n****");
                     endGame();
                 }
             }
@@ -421,11 +310,10 @@ public class DnDcontrol {
     /**
      * This method contains the logic for a turn-based fight between the player and a monster.
      * When encountered, a monster will always attack the player. The battle has to be fought out,
-     * escaping is not possible. (TODO: author)
+     * escaping is not possible.
+     * @return boolean: true if player won, else false.
      * @param monster the monster encountered in room of the dungeon
      */
-
-    // Method for the fight between player and monsters. Bleibt hier der Messagebox einträge wegen
     private boolean fight(Creature monster) {
         if (game.getPlayer().getHp() > 0) {
             int attackPlayer = game.getPlayer().attack();
@@ -478,12 +366,20 @@ public class DnDcontrol {
         return false;
     }
 
+    /**
+     * This method ends the current game.
+     */
     private void endGame(){
         toggleMovement(true);
         attack.setDisable(true);
         toggleView.setDisable(true);
     }
 
+    /**
+     * This method serves as a bridge to the player inventory and lets the player pickup an
+     * item with respective text output.
+     * @param item an item to be picked up
+     */
     private void pickup(Item item){
         messageWindow.appendText("\n\nYou found:\n"+item.getName()+"\n"+item.getDescription()+".\n");
         boolean added=game.getPlayer().pickupItem(item);
@@ -492,71 +388,111 @@ public class DnDcontrol {
         }
     }
 
-    /**
-     * Scans the name from player input at the beginning of a game (new game button pressed)
-     * and displays it on-screen (Thorsten)
-     * @param actionEvent press the OK-button in the dialogue window
+    /*
+     **********************************************************************************
+     *                               DND GUI maintenance methods                      *
+     **********************************************************************************
      */
-    private void nameOkPressed(ActionEvent actionEvent) {
-        if (nameEntry.getText().equals(""))
+    /**
+     * Determines the valid directions in which the player can move on the map from
+     * his current location and toggles accessibility of the corresponding buttons.
+     * Movement buttons that point to an invalid direction are greyed out.
+     */
+    private void adjustMoveButtons() {
+        Room currentRoom = game.getCurrentRoom();
+        Button[] buttons = {go_ahead, go_back, go_left, go_right};
+        for (Button button: buttons) {
+            button.setDisable(true);
+        }
+        if (!(currentRoom.getSued().equals("none"))) {
+            go_ahead.setDisable(false);
+
+        }
+        if (!(currentRoom.getNord().equals("none"))) {
+            go_back.setDisable(false);
+
+        }
+        if (!(currentRoom.getWest().equals("none"))) {
+            go_left.setDisable(false);
+
+        }
+        if (!(currentRoom.getOst().equals("none"))) {
+            go_right.setDisable(false);
+        }
+    }
+
+    /**
+     * Method that changes the infopic and displays either room content or in case of
+     * an empty room the room picture.
+     */
+    private void adjustInfoPic(){
+        Room room = game.getCurrentRoom();
+        if (game.getCurrentLevel().getDungeonInfoPics().containsKey(room.getContent()))
         {
-            playerName.setText("Player 1");
+            infoPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(room.getContent()));
+            backgroundPic.setVisible(false);
         }
         else
         {
-            playerName.setText(nameEntry.getText());
+            backgroundPic.setVisible(true);
+            infoPic.setImage(null);
         }
-        infoPic.setImage(null);
-        weaponPic.setImage(null);
-        armorPic.setImage(null);
-        adjustArmourView();
-        adjustDamageView();
-        armorPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(game.getPlayer().getArmour().getName()));
-        nameDialogue.setVisible(false);
-        if(roomPic.isVisible()){
-            switchMapRoomView();
-        }
-        currentMap = loadDungeonMap(game.getCurrentLevel().getCastleView());
-        currentRoomViewMap = game.getCurrentLevel().getViewAllRooms();
-        adjustRoomViews();
-        messageWindow.setText(playerName.getText()+", your adventure has started.\n"+game.getCurrentLevel().getStartText());
-        messageWindow.appendText("\n"+game.getCurrentRoom().getDescription());
-        lifeStat.setText("" + String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
-        xpStat.setText("" + game.getPlayer().getXp());
-        adjustMoveButtons();
-        toggleView.setDisable(false);
     }
 
     /**
-     * Generates a little pop-up window on pressing the new_game button, where the player
-     * can input his/ her name or just click OK. The initial player stats are displayed
-     * in the corresponding sections of the GUI (Thorsten)
-     * @param actionEvent press the 'New Game' button
+     * This method adjusts the displayed life to the value of the player in game.
      */
-    private void new_gamePressed(ActionEvent actionEvent) {
-        game=new Game();
-        toggleMovement(true);
-        attack.setDisable(true);
-        toggleView.setDisable(true);
-        nameDialogue.setVisible(true);
-        backgroundPic.setVisible(true);
-
+    private void adjustLifeStat(){
+        lifeStat.setText(String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
     }
 
     /**
-     * Switches the view on the larger panel of the GUI between the dungeon map or a
-     * graphical depiction of the location.
-     * @param actionEvent press the 'Room/ Map' button
+     * Method that changes the position of the player on the map.
+     * First the name of the players current room is parsed.
+     * Then the "currentMap" image matrix is updated with the avatar picture
+     * at the palyer position. Wth the current position also the current
+     * "roomPic" is updated as well as the "backgroundPic". The "Entry"
+     * position is handled individually.
      */
-    private void toggleViewPressed(ActionEvent actionEvent) {
-        switchMapRoomView();
+    private void adjustRoomViews(){
+        String roomName = game.getCurrentRoom().getName();
+        if(!roomName.equals("Entry")) {
+            Pattern pattern = Pattern.compile("(\\d*)-(\\d*)");
+            int posRow = 0;
+            int posCol = 0;
+            Matcher match = pattern.matcher(roomName);
+            if (match.find()) {
+                posRow = Integer.parseInt(match.group(1)) ;
+                posCol = Integer.parseInt(match.group(2)) - 1;
+                loadDungeonMap(game.getCurrentLevel().getCastleView());
+                Image currentRoomImage = currentRoomViewMap[posRow][posCol];
+                roomPic.setImage(currentRoomImage);
+                backgroundPic.setImage(currentRoomImage);
+                currentMap[posRow][posCol].setImage(Pictures.player_orange_bg);
+            }
+        } else {
+            loadDungeonMap(game.getCurrentLevel().getCastleView());
+            Image currentRoomImage = currentRoomViewMap[0][2];
+            roomPic.setImage(currentRoomImage);
+            backgroundPic.setImage(currentRoomImage);
+            currentMap[0][2].setImage(Pictures.player_orange_bg); // eventually add info where in rooms.txt
+
+        }
     }
 
+
+    /**
+     * This method adjusts the displayed damage to the value of the player in game.
+     */
     private void adjustDamageView(){
         String minDamage=String.valueOf(2+(game.getPlayer().getRawdamage()));
         String maxDamage=String.valueOf(12+(game.getPlayer().getRawdamage()));
         attackStat.setText(minDamage+" - "+maxDamage);
     }
+
+    /**
+     * This method adjusts the displayed armour to the value of the player in game.
+     */
     private void adjustArmourView(){
         int defense = game.getPlayer().getArmour().getDefence();
         int mitigation = 100 - game.getPlayer().getDamagePassing(100);
@@ -564,16 +500,7 @@ public class DnDcontrol {
     }
 
     /**
-     * When the attack button is pressed, the fight method is called to initiate
-     * a battle between player and monster. (Thorsten)
-     * @param actionEvent press the 'Attack' button
-     */
-    private void attackPressed(ActionEvent actionEvent) {   // test method (thorsten)
-        fight(game.getMonster());
-    }
-
-    /**
-     * Renders all movement (arrow) buttons functional or disables them. (TODO: author)
+     * Renders all movement (arrow) buttons functional or disables them.
      * @param mode true: movement possible, false: movement disabled
      */
     private void toggleMovement(boolean mode){
@@ -584,17 +511,15 @@ public class DnDcontrol {
     }
 
     /**
-     * Switches between displaying the dungeon map or the room view on
+     * Switches between displaying the dungeon map, the inventory or the room view on
      * the large panel in the middle of the GUI. In case the "toggleView" button
      * is clicked with text "Map", the dungeon map is loaded and updated all pictures
-     * of the map grid are set visible. The buttonn text is changed to "Room".
+     * of the map grid are set visible. The button text is changed to "Room".
      * In case button text is "Room" all map pictures and the grid is set invisible.
      * The "roomPic" is set visible and button text is changed to "Items".
      * In case button text is "Items" the  "loadInventoryMap" is loaded.
      * The "roomPic" is set invisible whereas the grid and the pictures within it are
      * set visible. Button text is changed to "Map".
-     * @author Martin Schneider
-     * @author Fabian Billenkamp
      */
     private void switchMapRoomView(){
         ImageView[][] imageCells = {{img00, img01, img02, img03, img04, img05, img06},
@@ -606,35 +531,35 @@ public class DnDcontrol {
                 {img60, img61, img62, img63, img64, img65, img66}};
         switch(toggleView.getText()){
             case "Map": loadDungeonMap(game.getCurrentLevel().getCastleView());
-                        adjustRoomViews();
-                        for (int i = 0; i < imageCells.length; i++) {
-                            for (int j = 0; j < imageCells[0].length; j++) {
-                                imageCells[i][j].setVisible(true);
-                            }
-                        }
-                        toggleView.setText("Room");
-                        break;
+                adjustRoomViews();
+                for (int i = 0; i < imageCells.length; i++) {
+                    for (int j = 0; j < imageCells[0].length; j++) {
+                        imageCells[i][j].setVisible(true);
+                    }
+                }
+                toggleView.setText("Room");
+                break;
             case "Room":
-                        toggleView.setText("Items");
-                        for (int i = 0; i < imageCells.length; i++) {
-                            for (int j = 0; j < imageCells[0].length; j++) {
-                                imageCells[i][j].setVisible(false);
-                            }
-                        }
-                        dungeon_map.setGridLinesVisible(false);
-                        roomPic.setVisible(true);
-                        break;
+                toggleView.setText("Items");
+                for (int i = 0; i < imageCells.length; i++) {
+                    for (int j = 0; j < imageCells[0].length; j++) {
+                        imageCells[i][j].setVisible(false);
+                    }
+                }
+                dungeon_map.setGridLinesVisible(false);
+                roomPic.setVisible(true);
+                break;
             case "Items":
-                        roomPic.setVisible(false);
-                        loadInventoryMap();
-                        toggleView.setText("Map");
-                        for (int i = 0; i < imageCells.length; i++) {
-                            for (int j = 0; j < imageCells[0].length; j++) {
-                                imageCells[i][j].setVisible(true);
-                            }
-                        }
-                        dungeon_map.setGridLinesVisible(true);
-                        break;
+                roomPic.setVisible(false);
+                loadInventoryMap();
+                toggleView.setText("Map");
+                for (int i = 0; i < imageCells.length; i++) {
+                    for (int j = 0; j < imageCells[0].length; j++) {
+                        imageCells[i][j].setVisible(true);
+                    }
+                }
+                dungeon_map.setGridLinesVisible(true);
+                break;
         }
 
 
@@ -643,7 +568,7 @@ public class DnDcontrol {
     /**
      * Populates the dungeon map on the GUI with a picture tile for each
      * map cell, displaying dungeon characteristics (e.g. rock wall, arch,
-     * descriptive features). (Thorsten)
+     * descriptive features).
      * @param images a two-dimensional array of image tiles
      * @return a two-dimensional array of JavaFX ImageViews: displays the dungeon map
      */
@@ -681,4 +606,121 @@ public class DnDcontrol {
         }
         return imageCells;
     }
+
+    /*
+     **********************************************************************************
+     *                               Button Actions                                   *
+     **********************************************************************************
+     */
+    /**
+     * Action for exit button.
+     * @param actionEvent press the 'Exit' button
+     */
+    private void exitPressed(ActionEvent actionEvent) {
+        Platform.exit();        // destroys resources before exiting (calls Application.stop())
+    }
+
+    /**
+     * Action for go_ahead button.
+     * @param actionEvent press the 'Up-Arrow' button
+     */
+    private void go_aheadPressed(ActionEvent actionEvent) {
+        move("S");
+    }
+
+    /**
+     * Action for go_left button.
+     * @param actionEvent press the 'Left-Arrow'  button
+     */
+    private void go_leftPressed(ActionEvent actionEvent) {
+        move("W");
+    }
+
+    /**
+     * Action for go_right button.
+     * @param actionEvent press the 'Right-Arrow' button
+     */
+    private void go_rightPressed(ActionEvent actionEvent) {
+        move("O");
+    }
+
+    /**
+     * Action for go_back button.
+     * @param actionEvent press the 'Down-Arrow' button
+     */
+    private void go_backPressed(ActionEvent actionEvent) {
+        move("N");
+    }
+
+
+
+    /**
+     * Scans the name from player input at the beginning of a game (new game button pressed)
+     * and displays it on-screen.
+     * @param actionEvent press the OK-button in the dialogue window
+     */
+    private void nameOkPressed(ActionEvent actionEvent) {
+        if (nameEntry.getText().equals(""))
+        {
+            playerName.setText("Player 1");
+        }
+        else
+        {
+            playerName.setText(nameEntry.getText());
+        }
+        infoPic.setImage(null);
+        weaponPic.setImage(null);
+        armorPic.setImage(null);
+        adjustArmourView();
+        adjustDamageView();
+        armorPic.setImage(game.getCurrentLevel().getDungeonInfoPics().get(game.getPlayer().getArmour().getName()));
+        nameDialogue.setVisible(false);
+        if(roomPic.isVisible()){
+            switchMapRoomView();
+        }
+        currentMap = loadDungeonMap(game.getCurrentLevel().getCastleView());
+        currentRoomViewMap = game.getCurrentLevel().getViewAllRooms();
+        adjustRoomViews();
+        messageWindow.setText(playerName.getText()+", your adventure has started.\n"+game.getCurrentLevel().getStartText());
+        messageWindow.appendText("\n"+game.getCurrentRoom().getDescription());
+        lifeStat.setText("" + String.valueOf(game.getPlayer().getHp())+" / "+String.valueOf(game.getPlayer().getMaxhp()));
+        xpStat.setText("" + game.getPlayer().getXp());
+        adjustMoveButtons();
+        toggleView.setDisable(false);
+    }
+
+    /**
+     * Generates a little pop-up window on pressing the new_game button, where the player
+     * can input his/ her name or just click OK. The initial player stats are displayed
+     * in the corresponding sections of the GUI.
+     * @param actionEvent press the 'New Game' button
+     */
+    private void new_gamePressed(ActionEvent actionEvent) {
+        game=new Game();
+        toggleMovement(true);
+        attack.setDisable(true);
+        toggleView.setDisable(true);
+        nameDialogue.setVisible(true);
+        backgroundPic.setVisible(true);
+
+    }
+
+    /**
+     * Switches the view on the larger panel of the GUI between the dungeon map or a
+     * graphical depiction of the location.
+     * @param actionEvent press the 'Room/ Map' button
+     */
+    private void toggleViewPressed(ActionEvent actionEvent) {
+        switchMapRoomView();
+    }
+
+    /**
+     * When the attack button is pressed, the fight method is called to initiate
+     * a battle between player and monster.
+     * @param actionEvent press the 'Attack' button
+     */
+    private void attackPressed(ActionEvent actionEvent) {   // test method (thorsten)
+        fight(game.getMonster());
+    }
+
 }

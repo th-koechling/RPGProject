@@ -10,8 +10,10 @@ import java.util.Map;
  * Interface Level collects all methods that are needed for Levels in the DND game
  * Methods are mostly derived from Castle by Martin and Interface was implemented by Fabian
  * @author Martin Schneider
- * @author Andreas
- * @author Fabian Billenkamp - Realisation Castle as Interface
+ * @author Andreas Hoek
+ * @author Patrick Barth
+ * @author Thorsten Köchling
+ * @author Fabian Billenkamp - Realisation as Interface
  */
 public interface Level {
     /*
@@ -22,39 +24,35 @@ public interface Level {
 
     /**
      * Returns the image matrix containing the pictures for the map view of the dungeon.
-     * The picture position in the matrix is based on the room name (it's position).
+     * The picture position in the matrix is based on the room name (its position).
      * In this way the picture arrangement equals the dungeon architecture specified
      * in the room text file. 
      * @return Image[][] of the castle map
-     * @author Martin Schneider
      */
     Image[][] getCastleView();
 
     /**
-     * Returns the has map containing room content string-, picture pairs for
+     * Returns the hash map containing room content (string-, picture pairs) for
      * the room content of the current castle. The map content is specified
      * via the room text file content. The pictures are matched via the
      * content string.
-     * @return Map<String, Image>
-     * @author Martin Schneider
+     * @return Map: String:Image
      */
     Map<String, Image> getDungeonInfoPics();
 
     /**
      * Returns the image matrix containing the pictures for the room view of 
      * the dungeon. The picture position in the matrix is based on
-     * the room name (it's position). In this way the picture arrangement
+     * the room name (its position). In this way the picture arrangement
      * equals the dungeon architecture specified in the room text file. 
      * @return Image[][] of the rooms in the castle
-     * @author Martin Schneider
      */
     Image[][] getViewAllRooms();
 
     /**
      * Returns the Rooms object from the current castle based on the
-     * parsed room text fiele of the level.
+     * parsed room text file of the level.
      * @return Rooms
-     * @author Martin Schneider
      */
     Rooms getAllRooms();
 
@@ -62,21 +60,18 @@ public interface Level {
      * This method is used to determine if a player meets the win condition of a level.
      * @param player the current DND player
      * @return boolean: true: if the player meets the win condition of the level, false: else
-     * @author Fabian Billenkamp
      */
     boolean getWinCondition(Player player);
 
     /**
-     * This method is used for getting the opening text of a level
+     * This method is used for getting the opening text of a level.
      * @return String: the opening text for a level.
-     * @author Fabian Billenkamp
      */
     String getStartText();
 
     /**
-     * This method is used for getting the closing text of a level
+     * This method is used for getting the closing text of a level.
      * @return String: the closing text for a level
-     * @author Fabian Billenkamp
      */
     String getWinText();
 
@@ -89,7 +84,6 @@ public interface Level {
     /**
      * Loads a level and makes its objects and picture tilesets available.
      * Needs to be called before a level can be used by the game.
-     * @author Fabian Billenkamp
      */
     void load();
 
@@ -99,10 +93,9 @@ public interface Level {
      **********************************************************************************
      */
     /**
-     * Please fill.
-     * two move methods!
-     * @author all? -used in DnDcontrol
-     * @author Fabian Billenkamp and Jonas -used in castles / Rooms
+     * Moves the player to a new room of the dungeon, as specified by a
+     * directional parameter of type "String".
+     * @param direction String: the direction to move to, can be N,S,W,O
      */
     void move(String direction);
 
@@ -115,7 +108,6 @@ public interface Level {
      * and the designated pictures are placed at the parsed position of the 
      * image matices for map- and room view. For matrix positions with no room
      * a level dependent default picture is placed.
-     * @author Martin Schneider
      */
     void positionRoomsByName();
 }

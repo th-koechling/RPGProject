@@ -28,7 +28,7 @@ Description: Big battle axe.
 
 Name: Old Sword
 Force: 16
-Description: A sword of the old poeple.
+Description: A sword of the old people.
 
 Name: Mjolnir
 Force: 17

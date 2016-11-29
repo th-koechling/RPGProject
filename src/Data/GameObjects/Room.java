@@ -2,7 +2,7 @@ package Data.GameObjects;
 
 /**
  * Modelliert einen Raum in einem Verlies.
- * Created by jonas on 27/09/16.
+ * @author Jonas Tschammer
  */
 public class Room {
     private String name;

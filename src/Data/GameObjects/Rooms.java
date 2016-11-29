@@ -4,8 +4,8 @@ import java.util.Map;
 
 /**
  * Stellt die Röume für das Verlies bereit. Räume können über die Namen in der Datei rooms.txt angesprochen bzw. aufgerufen werden (siehe Methoden unten).
- * Created by jonas on 27/09/16.
  * Split into Parser and rooms object by Fabian on 02/11/16.
+ * @author Jonas Tschammer
  */
 public class Rooms {
     /**
@@ -29,8 +29,8 @@ public class Rooms {
 
     /**
      * Ermöglicht es, einen Raum bei seinem Namen aufzurufen.
-     * @param query_name
-     * @return
+     * @param query_name String: room Name
+     * @return the room with Param name
      */
     public Room getRoomByName(String query_name) {
         return this.roomMap.get(query_name);

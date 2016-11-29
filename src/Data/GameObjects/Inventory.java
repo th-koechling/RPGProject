@@ -1,6 +1,5 @@
 package Data.GameObjects;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -27,7 +26,7 @@ public class Inventory implements Iterable<Item>{
     /**
      * Creates an Inventory that can store objects that implement the Interface Item in an array
      * Current implementation allows to store more or less unlimited items (up to Integer.MAX_VALUE)
-     * with respect to play turns and items otbainable
+     * with respect to play turns and items obtainable
      */
     public Inventory() {
         this.maxCapacity = Integer.MAX_VALUE;
@@ -75,14 +74,6 @@ public class Inventory implements Iterable<Item>{
     }
 
     /**
-     * Returns the free capacity for an inventory (number of item objects that can still be stored)
-     * @return Integer: maximum capacity for additional items
-     */
-    public int getFreeCapacity() {
-        return maxCapacity-items.length;
-    }
-
-    /**
      * Returns the item array of the inventory
      * @return Item[]: Items inventory
      */
@@ -90,6 +81,13 @@ public class Inventory implements Iterable<Item>{
         return items;
     }
 
+
+
+    /*
+     **********************************************************************************
+     *                       Additional inventory methods                             *
+     **********************************************************************************
+     */
     /**
      * Returns a weapon array of all weapons in the inventory
      * @return Weapon[]: Weapons in inventory
@@ -194,11 +192,14 @@ public class Inventory implements Iterable<Item>{
         return dummy;
     }
 
-    /*
-     **********************************************************************************
-     *                       Additional inventory methods                             *
-     **********************************************************************************
+    /**
+     * Returns the free capacity for an inventory (number of item objects that can still be stored)
+     * @return Integer: maximum capacity for additional items
      */
+    public int getFreeCapacity() {
+        return maxCapacity-items.length;
+    }
+
     /**
      * Adds an Object that implements the Interface item to the inventory, as long as there is space and returns the status
      * @param item The item object to be added
@@ -293,6 +294,5 @@ public class Inventory implements Iterable<Item>{
                 return false;
             }
         }
-
     }
 }
