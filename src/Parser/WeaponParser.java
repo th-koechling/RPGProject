@@ -9,10 +9,11 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
- * Created by Patrick
+ * This class parses creatures from a .txt file and returns them as a HashMap
+ * @author Patrick Barth
  */
 public class WeaponParser {
-    public static HashMap<String,Weapon> parseWeapons (String file) {
+    private static HashMap<String,Weapon> parseWeapons (String file) {
         HashMap<String, Weapon> allWeapons = new HashMap<>();
         try {
             BufferedReader br = readFile(file);
@@ -47,9 +48,9 @@ public class WeaponParser {
         return allWeapons;
     }
     /**
-     * Returns an array that contains all weapons saved in weapons.txt
-     * @return Array  with all weapons
-     * @param file a .txt file with the weaponvalues for the DND game
+     * Parses all weapons from a .txt file
+     * @param file .txt file that contains the weapons
+     * @return HashMap that contains all weapons. Key is the name of the weapon, value the weapon object
      */
     //could delete this method now since we use the files from method call in dnd control (also see creatures)
     public static HashMap<String, Weapon> collectWeapons(String file){

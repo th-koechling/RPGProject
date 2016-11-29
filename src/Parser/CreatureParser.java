@@ -11,7 +11,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 /**
- * Created by Patrick on 15.09.2016.
+ * This class parses creatures from a .txt file and returns them as a HashMap
+ * @author Patrick Barth
  */
 public class CreatureParser {
 
@@ -63,6 +64,13 @@ public class CreatureParser {
     }
 
 
+    /**
+     * Parses all creatures from a .txt file
+     * @param creaturefile .txt file that contains the creatures
+     * @param weapons HashMaps that contains all weapons
+     * @param armours HashMap that contains all armours
+     * @return HashMap that contains all creatures. Key is the name of the monster, value the creature object
+     */
     public static HashMap<String, Creature> collectCreatures(String creaturefile, HashMap<String,Weapon> weapons, HashMap<String,Armour> armours){
         return parseCreatures(creaturefile,weapons,armours);
     }
